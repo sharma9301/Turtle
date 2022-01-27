@@ -2,6 +2,7 @@ package com.turtle.spring.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.turtle.spring.board.model.service.BoardService;
 
@@ -13,6 +14,31 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
+	
+	@RequestMapping("/service/fnq")
+	public String fnq() {
+		return "service/fnq";
+	}
+	
+	@RequestMapping("/service/email")
+	public String email() {
+		return "service/email";
+	}
+	
+	@RequestMapping("/service/delete")
+	public String delete() {
+		return "service/delete";
+	}
+	
+	@RequestMapping("/mypage/myMain")
+	public String myMain() {
+		return "mypage/myMain";
+	}	
+	
+	@RequestMapping("/mypage/reviews")
+	public String reviews() {
+		return "mypage/reviews";
+	}	
 	
 	
 }

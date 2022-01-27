@@ -2,6 +2,7 @@ package com.turtle.spring.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.turtle.spring.product.model.service.ProductService;
 
@@ -14,5 +15,18 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	
+	@RequestMapping("/mypage/delivery")
+	public String delivery() {
+		return "mypage/delivery";
+	}
 	
+	@RequestMapping("/mypage/deliveryDetail")
+	public String deliveryDetail() {
+		return "mypage/deliveryDetail";
+	}
+	
+	@RequestMapping("/mypage/wishList")
+	public String wishList() {
+		return "mypage/wishList";
+	}
 }
