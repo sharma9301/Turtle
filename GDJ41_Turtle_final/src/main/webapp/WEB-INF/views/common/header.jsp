@@ -35,6 +35,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Gowun+Batang&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+        <!-- 폰트 어썸 -->
+ 		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
         <style>
             *{
                 font-family: "Gowun Batang";
