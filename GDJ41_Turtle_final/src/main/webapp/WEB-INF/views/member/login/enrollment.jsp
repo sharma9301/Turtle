@@ -82,7 +82,7 @@
 
   <!-- 페이지내용 -->
   <div class="container">
-
+	<div class="header-line"></div>
       <div class="csTitle"><h1>회원가입</h1></div>
 
       <form name="csDelete" action="" 
