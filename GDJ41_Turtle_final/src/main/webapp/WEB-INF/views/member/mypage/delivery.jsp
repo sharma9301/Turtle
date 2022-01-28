@@ -79,7 +79,7 @@
 </nav>
 
   <!-- 페이지내용 -->
-  <div class="container">
+  <div class="container" style="margin-bottom: 300px">
 
 
 
@@ -115,7 +115,7 @@
                         <div class="container">
                             <div class="row row-cols-6" id="orderList">
                                 <div class="col">                                    
-                                  <img src="" alt="상품사진">                                    
+                                  <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                 </div>
                                 <div class="col">구매날짜</div>
                                 <div class="col">상품이름+외n개</div>
@@ -143,7 +143,7 @@
                         <div class="container">
                             <div class="row row-cols-6" id="orderList">
                                 <div class="col">                                    
-                                  <img src="" alt="상품사진">                                    
+                                  <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                 </div>
                                 <div class="col">구매날짜</div>
                                 <div class="col">상품이름+외n개</div>
@@ -174,7 +174,7 @@
                         <div class="container">
                             <div class="row row-cols-6" id="orderList">
                                 <div class="col">                                    
-                                  <img src="" alt="상품사진">                                    
+                                  <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                 </div>
                                 <div class="col">구매날짜</div>
                                 <div class="col">상품이름+외n개</div>
@@ -204,7 +204,7 @@
                           <div class="container">
                               <div class="row row-cols-6" id="orderList">
                                   <div class="col">                                    
-                                    <img src="" alt="상품사진">                                    
+                                    <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                   </div>
                                   <div class="col">구매날짜</div>
                                   <div class="col">상품이름+외n개</div>
@@ -233,7 +233,7 @@
                           <div class="container">
                               <div class="row row-cols-6" id="orderList">
                                   <div class="col">                                    
-                                    <img src="" alt="상품사진">                                    
+                                    <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                   </div>
                                   <div class="col">구매날짜</div>
                                   <div class="col">상품이름+외n개</div>
