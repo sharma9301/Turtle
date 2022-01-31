@@ -85,7 +85,7 @@
                                     <td>silverring</td>
                                     <td>N123456</td>
                                     <td>
-                                        <input type="number" class="form-control-sm" value="1" min="1" max="20">
+                                        <input type="number" class="form-control-sm" value="1" min="1" max="5">
                                     </td>
                                     <td>75,000</td>
                                     <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
@@ -98,7 +98,7 @@
                                     <td>silverring</td>
                                     <td>N123456</td>
                                     <td>
-                                        <input type="number" class="form-control-sm" value="1" min="1" max="20">
+                                        <input type="number" class="form-control-sm" value="1" min="1" max="5">
                                     </td>
                                     <td>75,000</td>
                                     <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
