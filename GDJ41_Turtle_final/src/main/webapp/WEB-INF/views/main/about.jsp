@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div class="header-line"></div>
 <section>
         <div class="about-us">
             <h1 style="margin-bottom: 40px;">About us</h1>

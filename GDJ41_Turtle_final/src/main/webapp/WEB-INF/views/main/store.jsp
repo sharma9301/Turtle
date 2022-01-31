@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-
+<div class="header-line"></div>
 	<section>
         <h1 id="store-title">Store</h1>
         <div id="store1" class="store-div">
-            <div><img src="./images/store1.png" alt="본점"class="store-img" ></div>
+            <div><img src="${path }/resources/images/store1.png" alt="본점"class="store-img" ></div>
             <div class="store-content">
                 <h4>터틀스토어 가산디지털단지 본점</h4>
                 <div class="store-line"></div>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div id="store1" class="store-div">
-            <div><img src="./images/store2.png" alt="타임스퀘어점"class="store-img" ></div>
+            <div><img src="${path }/resources/images/store2.png" alt="타임스퀘어점"class="store-img" ></div>
             <div class="store-content">
                 <h4>터틀스토어 영등포타임스퀘어점</h4>
                 <div class="store-line"></div>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div id="store1" class="store-div">
-            <div><img src="./images/store3.png" alt="청주점"class="store-img" ></div>
+            <div><img src="${path }/resources/images/store3.png" alt="청주점"class="store-img" ></div>
             <div class="store-content">
                 <h4>터틀스토어 청주점</h4>
                 <div class="store-line"></div>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div id="store1" class="store-div">
-            <div><img src="./images/store4.png" alt="김포"class="store-img" ></div>
+            <div><img src="${path }/resources/images/store4.png" alt="김포"class="store-img" ></div>
             <div class="store-content">
                 <h4>터틀스토어 김포점</h4>
                 <div class="store-line"></div>

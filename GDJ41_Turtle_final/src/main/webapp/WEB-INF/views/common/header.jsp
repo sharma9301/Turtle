@@ -50,19 +50,9 @@
                 <nav id="left-menu" style="display: flex;">
                     <nav class="menu-category">
                         <li><a href="#" class="">Category</a></li>
-                        <!-- <ul class=category-sub-menu>
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">Best</a></li>
-                            <li><a href="#">New</a></li>
-                            <li><a href="#">Sale</a></li>
-                            <li><a href="#">Earrings</a></li>
-                            <li><a href="#">Necklaces</a></li>
-                            <li><a href="#">Bracelets</a></li>
-                            <li><a href="#">Rings</a></li>
-                        </ul>                         -->
                         <table class="category-sub-menu sub-tbl">
                             <tr>
-                                <td><a href="#">All</a></td>
+                                <td><a href="${path }/product/productList.do">All</a></td>
                                 <td><a href="#">Earrings</a></td>
                             </tr>
                             <tr>
@@ -79,18 +69,28 @@
                             </tr>
                         </table>
                     </nav>    
-                    <li><a href="#">Store</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="${path }/main/store">Store</a></li>
+                    <li><a href="${path }/main/about">About</a></li>
                 </nav>
-                <h1 id="header-title" style="font-family: Dancing Script;" onclick="">Turtle Store</h1>
+                <h1 id="header-title" style="font-family: Dancing Script;" onclick="location.assign('${path}/')">Turtle Store</h1>
                 <nav id="right-menu" style="display: flex;">
                     <li>
                         <a href="javascript:openSearch();">
                             <i class="bi bi-search"></i> Search
                         </a>
                     </li>
-                    <li><a href="#">Log in</a></li>
+                    <!-- 로그아웃시 -->
+                    <c:if test="${loginMember == null }">
+                    	<li><a href="#">Log in</a></li>
+                    </c:if>
+                     <!-- 로그인시 -->
+                     <c:if test="${loginMember != null }">
+                    	<li><a href="#">Log out</a></li>
+                    	<li><a href="#">My page</a></li>
+                    </c:if>
+                    <!-- 장바구니버튼 -->
                     <li><a href="#"><img src="${path }/resources/images/pocket.png" width="20px" height="30px"></a></li>
+                    <!-- 검색창 -->
                     <div id="myOverlay" class="overlay">
                         <span class="closebtn" onclick="closeSearch();" title="Close Overlay">x</span>
                         <div class="overlay-content">
