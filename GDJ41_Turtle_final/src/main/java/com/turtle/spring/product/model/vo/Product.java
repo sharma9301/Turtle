@@ -16,11 +16,11 @@ public class Product {
 	private String pdCode;
 	private Category categoryCode;
 	private String pdName;
-	private int price;
+	private int pdPrice;
 	private Date pdDate;
-	private String discount;
-	private double discountRate;
-	private String display;
+	private String pdIsDiscount;
+	private double pdDiscountRate;
+	private String pdIsDisplay;
 	private String pdImage;
 		
 }

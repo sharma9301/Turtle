@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Option {
 
-	private String optCode;
+	private String optName;
 	private Product pdCode;
 	private String matarial;
 	private String color;
