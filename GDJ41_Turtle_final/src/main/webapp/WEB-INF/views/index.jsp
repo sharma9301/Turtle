@@ -4,7 +4,7 @@
 <section>
             <div class="main-section">                
                 <img src="${path }/resources/images/main1.png" width="100%" height="600px" alt="메인사진">
-                <button class="all-product-btn" onclick="">All Products</button>
+                <button class="all-product-btn" onclick="location.assign('${path }/product/productList.do')">All Products</button>
             </div>
             <div class="main-kind">
                 <div class="kind-earring" onclick="">

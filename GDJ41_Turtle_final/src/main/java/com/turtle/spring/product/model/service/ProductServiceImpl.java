@@ -11,8 +11,9 @@ import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
+
 @Slf4j
+@Service
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired

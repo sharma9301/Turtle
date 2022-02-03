@@ -8,8 +8,8 @@ import com.turtle.spring.board.model.dao.BoardDao;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
 @Slf4j
+@Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired

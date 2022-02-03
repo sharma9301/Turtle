@@ -52,7 +52,7 @@
                         <li><a href="#" class="">Category</a></li>
                         <table class="category-sub-menu sub-tbl">
                             <tr>
-                                <td><a href="${path }/product/productList.do">All</a></td>
+                                <td><a href="${path }/product/productAllList.do">All</a></td>
                                 <td><a href="#">Earrings</a></td>
                             </tr>
                             <tr>

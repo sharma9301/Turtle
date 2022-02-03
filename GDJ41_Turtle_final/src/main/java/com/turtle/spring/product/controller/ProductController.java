@@ -12,17 +12,19 @@ import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
 @Slf4j
+@Controller
 @RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
 	private ProductService service;
 	
+	@RequestMapping("/productAllList.do")
 	public ModelAndView productList(ModelAndView mv) {
 		List<Product> list=service.productList();
 		mv.addObject("list", list);
+		mv.setViewName("product/productAllList");
 		return mv;
 	}
 	
