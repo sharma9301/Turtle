@@ -7,8 +7,8 @@ import com.turtle.spring.order.model.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
 @Slf4j
+@Controller
 public class OrderController {
 
 	@Autowired

@@ -82,7 +82,7 @@
 
   <!-- 페이지내용 -->
   <div class="container">
-
+	<div class="header-line"></div>
       <div class="csTitle"><h1>회원가입</h1></div>
 
       <form name="csDelete" action="" 
@@ -91,22 +91,22 @@
         <div style="width: 400px; margin: 0 auto;" >
             <div class="csDelete">
               <label>이름</label>
-              <input name="userName" type="text" placeholder="이름"><br>
+              <input name="userName" type="text" placeholder="이름" required><br>
               <label>아이디</label>
-              <input name="userId" type="text" placeholder="아이디"><br>
+              <input name="userId" type="text" placeholder="아이디" required><br>
               <label>비밀번호</label>
-              <input name="password" type="password" placeholder="비밀번호"><br>
+              <input name="password" type="password" placeholder="비밀번호" required><br>
               <label>비밀번호 확인</label>
-              <input name="passwordCh" type="password" placeholder="비밀번호 확인"><br>
+              <input name="passwordCh" type="password" placeholder="비밀번호 확인" required><br>
               <label>연락처</label>
-              <input name="phone" type="text" placeholder="- 제외 입력"><br>
+              <input name="phone" type="text" placeholder="- 제외 입력" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
-              <input type="text" id="sample6_postcode" placeholder="우편번호" style="margin-right: 10px;">
+              <input type="text" id="sample6_postcode" placeholder="우편번호" style="margin-right: 10px;" required>
               <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
             </div>
             <div style="width: 400px">
-              <input type="text" id="sample6_address" placeholder="주소"><br>
+              <input type="text" id="sample6_address" placeholder="주소" required><br>
               <input type="text" id="sample6_detailAddress" placeholder="상세주소">
               <input type="text" id="sample6_extraAddress" placeholder="참고항목">
             </div>

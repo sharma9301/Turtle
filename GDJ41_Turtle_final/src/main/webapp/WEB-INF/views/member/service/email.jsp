@@ -66,8 +66,8 @@
     <hr>
     <ul class="sidebarUl">
       <li class="sidebar" id="csSide1">
-        <a href="${path }/member/service/fnq" class="nav-link link-dark" >
-          F&Q
+        <a href="${path }/member/service/faq" class="nav-link link-dark" >
+          FAQ
         </a>
       </li>
       <li class="sidebar" id="csSide2">

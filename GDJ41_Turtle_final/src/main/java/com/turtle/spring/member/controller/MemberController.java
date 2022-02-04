@@ -8,8 +8,8 @@ import com.turtle.spring.member.model.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
 @Slf4j
+@Controller
 public class MemberController {
 
 	@Autowired
@@ -60,9 +60,9 @@ public class MemberController {
 		return "member/mypage/wishList";
 	}
 	
-	@RequestMapping("/member/service/fnq")
-	public String fnq() {
-		return "member/service/fnq";
+	@RequestMapping("/member/service/faq")
+	public String faq() {
+		return "member/service/faq";
 	}
 	
 	@RequestMapping("/member/service/email")

@@ -8,8 +8,8 @@ import com.turtle.spring.member.model.dao.MemberDao;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
 @Slf4j
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
