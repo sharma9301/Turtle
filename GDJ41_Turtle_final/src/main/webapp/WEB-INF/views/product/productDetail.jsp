@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div class="header-line"></div>
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5" style="margin-bottom: 100px;">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6 img-div"><img class="card-img-top mb-5 mb-md-0" src="${path }/resources/images/sale1.png" alt="..." /></div>
+        
+            <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/${product.pdImage}" alt="" /></div>
             <div class="col-md-6">
-                <div class="small mb-2">상품 코드: ring-0001</div>
-                <h1 class="display-5 fw-bolder">상품 이름(반지)</h1>
+                <div class="small mb-2">상품 코드: <c:out value="${product.pdCode }"/></div>
+                <h1 class="display-5 fw-bolder"><c:out value="${product.pdName }"/></h1>
                 <div class='RatingStar mb-3'>
                     <div class='RatingScore'>
                         <div class='outer-star'>
@@ -34,21 +40,24 @@
                 </script>
 
                 <div class="fs-5 mb-3">
-                    <span class="text-decoration-line-through">₩100,000</span>
-                    <span>₩90,000</span>
+                    <span class="text-decoration-line-through">₩<c:out value="${product.pdPrice }"/></span>
+                    &nbsp;<span>₩90,000</span>
                 </div>
-               
-                <div class="fs-5 mb-5">
-                    <span class="fs-5 mb-1 d-block">Size</span>
-                    <input type="radio" id="size7" name="size" value="7" checked><label for="size7" class="selectSize">7</label>
-                    <input type="radio" id="size9" name="size" value="9"><label for="size9" class="selectSize">9</label>
-                    <input type="radio" id="size11" name="size" value="11"><label for="size11" class="selectSize">11</label>
-                    <input type="radio" id="size13" name="size" value="13"><label for="size13" class="selectSize">13</label>
-                    <input type="radio" id="size15" name="size" value="15"><label for="size15" class="selectSize">15</label>
-                    <input type="radio" id="size17" name="size" value="17"><label for="size17" class="selectSize">17</label>
-                    <input type="radio" id="size19" name="size" value="19"><label for="size19" class="selectSize">19</label>
-                    <input type="radio" id="size21" name="size" value="21"><label for="size21" class="selectSize">21</label>
-                </div>
+                ${product.categoryCode eq 'ring' }
+                카테고리 ${product.categoryCode }
+               	<c:if test="${product.categoryCode eq 'ring' }">
+	                <div class="fs-5 mb-5">
+	                    <span class="fs-5 mb-1 d-block">Size</span>
+	                    <input type="radio" id="size7" name="size" value="7" checked><label for="size7" class="selectSize">7</label>
+	                    <input type="radio" id="size9" name="size" value="9"><label for="size9" class="selectSize">9</label>
+	                    <input type="radio" id="size11" name="size" value="11"><label for="size11" class="selectSize">11</label>
+	                    <input type="radio" id="size13" name="size" value="13"><label for="size13" class="selectSize">13</label>
+	                    <input type="radio" id="size15" name="size" value="15"><label for="size15" class="selectSize">15</label>
+	                    <input type="radio" id="size17" name="size" value="17"><label for="size17" class="selectSize">17</label>
+	                    <input type="radio" id="size19" name="size" value="19"><label for="size19" class="selectSize">19</label>
+	                    <input type="radio" id="size21" name="size" value="21"><label for="size21" class="selectSize">21</label>
+	                </div>
+	            </c:if>
                 <style>
                     input[type='radio'] {display: none;}
                     input[type="radio"] + label {

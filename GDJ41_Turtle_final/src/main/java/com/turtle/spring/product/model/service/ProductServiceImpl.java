@@ -1,6 +1,7 @@
 package com.turtle.spring.product.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,30 @@ public class ProductServiceImpl implements ProductService {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public List<Product> productList(){
-		List<Product> list=dao.productList(session);
+	public List<Product> productList(int cPage, int numPerpage){
+		List<Product> list=dao.productList(session ,cPage, numPerpage);
 		return list;
+	}
+	
+	@Override
+	public List<Product> productCategoryList(Map param,int cPage, int numPerpage){
+		List<Product> list=dao.productCategoryList(session,param,cPage, numPerpage);
+		return list;
+	}
+	
+	@Override
+	public int productListCount() {
+		return dao.productListCount(session);
+	}
+	
+	@Override
+	public int productCategoryListCount(Map param) {
+		return dao.productCategoryListCount(session,param);
+	}
+	
+	@Override
+	public Product productDetail(String pcCode) {
+		return dao.productDetail(session, pcCode);
 	}
 	
 }
