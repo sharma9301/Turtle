@@ -8,8 +8,8 @@ import com.turtle.spring.order.model.dao.OrderDao;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
 @Slf4j
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired

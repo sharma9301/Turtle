@@ -1,33 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
             <div class="main-section">                
                 <img src="${path }/resources/images/main1.png" width="100%" height="600px" alt="메인사진">
-                <button class="all-product-btn" onclick="">All Products</button>
+                <button class="all-product-btn" onclick="location.assign('${path }/product/productList.do?title=All')">All Products</button>
             </div>
             <div class="main-kind">
-                <div class="kind-earring" onclick="">
+                <div class="kind-earring">
                     <p>Earrings</p>
-                    <a href="#">
+                    <a href="${path }/product/productCategoryList.do?title=Earrings">
                         <img src="${path }/resources/images/main-earring.png" alt="메인귀걸이" width="300px" height="250px">
                     </a>
                     </div>
                     <div class="kind-necklace">
                     <p>Necklaces</p>
-                    <a href="#">
+                    <a href="${path }/product/productCategoryList.do?title=Necklaces">
                         <img src="${path }/resources/images/main-necklace.png" alt="메인목걸이" width="300px" height="250px">
                     </a>    
                 </div>
                 <div class="kind-bracelet">
                     <p>Bracelets</p>
-                    <a href="#">
+                    <a href="${path }/product/productCategoryList.do?title=Bracelets">
                         <img src="${path }/resources/images/main-bracelet.png" alt="메인팔찌" width="300px" height="250px">
                     </a>    
                 </div>
                 <div class="kind-ring">
                     <p>Rings</p>
-                    <a href="#">
+                    <a href="${path }/product/productCategoryList.do?title=Rings">
                         <img src="${path }/resources/images/main-ring.png" alt="메인반지" width="300px" height="250px">
                     </a>
                 </div>

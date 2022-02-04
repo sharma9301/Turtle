@@ -50,22 +50,22 @@
                 <nav id="left-menu" style="display: flex;">
                     <nav class="menu-category">
                         <li><a href="#" class="">Category</a></li>
-                        <table class="category-sub-menu sub-tbl">
+                        <table class="category-sub-menu sub-tbl" style="z-index:2000">
                             <tr>
-                                <td><a href="${path }/product/productList.do">All</a></td>
-                                <td><a href="#">Earrings</a></td>
+                                <td><a href="${path }/product/productList.do?title=All">All</a></td>
+                                <td><a href="${path }/product/productCategoryList.do?title=Earrings">Earrings</a></td>
                             </tr>
                             <tr>
                                 <td><a href="#">Best</a></td>
-                                <td><a href="#">Necklaces</a></td>
+                                <td><a href="${path }/product/productCategoryList.do?title=Necklaces">Necklaces</a></td>
                             </tr>
                             <tr>
                                 <td><a href="#">New</a></td>
-                                <td><a href="#">Bracelets</a></td>
+                                <td><a href="${path }/product/productCategoryList.do?title=Bracelets">Bracelets</a></td>
                             </tr>
                             <tr>
                                 <td><a href="#">Sale</a></td>
-                                <td><a href="#">Rings</a></td>
+                                <td><a href="${path }/product/productCategoryList.do?title=Rings">Rings</a></td>
                             </tr>
                         </table>
                     </nav>    
