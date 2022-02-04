@@ -9,6 +9,8 @@
                     <div class="container-fluid w-75">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct" method="get">
                             <div class="container">
+                            	<input type="text" class="productCount" id="productCount" name="productCount" value="${productCount}" style="display:none">
+                            	<input type="text" class="updateData" id="updateData" name="updateData" style="display:none">
                                 <h1 class="mt-4 mb-4">상품 목록</h1>
                                 <style>
                                     th{
@@ -162,39 +164,53 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col">
-                                    	<img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
-                                    	<input type="file" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
-                                    </td>
-                                    <td scope="col">ring-001</td>
-                                    <td scope="col">커플용 반지</td>
-                                    <td scope="col">
-                                    	<input type="text" class="form-control" name="price" id="price" maxlength="11" value="10,000" min="0" style="text-align: center" onkeyup="inputNumberFormat(this); discountPrice();">
-                                    </td>
-                                    <td scope="col">
-                                    	<select class="form-select" name="pdIsDiscount" id="pdIsDiscount" style="width:100px; margin:0 auto;">
-                                    		<option value="Y">예</option>
-                                    		<option value="N">아니오</option>
-                                    	</select>
-                                    </td>
-                                    <td scope="col">
-                                    	<input type="number" name="pdDiscountRate" id="pdDiscountRate" class="form-control-sm" style="width: 70px" min="0" max="100" value="10" onchange="discountPrice();">%
-                                   	</td>
-                                    <td scope="col">
-                                        <input type="text" class="form-control" name="discountPrice" id="discountPrice" maxlength="11" style="text-align: center" readonly>
-                                    </td>
-                                    <td scope="col">
-                                    	<select class="form-select" name="pdIsDisplay" id="pdIsDisplay" style="width:100px; margin:0 auto;">
-                                    		<option value="Y">예</option>
-                                    		<option value="N">아니오</option>
-                                    	</select>
-                                    </td>
-                                    <td scope="col">반지</td>
-                                    <td scope="col">22/01/03</td>
-                                </tr>
-                                
+                            	<c:forEach items="${productList }" var="product">
+	                                <tr>
+	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
+	                                    <td scope="col">
+	                                    	<img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" class="pd_image" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
+	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
+	                                    </td>
+	                                    <td scope="col">${product.pdCode }</td>
+	                                    <td scope="col">${product.pdName }</td>
+	                                    <td scope="col">
+	                                    	<input type="text" class="form-control price" name="price" id="price" maxlength="11" value="<fmt:formatNumber value="${product.pdPrice }" type="number"/>" min="0" style="text-align: center" onkeyup="inputNumberFormat(this); discountPrice();">
+	                                    </td>
+	                                    <td scope="col">
+	                                    	<select class="form-select" name="pdIsDiscount" id="pdIsDiscount" style="width:100px; margin:0 auto;">
+	                                    		<option value="Y" ${fn:contains(product.pdIsDiscount,'Y')?'selected':'' }>예</option>
+	                                    		<option value="N" ${fn:contains(product.pdIsDiscount,'N')?'selected':'' }>아니오</option>
+	                                    	</select>
+	                                    </td>
+	                                    <td scope="col">
+	                                    	<input type="number" name="pdDiscountRate" id="pdDiscountRate" class="form-control-sm pdDiscountRate" style="width: 70px" min="0" max="100" value="<fmt:formatNumber value="${product.pdDiscountrate }" type="number"/>" onchange="discountPrice();">%
+	                                   	</td>
+	                                    <td scope="col">
+	                                    	<input type="text" class="form-control discountPrice" name="discountPrice" id="discountPrice" value="<fmt:formatNumber value="${product.pdPrice-(product.pdPrice*product.pdDiscountrate/100) }" type="number"/>" maxlength="11" style="text-align: center">
+	                                    </td>
+	                                    <td scope="col">
+	                                    	<select class="form-select pdIsDisplay" name="pdIsDisplay" id="pdIsDisplay" style="width:100px; margin:0 auto;">
+	                                    		<option value="Y" ${fn:contains(product.pdIsDisplay,'Y')?'selected':'' }>예</option>
+	                                    		<option value="N" ${fn:contains(product.pdIsDisplay,'N')?'selected':'' }>아니오</option>
+	                                    	</select>
+	                                    </td>
+	                                    <c:choose>
+	                                    	<c:when test="${product.categoryCode.categoryCode=='brac' }">
+	                                    		<td scope="col">팔찌</td>
+	                                    	</c:when>
+	                                    	<c:when test="${product.categoryCode.categoryCode=='earr' }">
+	                                    		<td scope="col">귀걸이</td>
+	                                    	</c:when>
+	                                    	<c:when test="${product.categoryCode.categoryCode=='neck' }">
+	                                    		<td scope="col">목걸이</td>
+	                                    	</c:when>
+	                                    	<c:when test="${product.categoryCode.categoryCode=='ring' }">
+	                                    		<td scope="col">반지</td>
+	                                    	</c:when>
+	                                    </c:choose>
+	                                    <td scope="col">${product.pdDate}</td>
+	                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                         <table class="table table-borderless">
@@ -209,29 +225,55 @@
                                         </div>
                                         <script>
                                             $(()=>{
-                                            	//초기 할인율 적용되서 값 넣어주는 로직
-                                            	let price = $("#price").val(); //정상가
-                                                let realPrice = price.replace(/,/g,"");
-                                                console.log("정상가 : " + price);
-                                                console.log("정상가(문자 제거) : " + realPrice);
-                                                let discountRate = $("#pdDiscountRate").val(); //할인율
-                                                console.log("할인율 : " + discountRate);
-                                                let result="";
-                                                result = realPrice-(realPrice*discountRate/100);                                                
-                                                console.log("할인가 : " + result);
-                                                
-                                                $("#discountPrice").attr("value",result);
+                                            	
                                              	//===========================================================
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
                                                 let rowChk = document.getElementsByClassName("rowChk_productNo");
                                                 console.log(rowChk);
+                                                let pdImage = "";
+                                                let pdPrice= "";
+                                                let pdIsDiscount= "";
+                                                let pdDiscountrate= "";
+                                                let pdDisplay= "";
+                                                let updateData = "";
+                                                
                                                 $(".dropdown-item,.updateProduct").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log("pdImage : "+rowChk[i].parentNode.parentNode.childNodes[1].childNodes[1].src);
+															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[1].src;                                                            
+                                                        	console.log("pdPrice : "+rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value);
+                                                        	pdPrice = rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value;
+                                                        	pdPrice = pdPrice.replace(/[^0-9]/g,"");
+                                                        	console.log("pdPrice(콤마 제거) : "+pdPrice);
+                                                        	if(rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].selected==true){
+                                                        		pdIsDiscount = rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].value;
+                                                        		console.log("pdIsDiscount : "+rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].value);
+                                                        		pdDiscountrate = rowChk[i].parentNode.parentNode.childNodes[6].childNodes[1].value;
+                                                        		console.log("pdDiscountrate : "+rowChk[i].parentNode.parentNode.childNodes[6].childNodes[1].value);
+                                                        	}else{
+                                                        		pdIsDiscount = rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][1].value;
+                                                        		console.log("pdIsDiscount : "+rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][1].value);
+                                                        		pdDiscountrate = 0;
+                                                        		console.log("pdDiscountrate : "+pdDiscountrate);
+                                                        	}
+                                                        	
+                                                        	if(rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].selected==true){
+                                                        		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].value;
+                                                        		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].value);
+                                                        	}else{
+                                                        		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value;
+                                                        		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value);
+                                                        	}
+                                                        	updateData += pdImage + "|" + pdPrice + "|"  + pdIsDiscount + "|"  + pdDiscountrate + "|"  + pdDisplay;
+                                                        	updateData += ",";
                                                         }
+                                                        
+                                                        
+                                                        
                                                     }
                                                     if(count==0){
                                                         alert("최소 1개 이상의 상품을 선택해주세요.");
@@ -239,6 +281,9 @@
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
+                                                    updateData = updateData.replace(/,$/, '');
+                                                    console.log(updateData);
+                                                    $("#updateData").attr("value",updateData);
                                                     
                                                 });
                                                 //===========================================================
@@ -262,7 +307,7 @@
                                                 });
                                               //===========================================================
                                               	//이미지 미리보기 로직
-        									    $("#pd_image").click(e=>{
+        									    $(".pd_image").click(e=>{
         											$("input[name=pd_imageFile]").click();
         										})
         									
@@ -277,7 +322,7 @@
         														width:"100px",
         														height:"100px"
         													});
-        													$("#pd_image").attr("src",e.target.result);
+        													$(".pd_image").attr("src",e.target.result);
         												}
         												reader.readAsDataURL(e.target.files[0]);
         											}
@@ -286,46 +331,6 @@
                                                 
                                             });
                                         //===========================================================
-                                        //숫자에 콤마 붙이는 스크립트
-                                        //콤마 붙이는 스크립트
-                                        function comma(str) {
-							      			str = String(str);
-								      		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-										}
-										//콤마 떼는 스크립트
-									    function uncomma(str) {
-									        str = String(str);
-									        return str.replace(/[^\d]+/g, '');
-									    } 
-									    //숫자만 사용할 수 있는 스크립트 (+콤마)
-									    function inputNumberFormat(obj) {
-									        obj.value = comma(uncomma(obj.value));
-									    }
-									    //숫자만 사용할 수 있는 스크립트 (콤마 X)
-									    function inputOnlyNumberFormat(obj) {
-									        obj.value = onlynumber(uncomma(obj.value));
-									    }
-									    
-									    function onlynumber(str) {
-										    str = String(str);
-										    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
-										}
-									  	//===========================================================
-                                      	//자동으로 할인액 변경되는 스크립트
-									    function discountPrice() {
-                                                let price = $("#price").val(); //정상가
-                                                let realPrice = price.replace(/,/g,"");
-                                                console.log("정상가 : " + price);
-                                                console.log("정상가(문자 제거) : " + realPrice);
-                                                let discountRate = $("#pdDiscountRate").val(); //할인율
-                                                console.log("할인율 : " + discountRate);
-                                                let result="";
-                                                result = realPrice-(realPrice*discountRate/100);
-                                                console.log("할인가 : " + result);
-                                                
-                                                $("#discountPrice").attr("value",result);
-                                                
-								        }
 									  	
 									  
                                         </script>

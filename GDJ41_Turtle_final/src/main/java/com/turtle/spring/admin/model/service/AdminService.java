@@ -12,4 +12,6 @@ public interface AdminService {
 
 	List<Product> selectProductList(Map<String, Object> param);
 
+	int selectProductCount(Map<String, Object> param);
+
 }

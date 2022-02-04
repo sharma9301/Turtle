@@ -112,9 +112,11 @@ public class AdminController {
 		
 		
 		List<Product> list = service.selectProductList(param);
+		int count = service.selectProductCount(param);
 		
 		System.out.println(list);
 		mv.addObject("productList",list);
+		mv.addObject("productCount",count);		
 		mv.setViewName("admin/productList");
 		return mv;
 	}

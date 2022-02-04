@@ -34,6 +34,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.selectProductList(session,param);
 	}
+
+	@Override
+	public int selectProductCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectProductCount(session,param);
+	}
 	
 	
 }
