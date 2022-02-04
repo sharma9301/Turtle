@@ -1,5 +1,20 @@
 package com.turtle.spring.member.model.service;
 
-public interface MemberService {
+import java.util.Map;
 
+import com.turtle.spring.member.model.vo.Member;
+
+public interface MemberService {
+	
+	Member login(Map param);
+	
+	Member myInfo(String userId);
+	
+	
+	
+	
+	
+	
+	
+	
 }

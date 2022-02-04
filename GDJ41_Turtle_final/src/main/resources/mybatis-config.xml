@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.turtle.spring.board.model.vo.Reviews" alias="reviews"/>
+		<typeAlias type="com.turtle.spring.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.turtle.spring.order.model.vo.Cart" alias="cart"/>
+		<typeAlias type="com.turtle.spring.order.model.vo.Order" alias="order"/>
+		<typeAlias type="com.turtle.spring.order.model.vo.OrderDetail" alias="orderDetail"/>
+		<typeAlias type="com.turtle.spring.product.model.vo.Category" alias="category"/>
+		<typeAlias type="com.turtle.spring.product.model.vo.Option" alias="option"/>
+		<typeAlias type="com.turtle.spring.product.model.vo.Product" alias="product"/>
+	</typeAliases>
+</configuration>

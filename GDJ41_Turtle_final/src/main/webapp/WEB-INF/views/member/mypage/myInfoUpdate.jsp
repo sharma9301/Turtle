@@ -96,31 +96,36 @@
 
       <div class="csTitle"><h1>내 정보 수정</h1></div>
 
-      <form name="csDelete" style="text-align: center;" >
+      <form name="csDelete" style="text-align: center;" action="${path }/member/mypage/myInfoUpdateEnd" method="get">
         <div style="width: 400px; margin: 0 auto;" >
             <div class="csDelete">
               <label>이름</label>
-              <input name="userName" type="text" value="유저이름"><br>
+              <input name="userName" type="text" value="${loginMember.userName}" required><br>
               <label>아이디</label>
-              <input name="userId" type="text" value="유저아이디"><br>
-              <label>비밀번호</label>
-              <input name="password" type="password" value=""><br>
+              <input name="userId" type="text" value="${loginMember.userId}" required><br>
+              <label>현재 비밀번호</label>
+              <input name="oriPassword" id="oriPassword" type="password" placeholder="현재 비밀번호" required>
+              <input name="oriPassword2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none"><br>
+              <label>새로운 비밀번호</label>
+              <input name="newPassword" type="password" placeholder="새로운 비밀번호"><br>
               <label>비밀번호 확인</label>
-              <input name="passwordCh" type="password" value=""><br>
+              <input name="passwordCh" type="password" placeholder="새로운 비밀번호 확인"><br>
               <label>연락처</label>
-              <input name="phone" type="text" value="01033336666"><br>
+              <input name="phone" type="text" value="${loginMember.phone}" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
-              <input type="text" id="sample6_postcode" value="123-123" style="margin-right: 10px;">
-              <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+            <c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
+            
+              <input type="text" id="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" required>
+              <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
             </div>
             <div style="width: 400px">
-              <input type="text" id="sample6_address" value="유저주소"><br>
-              <input type="text" id="sample6_detailAddress" value="유저상세주소">
-              <input type="text" id="sample6_extraAddress" value="유저참고항목">
+              <input type="text" id="sample6_address" value="${addressArr[1]}" required><br>
+              <input type="text" id="sample6_detailAddress" value="${addressArr[2]}">
+              <input type="text" id="sample6_extraAddress" value="유저참고항목" style="display:none">
             </div>
           </div>
-          <button type="submit" class="btn btn-dark">확인</button>
+          <button id="updateBtn" type="submit" class="btn btn-dark" >확인</button>
         </form>
       </div>
       
@@ -161,19 +166,55 @@
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
                     document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("sample6_address").value = addr+extraAddr;
                 
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
+                    document.getElementById("sample6_address").value = addr;
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                /* document.getElementById("sample6_address").value = addr; */
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("sample6_detailAddress").focus();
             }
         }).open();
     }
+   
+   $("#updateBtn").click(e=>{
+	   let oriPassword = $("#oriPassword").val();
+	   let oriPassword2 = $("#oriPassword2").val();
+	   let newPassword = $("#newPassword").val();
+	   let passwordCh = $("#passwordCh").val();
+	   /* console.log(oriPassword);
+	   console.log(oriPassword2); */
+	   if(oriPassword != oriPassword2){
+		   alert("비밀번호가 일치하지 않습니다.");
+		   $("#oriPassword").focus();
+		   return false;
+	   }else{
+		   if(newPassword == null) {
+			   alert("회원정보가 수정되었습니다."); 
+		   }else{
+			   if(newPassword != passwordCh){
+				   alert("비밀번호 확인이 일치하지 않습니다.");
+				   $("#newPassword").focus();
+				   return false;
+			   }
+		   }
+		    
+	   }
+	   
+   });
+   
+   
+   
+   
+   
+   
+   
+   
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -102,20 +102,20 @@
               <input name="phone" type="text" placeholder="- 제외 입력" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
-              <input type="text" id="sample6_postcode" placeholder="우편번호" style="margin-right: 10px;" required>
+              <input type="text" name="addr0" id="sample6_postcode" placeholder="우편번호" style="margin-right: 10px;" required>
               <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
             </div>
             <div style="width: 400px">
-              <input type="text" id="sample6_address" placeholder="주소" required><br>
-              <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-              <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+              <input type="text" name="addr1" id="sample6_address" placeholder="주소" required><br>
+              <input type="text" name="addr2" id="sample6_detailAddress" placeholder="상세주소">
+              <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display:none">
             </div>
           </div>
           <button type="button" class="btn btn-dark">확인</button>
         </form>
       </div>
       
-          
+         
             
 
          
@@ -171,14 +171,16 @@
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
                     document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("sample6_address").value = addr+extraAddr;
                 
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
+                    document.getElementById("sample6_address").value = addr;
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                /* document.getElementById("sample6_address").value = addr; */
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("sample6_detailAddress").focus();
             }
