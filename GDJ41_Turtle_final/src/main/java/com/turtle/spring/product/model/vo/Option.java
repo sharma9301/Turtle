@@ -16,7 +16,7 @@ public class Option {
 	private String matarial;
 	private String color;
 	private String weight;
-	private String size;
+	private int size;
 	private int stock;
 	
 	
