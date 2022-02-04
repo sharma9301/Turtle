@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.admin.model.service.AdminService;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,7 +73,7 @@ public class AdminController {
 				keyword = keywords[i];
 			}
 		}
-		System.out.println(keyword);
+		System.out.println("keyword : "+keyword);
 		
 		Map<String,Object> param = new HashMap();
 		param.put("searchType", searchType);
@@ -85,6 +86,36 @@ public class AdminController {
 		System.out.println(list);
 		mv.addObject("memberList",list);
 		mv.setViewName("admin/memberList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/searchProduct")
+	public ModelAndView searchProduct(ModelAndView mv, HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		System.out.println("searchType : "+searchType);
+		String[] keywords = request.getParameterValues("searchKeyword");
+		System.out.println("searchKeyword : "+keywords);
+		String category_code = request.getParameter("category_code");
+		System.out.println("category_code : "+category_code);
+		String keyword = "";
+		for(int i=0; i<keywords.length;i++) {
+			if(keywords[i]!="") {
+				keyword = keywords[i];
+			}
+		}
+		System.out.println("keyword : "+keyword);
+		
+		Map<String,Object> param = new HashMap();
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+		param.put("category_code", category_code);
+		
+		
+		List<Product> list = service.selectProductList(param);
+		
+		System.out.println(list);
+		mv.addObject("productList",list);
+		mv.setViewName("admin/productList");
 		return mv;
 	}
 }

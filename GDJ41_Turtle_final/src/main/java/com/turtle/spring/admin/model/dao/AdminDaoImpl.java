@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.product.model.vo.Product;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -15,6 +16,12 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Member> selectMemberList(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.selectMemberList",param);
+	}
+
+	@Override
+	public List<Product> selectProductList(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.selectProductList",param);
 	}
 
 	

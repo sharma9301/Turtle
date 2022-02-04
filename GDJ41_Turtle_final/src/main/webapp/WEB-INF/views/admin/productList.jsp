@@ -24,12 +24,12 @@
                                                     <option value="pd_Name">상품명</option>
                                                     <option value="pd_Code">상품코드</option>
                                                 </select>
-                                                <div id="search-productName">
+                                                <div id="search-pd_Name">
                                                     <input type="hidden" name="searchType" value="pd_Name">
                                                     <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Name'?keyword:''}"
                                                     placeholder="상품명을 입력하세요">
                                                 </div>
-                                                <div id="search-productCode">
+                                                <div id="search-pd_Code">
                                                     <input type="hidden" name="searchType" value="pd_Code">
                                                     <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Code'?keyword:''}"
                                                     placeholder="상품코드를 입력하세요">
@@ -153,10 +153,10 @@
                                     <th scope="col">상품 번호</th>
                                     <th scope="col">상품명</th>
                                     <th scope="col">상품 가격</th>
-                                    <th scope="col">할인 여부</th>
+                                    <th scope="col">할인 유무</th>
                                     <th scope="col">할인율</th>
                                     <th scope="col">판매가</th>
-                                    <th scope="col">진열 상태</th>
+                                    <th scope="col">진열 유무</th>
                                     <th scope="col">상품 분류</th>
                                     <th scope="col">상품 등록일</th>
                                 </tr>
@@ -164,56 +164,37 @@
                             <tbody>
                                 <tr>
                                     <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
+                                    <td scope="col">
+                                    	<img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
+                                    	<input type="file" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
+                                    </td>
                                     <td scope="col">ring-001</td>
                                     <td scope="col">커플용 반지</td>
-                                    <td scope="col">100,000</td>
-                                    <td scope="col">예</td>
-                                    <td scope="col"><input type="number" class="form-control-sm" style="width: 70px" min="0" max="100" value="10">%</td>
-                                    <td scope="col">90,000</td>
-                                    <td scope="col">진열함</td>
+                                    <td scope="col">
+                                    	<input type="text" class="form-control" name="price" id="price" maxlength="11" value="10,000" min="0" style="text-align: center" onkeyup="inputNumberFormat(this); discountPrice();">
+                                    </td>
+                                    <td scope="col">
+                                    	<select class="form-select" name="pdIsDiscount" id="pdIsDiscount" style="width:100px; margin:0 auto;">
+                                    		<option value="Y">예</option>
+                                    		<option value="N">아니오</option>
+                                    	</select>
+                                    </td>
+                                    <td scope="col">
+                                    	<input type="number" name="pdDiscountRate" id="pdDiscountRate" class="form-control-sm" style="width: 70px" min="0" max="100" value="10" onchange="discountPrice();">%
+                                   	</td>
+                                    <td scope="col">
+                                        <input type="text" class="form-control" name="discountPrice" id="discountPrice" maxlength="11" style="text-align: center" readonly>
+                                    </td>
+                                    <td scope="col">
+                                    	<select class="form-select" name="pdIsDisplay" id="pdIsDisplay" style="width:100px; margin:0 auto;">
+                                    		<option value="Y">예</option>
+                                    		<option value="N">아니오</option>
+                                    	</select>
+                                    </td>
                                     <td scope="col">반지</td>
                                     <td scope="col">22/01/03</td>
                                 </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col">neck-001</td>
-                                    <td scope="col">18K 금목걸이</td>
-                                    <td scope="col">100,000</td>
-                                    <td scope="col">예</td>
-                                    <td scope="col"><input type="number" class="form-control-sm" style="width: 70px" min="0" max="100" value="30">%</td>
-                                    <td scope="col">70,000</td>
-                                    <td scope="col">진열 안함</td>
-                                    <td scope="col">목걸이</td>
-                                    <td scope="col">22/01/03</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col">earr-001</td>
-                                    <td scope="col">진주 귀걸이</td>
-                                    <td scope="col">100,000</td>
-                                    <td scope="col">아니오</td>
-                                    <td scope="col">-</td>
-                                    <td scope="col">100,000</td>
-                                    <td scope="col">진열함</td>
-                                    <td scope="col">귀걸이</td>
-                                    <td scope="col">22/01/17</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col">brac-001</td>
-                                    <td scope="col">은팔찌</td>
-                                    <td scope="col">100,000</td>
-                                    <td scope="col">예</td>
-                                    <td scope="col"><input type="number" class="form-control-sm" style="width: 70px" min="0" max="100" value="15">%</td>
-                                    <td scope="col">85,000</td>
-                                    <td scope="col">진열 안함</td>
-                                    <td scope="col">팔찌</td>
-                                    <td scope="col">22/01/02</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         <table class="table table-borderless">
@@ -221,35 +202,30 @@
                                 <td colspan="11">
                                     <div style="text-align: left;">
                                         
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            진열 변경
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a class="dropdown-item" href="#">진열함</a></li>
-                                            <li><a class="dropdown-item" href="#">진열 안함</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            할인 유무
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a class="dropdown-item" href="#">예</a></li>
-                                            <li><a class="dropdown-item" href="#">아니오</a></li>
-                                            </ul>
-                                        </div>
-                                        <button class="btn btn-secondary updateDiscount" onclick="">할인율 변경</button>
+                                        <button class="btn btn-secondary updateProduct" onclick="">정보 수정</button>
                                         <div style="float: right;">
 	                                        <button class="btn btn-secondary" onclick="location.assign('productEnroll.html');">상품 등록</button>
 	                                        <button class="btn btn-secondary deleteProduct" onclick="">상품 삭제</button>
                                         </div>
                                         <script>
                                             $(()=>{
+                                            	//초기 할인율 적용되서 값 넣어주는 로직
+                                            	let price = $("#price").val(); //정상가
+                                                let realPrice = price.replace(/,/g,"");
+                                                console.log("정상가 : " + price);
+                                                console.log("정상가(문자 제거) : " + realPrice);
+                                                let discountRate = $("#pdDiscountRate").val(); //할인율
+                                                console.log("할인율 : " + discountRate);
+                                                let result="";
+                                                result = realPrice-(realPrice*discountRate/100);                                                
+                                                console.log("할인가 : " + result);
+                                                
+                                                $("#discountPrice").attr("value",result);
+                                             	//===========================================================
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
                                                 let rowChk = document.getElementsByClassName("rowChk_productNo");
                                                 console.log(rowChk);
-                                                $(".dropdown-item,.deleteProduct,.updateDiscount").click(e=>{
+                                                $(".dropdown-item,.updateProduct").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
                                                     for(i=0; i<rowChk.length; i++) {
@@ -284,8 +260,74 @@
                                                         $(".allRowChk").prop("checked",true);
                                                     }
                                                 });
-                                                //===========================================================
+                                              //===========================================================
+                                              	//이미지 미리보기 로직
+        									    $("#pd_image").click(e=>{
+        											$("input[name=pd_imageFile]").click();
+        										})
+        									
+        										$("input[name=pd_imageFile]").change(e=>{
+        											
+        											console.dir(e.target);
+        											if(e.target.files[0].type.includes("image")){
+        												let reader=new FileReader();
+        												reader.onload=(e)=>{
+        													const img=$("<img>").attr({
+        														src:e.target.result,
+        														width:"100px",
+        														height:"100px"
+        													});
+        													$("#pd_image").attr("src",e.target.result);
+        												}
+        												reader.readAsDataURL(e.target.files[0]);
+        											}
+        											
+        										});
+                                                
                                             });
+                                        //===========================================================
+                                        //숫자에 콤마 붙이는 스크립트
+                                        //콤마 붙이는 스크립트
+                                        function comma(str) {
+							      			str = String(str);
+								      		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+										}
+										//콤마 떼는 스크립트
+									    function uncomma(str) {
+									        str = String(str);
+									        return str.replace(/[^\d]+/g, '');
+									    } 
+									    //숫자만 사용할 수 있는 스크립트 (+콤마)
+									    function inputNumberFormat(obj) {
+									        obj.value = comma(uncomma(obj.value));
+									    }
+									    //숫자만 사용할 수 있는 스크립트 (콤마 X)
+									    function inputOnlyNumberFormat(obj) {
+									        obj.value = onlynumber(uncomma(obj.value));
+									    }
+									    
+									    function onlynumber(str) {
+										    str = String(str);
+										    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+										}
+									  	//===========================================================
+                                      	//자동으로 할인액 변경되는 스크립트
+									    function discountPrice() {
+                                                let price = $("#price").val(); //정상가
+                                                let realPrice = price.replace(/,/g,"");
+                                                console.log("정상가 : " + price);
+                                                console.log("정상가(문자 제거) : " + realPrice);
+                                                let discountRate = $("#pdDiscountRate").val(); //할인율
+                                                console.log("할인율 : " + discountRate);
+                                                let result="";
+                                                result = realPrice-(realPrice*discountRate/100);
+                                                console.log("할인가 : " + result);
+                                                
+                                                $("#discountPrice").attr("value",result);
+                                                
+								        }
+									  	
+									  
                                         </script>
                                     </div>
                                 </td>

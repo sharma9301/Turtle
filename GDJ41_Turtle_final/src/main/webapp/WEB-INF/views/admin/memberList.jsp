@@ -114,7 +114,7 @@
 	                                    <td scope="col">${member.email }</td>
 	                                    <td scope="col">${member.enrollType }</td>
 	                                    <td scope="col">
-	                                    	<c:set var="addressArr" value="${fn:split(member.address,',')}"/>
+	                                    	<c:set var="addressArr" value="${fn:split(member.address,'|')}"/>
 	                                    	<c:set var="addressArr2" value="${fn:split(addressArr[1],' ')}"/>
 	                                    	${addressArr2[0]} ${addressArr2[1]}
 	                                    </td>
