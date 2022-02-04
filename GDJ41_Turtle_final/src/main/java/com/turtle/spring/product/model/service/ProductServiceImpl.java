@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.turtle.spring.product.model.dao.ProductDao;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +47,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product productDetail(String pcCode) {
-		return dao.productDetail(session, pcCode);
+	public Product productDetail(String pdCode) {
+		return dao.productDetail(session, pdCode);
+	}
+
+	@Override
+	public List<Option> pdOptionSizeList(String pdCode) {
+		return dao.pdOptionSizeList(session,pdCode);
+	}
+
+	@Override
+	public int pdOptionSizeCount(String pdCode) {
+		return dao.pdOptionSizeCount(session,pdCode);
 	}
 	
 }

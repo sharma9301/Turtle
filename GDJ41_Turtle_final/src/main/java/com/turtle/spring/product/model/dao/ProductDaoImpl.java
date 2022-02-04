@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 @Repository
@@ -34,7 +35,17 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public Product productDetail(SqlSessionTemplate session, String pcCode) {
-		return session.selectOne("product.selectProductOne",pcCode);
+	public Product productDetail(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.selectProductOne",pdCode);
+	}
+
+	@Override
+	public List<Option> pdOptionSizeList(SqlSessionTemplate session, String pdCode) {
+		return session.selectList("product.pdOptionSizeList",pdCode);
+	}
+
+	@Override
+	public int pdOptionSizeCount(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.pdOptionSizeCount",pdCode);
 	}
 }

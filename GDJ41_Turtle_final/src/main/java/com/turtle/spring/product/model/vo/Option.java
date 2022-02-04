@@ -3,12 +3,16 @@ package com.turtle.spring.product.model.vo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Option {
 
 	private String optNo;
@@ -16,7 +20,7 @@ public class Option {
 	private String matarial;
 	private String color;
 	private String weight;
-	private String size;
+	private int size;
 	private int stock;
 	
 	

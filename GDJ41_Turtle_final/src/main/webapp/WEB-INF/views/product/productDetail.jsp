@@ -43,21 +43,24 @@
                     <span class="text-decoration-line-through">₩<c:out value="${product.pdPrice }"/></span>
                     &nbsp;<span>₩90,000</span>
                 </div>
-                ${product.categoryCode eq 'ring' }
-                카테고리 ${product.categoryCode }
-               	<c:if test="${product.categoryCode eq 'ring' }">
-	                <div class="fs-5 mb-5">
+               	<c:if test="${product.categoryCode.categoryCode eq 'ring' }">
+	                <div class="fs-5 mb-3">
 	                    <span class="fs-5 mb-1 d-block">Size</span>
-	                    <input type="radio" id="size7" name="size" value="7" checked><label for="size7" class="selectSize">7</label>
-	                    <input type="radio" id="size9" name="size" value="9"><label for="size9" class="selectSize">9</label>
-	                    <input type="radio" id="size11" name="size" value="11"><label for="size11" class="selectSize">11</label>
-	                    <input type="radio" id="size13" name="size" value="13"><label for="size13" class="selectSize">13</label>
-	                    <input type="radio" id="size15" name="size" value="15"><label for="size15" class="selectSize">15</label>
-	                    <input type="radio" id="size17" name="size" value="17"><label for="size17" class="selectSize">17</label>
-	                    <input type="radio" id="size19" name="size" value="19"><label for="size19" class="selectSize">19</label>
-	                    <input type="radio" id="size21" name="size" value="21"><label for="size21" class="selectSize">21</label>
+	                    <c:forEach items="${sizeList }" var="size">
+	                    <input type="radio" id="size${size.size}" name="size" value="${size.size}" checked><label for="size${size.size}" class="selectSize">${size.size}</label>
+	                    
+	                    </c:forEach>
 	                </div>
 	            </c:if>
+	            <c:if test="${product.categoryCode.categoryCode != 'ring' }">
+	            <div class="fs-5 mb-5">
+                    <span class="fs-5 mb-1 d-block">Size</span>
+	            	<input type="radio" id="size${size.size}" name="size" value="${size.size}" checked readonly><label for="size${size.size}" class="selectSize">FREE</label>
+	            </div>
+	            </c:if>
+	            
+	            
+	            
                 <style>
                     input[type='radio'] {display: none;}
                     input[type="radio"] + label {
@@ -76,6 +79,8 @@
                         color: #ffffff;
                     }  
                 </style>
+                <%-- ${sizeList }
+                ${sizeCount } --%>
                 <div class="fs-5 mb-3">
                     <table class="table table-borderless">
                         <tr>
@@ -83,7 +88,7 @@
                         </tr>
                         <tr>
                             <td>MATERIAL</td>
-                            <td>14K GOLD</td>
+                            <td><c:out value=""/></td>
                         </tr>
                         <tr>
                             <td>COLOR</td>
@@ -92,6 +97,12 @@
                         <tr>
                             <td>WEIGHT</td>
                             <td>3.0g</td>
+                        </tr>
+                        <tr>
+                            <td>재고</td>
+                            <td>
+                                몇개
+                            </td>
                         </tr>
                         <tr>
                             <td>수량</td>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.common.PageFactory;
 import com.turtle.spring.product.model.service.ProductService;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,10 +68,13 @@ public class ProductController {
 	
 	@RequestMapping("/productDetail.do")
 	public ModelAndView productDetail(ModelAndView mv, HttpServletRequest request) {
-		String pcCode=request.getParameter("pdCode");
-		Product product=service.productDetail(pcCode);
-		
+		String pdCode=request.getParameter("pdCode");
+		Product product=service.productDetail(pdCode);
+		List<Option> sizeList = service.pdOptionSizeList(pdCode);
+		int sizeCount = service.pdOptionSizeCount(pdCode);
 		mv.addObject("product",product);
+		mv.addObject("sizeList",sizeList);
+		mv.addObject("sizeCount",sizeCount);
 		mv.setViewName("product/productDetail");
 		return mv;
 	}

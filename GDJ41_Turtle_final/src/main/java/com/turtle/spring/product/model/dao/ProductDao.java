@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 public interface ProductDao {
@@ -17,6 +18,10 @@ public interface ProductDao {
 
 	int productCategoryListCount(SqlSessionTemplate session, Map param);
 
-	Product productDetail(SqlSessionTemplate session, String pcCode);
+	Product productDetail(SqlSessionTemplate session, String pdCode);
+
+	List<Option> pdOptionSizeList(SqlSessionTemplate session, String pdCode);
+
+	int pdOptionSizeCount(SqlSessionTemplate session, String pdCode);
 	
 }

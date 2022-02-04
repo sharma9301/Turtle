@@ -13,6 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Product {
 	private String pdCode;
 	private Category categoryCode;
