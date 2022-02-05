@@ -1,5 +1,6 @@
 package com.turtle.spring.admin.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,11 +106,19 @@ public class AdminController {
 		}
 		System.out.println("keyword : "+keyword);
 		
+		String fromDate = request.getParameter("fromDate");
+		String toDate = request.getParameter("toDate");
+		
+		System.out.println("fromDate : "+fromDate);
+		System.out.println("toDate : "+toDate);
+		
+		
 		Map<String,Object> param = new HashMap();
 		param.put("searchType", searchType);
 		param.put("keyword", keyword);
 		param.put("category_code", category_code);
-		
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
 		
 		List<Product> list = service.selectProductList(param);
 		int count = service.selectProductCount(param);
