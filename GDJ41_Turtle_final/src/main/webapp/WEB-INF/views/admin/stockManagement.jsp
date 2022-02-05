@@ -42,6 +42,7 @@
                                                 </div>
                                             </div>
                                             <script>
+                                            	$("#searchTypeDiv>div[id^=search]").css("display","none");//처음 시작할때 모두 안보이게 설정
                                                 $(()=>{
                                                     $("#searchType").change(e=>{
                                                         console.log($(e.target).val());
@@ -71,7 +72,75 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    
+                                    <tr>
+                                        <th class="table-active">상품 등록일</th>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateToday">
+                                                <label class="btn btn-outline-secondary" for="enrollDateToday">오늘</label>
+                                            
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate3day">
+                                                <label class="btn btn-outline-secondary" for="enrollDate3day">3일</label>
+                                            
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate7day">
+                                                <label class="btn btn-outline-secondary" for="enrollDate7day">7일</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate1month">
+                                                <label class="btn btn-outline-secondary" for="enrollDate1month">1개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate3months">
+                                                <label class="btn btn-outline-secondary" for="enrollDate3months">3개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate6months">
+                                                <label class="btn btn-outline-secondary" for="enrollDate6months">6개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate1year">
+                                                <label class="btn btn-outline-secondary" for="enrollDate1year">1년</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateAll" checked>
+                                                <label class="btn btn-outline-secondary" for="enrollDateAll">전체</label>
+
+                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" value="2022-01-01"  style="width: 160px;"/>
+                                                <span>&nbsp;~&nbsp;</span> 
+                                                <input type="date" name="toDate" id="toDate" class="form-control" style="width: 160px;"/>
+
+                                            </div>
+                                            
+                                            <script>
+                                                var d= new Date();
+                                                
+                                                var kor_date = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+                                                /* document.getElementById('fromDate').value = kor_date.substring(0, 10); */
+                                                document.getElementById('toDate').value = kor_date.substring(0, 10);
+                                                
+                                                $("input:radio[name=enrollDate]").click(e=>{
+                                                    let selectDate = $(e.target).next()[0].innerText;
+                                                    let newDate = new Date(d.getTime() - (d.getTimezoneOffset() * 60000));
+                                                    // console.log(selectDate);
+                                                    // console.log("변경전 newDate : " + newDate);
+
+                                                    switch(selectDate){
+                                                        case "오늘": break;
+                                                        case "3일": newDate.setDate(newDate.getDate()-3); break;
+                                                        case "7일": newDate.setDate(newDate.getDate()-7); break;
+                                                        case "1개월": newDate.setMonth(newDate.getMonth()-1); break;
+                                                        case "3개월": newDate.setMonth(newDate.getMonth()-3); break;
+                                                        case "6개월": newDate.setMonth(newDate.getMonth()-6); break;
+                                                        case "1년": newDate.setFullYear(newDate.getFullYear()-1); break;
+                                                        case "전체": newDate.setFullYear(2022);
+                                                       		newDate.setMonth(0);
+                                                        	newDate.setDate(1);
+                                                        	break;
+
+                                                    }
+                                                    // console.log("변경후 newDate : " + newDate);
+                                                    let cFromDate = newDate.toISOString().substring(0,10);
+                                                    console.log(cFromDate);
+                                                    document.getElementById('fromDate').value = cFromDate;
+                                                });
+                                            </script>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="container-fluid" style="display:block; margin:10px 0; position: relative; text-align: center;">
