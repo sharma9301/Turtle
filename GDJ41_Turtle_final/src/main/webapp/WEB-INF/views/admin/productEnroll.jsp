@@ -16,19 +16,32 @@
                             </style>
                             <table id="product" class="table">
                                 <tr>
-                                    <td>상품명(필수)</td>
+                                    <td>상품명 (필수)</td>
                                     <td>
-                                        <input class="form-control" id="productName" name="productName" type="text" placeholder="예) 커플용 반지" style="width: 400px;">
+                                        <input class="form-control" id="productName" name="productName" type="text" placeholder="예) 커플용 반지" style="width: 400px;" required>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>판매가(필수)</td>
+                                    <td>판매가 (필수)</td>
                                     <td style="display: flex;">
-                                        <input class="form-control" id="productPrice" name="productPrice" type="text" style="width: 200px;"><span class="ms-1 mb-1 align-self-end">원</span>
+                                        <input class="form-control" id="productPrice" name="productPrice" type="text" style="width: 200px;" required><span class="ms-1 mb-1 align-self-end">원</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>상품코드(필수)</td>
+                                	<td>상품 분류 (필수)</td>
+                                	<td>
+	                                    <div id="searchTypeDiv" style="display: flex;">
+	                                        <select class="form-select me-2" id="category_code" name="category_code" style="width: 120px;" required>
+	                                            <option value="ring">반지</option>
+	                                            <option value="brac">팔찌</option>
+	                                            <option value="neck">목걸이</option>
+	                                            <option value="earr">귀걸이</option>
+	                                        </select>
+	                                    </div>
+                              		</td>
+                                </tr>
+                                <tr>
+                                    <td>상품 코드 (필수)</td>
                                     <td style="display: flex;">
                                         <input class="form-control" id="productCode" name="productCode" type="text" style="width: 200px;"><button class="btn btn-secondary ms-3" type="button" onclick="">중복 확인</button>
                                     </td>
@@ -75,8 +88,8 @@
                                 <tr>
                                     <td>이미지</td>
                                     <td>
-                                        <img src="https://dummyimage.com/300x300/dee2e6/6c757d.jpg" class="imgThumbnail mb-2" alt="상품사진">
-                                        <input class="form-control form-control-sm" type="file" id="productImage" name="productImage" style="width: 50%;">
+                                        <img src="https://dummyimage.com/300x300/dee2e6/6c757d.jpg" class="imgThumbnail mb-2" alt="상품사진" width="300px" height="300px">
+                                        <input class="form-control" type="file" id="productImage" name="productImage" style="width: 50%;">
                                     </td>
                                     <style>
                                         .imgThumbnail:hover{
@@ -87,6 +100,24 @@
                                         $(".imgThumbnail").click(e=>{
                                             $("#productImage").click();
                                         })
+                                        
+                                        $("input[name=productImage]").change(e=>{
+        											
+   											console.dir(e.target);
+   											if(e.target.files[0].type.includes("image")){
+   												let reader=new FileReader();
+   												reader.onload=(e)=>{
+   													const img=$("<img>").attr({
+   														src:e.target.result,
+   														width:"100px",
+   														height:"100px"
+   													});
+   													$(".imgThumbnail").attr("src",e.target.result);
+   												}
+   												reader.readAsDataURL(e.target.files[0]);
+   											}
+   											
+   										});
                                     </script>
                                 </tr>
                             </table>

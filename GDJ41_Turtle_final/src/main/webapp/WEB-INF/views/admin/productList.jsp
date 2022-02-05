@@ -38,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <script>
-                                            $("#searchTypeDiv>div[id^=search]").css("display","none"); //처음 로딩할 때 css로 안보이게 먼저 설정
+                                            $("#searchTypeDiv>div[id^=search]").css("display","none"); //처음 로딩할 때 css로 안보이게 먼저 설정	
                                                 $(()=>{
                                                     $("#searchType").change(e=>{
                                                         console.log($(e.target).val());
