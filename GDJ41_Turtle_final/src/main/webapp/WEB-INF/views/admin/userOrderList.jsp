@@ -97,9 +97,21 @@
                                             </script>    
                                         </td>
                                     </tr>
-                                    
                                     <tr>
-                                        <th class="table-active">기간</th>
+                                        <th class="table-active">결제 수단</th>
+                                        <td>
+                                            <div id="searchTypeDiv" style="display: flex;">
+                                                <select class="form-select me-2" id="pay_method" name="pay_method" style="width: 120px;">
+                                                    <option selected value="">분류 선택</option>
+                                                    <option value="카드">카드</option>
+                                                    <option value="네이버페이">네이버페이</option>
+                                                    <option value="카카오페이">카카오페이</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-active">주문일</th>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group">
                                                 <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateToday">

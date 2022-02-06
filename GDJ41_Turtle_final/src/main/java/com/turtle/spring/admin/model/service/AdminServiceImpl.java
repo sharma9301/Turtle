@@ -40,6 +40,18 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.selectProductCount(session,param);
 	}
+
+	@Override
+	public int insertProduct(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.insertProduct(session,param);
+	}
+
+	@Override
+	public int insertProductOpt(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.insertProductOpt(session,param);
+	}
 	
 	
 }

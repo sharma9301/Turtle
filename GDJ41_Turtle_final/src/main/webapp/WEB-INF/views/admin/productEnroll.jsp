@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
-                    <form class="form w-50" style="margin: 50px auto 50px 10%;">
+                    <form class="form w-50" style="margin: 50px auto 50px 10%;" action="${path }/admin/productEnrollEnd" method="post" enctype="multipart/form-data">
                         <div class="container-fluid px-4">
                             <h1 class="mt-4 mb-4">상품 등록</h1>
                             <style>
@@ -18,20 +18,20 @@
                                 <tr>
                                     <td>상품명 (필수)</td>
                                     <td>
-                                        <input class="form-control" id="productName" name="productName" type="text" placeholder="예) 커플용 반지" style="width: 400px;" required>
+                                        <input class="form-control" id="productName" name="productName" type="text" placeholder="예) 커플용 반지" style="width: 400px;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>판매가 (필수)</td>
                                     <td style="display: flex;">
-                                        <input class="form-control" id="productPrice" name="productPrice" type="text" style="width: 200px;" required><span class="ms-1 mb-1 align-self-end">원</span>
+                                        <input class="form-control" id="productPrice" name="productPrice" type="text" style="width: 200px;"><span class="ms-1 mb-1 align-self-end">원</span>
                                     </td>
                                 </tr>
                                 <tr>
                                 	<td>상품 분류 (필수)</td>
                                 	<td>
 	                                    <div id="searchTypeDiv" style="display: flex;">
-	                                        <select class="form-select me-2" id="category_code" name="category_code" style="width: 120px;" required>
+	                                        <select class="form-select me-2" id="category_code" name="category_code" style="width: 120px;">
 	                                            <option value="ring">반지</option>
 	                                            <option value="brac">팔찌</option>
 	                                            <option value="neck">목걸이</option>
@@ -60,28 +60,29 @@
                                             <tr>
                                                 <td>재질</td>
                                                 <td>
-                                                    <input class="form-control" id="" name="" type="text" placeholder="" style="width: 250px;">
+                                                    <input class="form-control" id="material" name="material" type="text" placeholder="" style="width: 250px;">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>색상</td>
                                                 <td>
-                                                    <input class="form-control" id="" name="" type="text" placeholder="" style="width: 250px;">
+                                                    <input class="form-control" id="color" name="color" type="text" placeholder="" style="width: 250px;">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>무게</td>
                                                 <td>
-                                                    <input class="form-control" id="" name="" type="text" placeholder="" style="width: 250px;">
+                                                    <input class="form-control" id="weight" name="weight" type="text" placeholder="" style="width: 250px;">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>사이즈</td>
                                                 <td>
-                                                    <input class="form-control" id="" name="" type="text" placeholder=", 으로 구분해서 적어주세요" style="width: 250px;">
+                                                    <input class="form-control" id="size" name="size" type="text" placeholder=", 으로 구분해서 적어주세요" style="width: 250px;">
                                                     <span style="font-size: x-small;">사이즈 구분이 없을 경우 FREE라고 기입해주세요.</span>
                                                 </td>
                                             </tr>
+                                            
                                         </table>   
                                     </td>
                                 </tr>
@@ -119,6 +120,12 @@
    											
    										});
                                     </script>
+                                </tr>
+                                <tr>
+                                    <td>재고</td>
+                                    <td>
+                                        <input class="form-control" id="stock" name="stock" type="number" placeholder="" min="1" style="width: 250px;">
+                                    </td>
                                 </tr>
                             </table>
                         </div>

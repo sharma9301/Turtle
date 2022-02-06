@@ -14,4 +14,8 @@ public interface AdminService {
 
 	int selectProductCount(Map<String, Object> param);
 
+	int insertProduct(Map<String, Object> param);
+	
+	int insertProductOpt(Map<String, Object> param);
+
 }

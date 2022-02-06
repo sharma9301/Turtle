@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-75">
-                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct" method="get">
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct.do" method="get">
                             <div class="container">
                             	<input type="text" class="productCount" id="productCount" name="productCount" value="${productCount}" style="display:none">
                             	<input type="text" class="updateData" id="updateData" name="updateData" style="display:none">
@@ -172,7 +172,7 @@
 	                                <tr>
 	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
 	                                    <td scope="col">
-	                                    	<img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" class="pd_image" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
+	                                    	<img src="${path }/resources/images/product/${product.pdImage}" class="pd_image" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
 	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
 	                                    </td>
 	                                    <td scope="col">${product.pdCode }</td>
@@ -312,11 +312,14 @@
                                               //===========================================================
                                               	//이미지 미리보기 로직
         									    $(".pd_image").click(e=>{
-        											$("input[name=pd_imageFile]").click();
+        									    	console.log($(e.target)[0].nextElementSibling);
+        									    	$(e.target)[0].nextElementSibling.click();
         										})
         									
         										$("input[name=pd_imageFile]").change(e=>{
-        											
+        											console.log("=====확인 체크용=======");
+													console.log($(e.target).prev()[0]);
+													let path = $(e.target).prev()[0]
         											console.dir(e.target);
         											if(e.target.files[0].type.includes("image")){
         												let reader=new FileReader();
@@ -326,7 +329,9 @@
         														width:"100px",
         														height:"100px"
         													});
-        													$(".pd_image").attr("src",e.target.result);
+        													
+        													/* $(".pd_image").attr("src",e.target.result); */
+        													path.src = e.target.result;
         												}
         												reader.readAsDataURL(e.target.files[0]);
         											}

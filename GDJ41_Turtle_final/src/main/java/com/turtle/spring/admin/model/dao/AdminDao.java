@@ -15,5 +15,9 @@ public interface AdminDao {
 	List<Product> selectProductList(SqlSessionTemplate session, Map<String, Object> param);
 
 	int selectProductCount(SqlSessionTemplate session, Map<String, Object> param);
+
+	int insertProduct(SqlSessionTemplate session, Map<String, Object> param);
+
+	int insertProductOpt(SqlSessionTemplate session, Map<String, Object> param);
 	
 }
