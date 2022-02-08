@@ -98,11 +98,12 @@ public class MemberController {
 		System.out.println("password : "+password);
 		System.out.println("address : "+address);
 		
+		String encPassword =encoder.encode(password);
 		
 		Map<String,Object> param = new HashMap();
 		param.put("userName", userName);
 		param.put("userId", userId);
-		param.put("password", password);
+		param.put("password", encPassword);
 		param.put("phone", phone);
 		param.put("address", address);
 		
@@ -273,6 +274,23 @@ public class MemberController {
 		}else {
 			return "success";
 		}
+		
+		
+	}
+	
+	
+	
+	//저장되어있는 현재 비밀번호 암호화 & 입력한 현재 비밀번호 암호화 비교  
+	@RequestMapping("/passwordChk.do")
+	@ResponseBody
+	public String passwordChk(String ori, String ori2) {
+		
+		if(encoder.matches(ori, ori2)) {
+			return "success";
+		}else {
+			return "fail";
+		}
+
 		
 		
 	}
