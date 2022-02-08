@@ -100,29 +100,34 @@
 
     <div class="csTitle"><h1>내 정보</h1></div>
 
-    <form name="csDelete" style="text-align: center;" >
+    <form name="csDelete" style="text-align: center;" action="${path }/member/mypage/myInfoUpdate" method="post">
       <div style="width: 400px; margin: 0 auto;" >
           <div class="csDelete">
+          	<%-- ${loginMember} --%>
             <label>이름</label>
-            <input name="userName" type="text" value="유저이름" readonly><br>
+            <input name="userName" type="text" value="${loginMember.userName}" readonly><br>
             <label>아이디</label>
-            <input name="userId" type="text" value="유저아이디" readonly><br>
-            <label>비밀번호</label>
-            <input name="password" type="password" value="유저비밀번호" readonly><br>
+            <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
+           <!--  <label>비밀번호</label>
+            <input name="password" type="password" readonly><br> -->
             <label>연락처</label>
-            <input name="phone" type="text" value="01033336666" readonly><br>
+            <input name="phone" type="text" value="${loginMember.phone}" readonly><br>
+            
           </div>
           <div class="d-flex" style="width: 300px;">
-            <input type="text" id="sample6_postcode" value="123-123" style="margin-right: 10px;" readonly>
+          	<c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
+            <input type="text" name="sample6_postcode" id="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" readonly>
           </div>
           <div style="width: 400px">
-            <input type="text" id="sample6_address" value="유저주소" readonly><br>
-            <input type="text" id="sample6_detailAddress" value="유저상세주소" readonly>
-            <input type="text" id="sample6_extraAddress" value="유저참고항목" readonly>
+            <input type="text" name="sample6_address" id="sample6_address" value="${addressArr[1]}" readonly><br>
+            <input type="text" name="sample6_detailAddress" id="sample6_detailAddress" value="${addressArr[2]}" readonly>
+            <%-- <input type="text" id="sample6_extraAddress" value="${addressArr[2]}" readonly> --%>
           </div>
         </div>
-        <button type="submit" class="btn btn-dark">수정하기</button>
+        <button type="submit" class="btn btn-dark" >수정하기</button>
       </form>
     </div>
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
