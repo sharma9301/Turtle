@@ -14,11 +14,9 @@
     <div class="container px-4 px-lg-5 my-5" style="margin-bottom: 100px;">
         <div class="row gx-4 gx-lg-5 align-items-center">
         ${product }
-        
-       <br>
-       
-        ${reviews }
-            <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/${product.pdCode.pdImage}" alt="" /></div>
+       <br><br>
+       <%--  ${reviews } --%>
+            <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/product/${product.pdCode.pdImage}" alt="" /></div>
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
                 <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>

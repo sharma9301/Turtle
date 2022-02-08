@@ -117,10 +117,18 @@ public class MemberController {
 		if(result>0) {
 			msg="회원정보수정 성공";
 			loc="/member/mypage/myInfo";
+			
+			//세션 생성
+			Member m = service.login(param);
+			mv.addObject("loginMember", m);
+			
 		}else {
 			msg="회원정보수정 실패";
 			loc="/member/mypage/myInfoUpdate";
 		}
+		
+		
+		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
@@ -187,7 +195,7 @@ public class MemberController {
 		String loc = "";
 		if(m!=null && encoder.matches((String)param.get("password"), m.getPassword())) {
 			mv.addObject("loginMember", m);
-			if(userId == "admin") {
+			if(userId.equals("admin")) {
 				msg="관리자 로그인 성공";
 				loc="/admin/adminMainPage";
 			}else {
