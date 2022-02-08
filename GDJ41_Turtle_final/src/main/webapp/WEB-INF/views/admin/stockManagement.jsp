@@ -7,8 +7,10 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                        <form class="form" style="margin: 50px auto 50px auto;">
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProductOpt.do" method="get">
                             <div class="container">
+                            	<input type="text" class="updateData" id="updateData" name="updateData">
+                            	<input type="text" class="deleteData" id="deleteData" name="deleteData">
                                 <h1 class="mt-4 mb-4">재고 관리</h1>
                                 <style>
                                     th{
@@ -21,27 +23,28 @@
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
                                                 <select class="form-select me-2" id="searchType" name="searchType" style="width: 120px;">
-                                                    <option value="productName">상품명</option>
-                                                    <option value="productCode">상품코드</option>
-                                                    <option value="optCode">옵션코드</option>
+                                                    <option value="pd_Name">상품명</option>
+                                                    <option value="pd_Code">상품코드</option>
+                                                    <option value="opt_No">옵션코드</option>
                                                 </select>
-                                                <div id="search-productName">
+                                                <div id="search-pd_Name">
                                                     <input type="hidden" name="searchType" value="productName">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productName'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Name'?keyword:''}"
                                                     placeholder="상품명을 입력하세요">
                                                 </div>
-                                                <div id="search-productCode">
+                                                <div id="search-pd_Code">
                                                     <input type="hidden" name="searchType" value="productCode">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productCode'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Code'?keyword:''}"
                                                     placeholder="상품코드를 입력하세요">
                                                 </div>
-                                                <div id="search-optCode">
+                                                <div id="search-opt_No">
                                                     <input type="hidden" name="searchType" value="optCode">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'optCode'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'opt_No'?keyword:''}"
                                                     placeholder="옵션코드를 입력하세요">
                                                 </div>
                                             </div>
                                             <script>
+                                            	$("#searchTypeDiv>div[id^=search]").css("display","none");//처음 시작할때 모두 안보이게 설정
                                                 $(()=>{
                                                     $("#searchType").change(e=>{
                                                         console.log($(e.target).val());
@@ -61,7 +64,7 @@
                                         <th class="table-active">상품 분류</th>
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
-                                                <select class="form-select me-2" id="category" name="category" style="width: 120px;">
+                                                <select class="form-select me-2" id="category_code" name="category_code" style="width: 120px;">
                                                     <option selected value="">분류 선택</option>
                                                     <option value="ring">반지</option>
                                                     <option value="brac">팔찌</option>
@@ -71,7 +74,75 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    
+                                    <tr>
+                                        <th class="table-active">상품 등록일</th>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateToday">
+                                                <label class="btn btn-outline-secondary" for="enrollDateToday">오늘</label>
+                                            
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate3day">
+                                                <label class="btn btn-outline-secondary" for="enrollDate3day">3일</label>
+                                            
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate7day">
+                                                <label class="btn btn-outline-secondary" for="enrollDate7day">7일</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate1month">
+                                                <label class="btn btn-outline-secondary" for="enrollDate1month">1개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate3months">
+                                                <label class="btn btn-outline-secondary" for="enrollDate3months">3개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate6months">
+                                                <label class="btn btn-outline-secondary" for="enrollDate6months">6개월</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate1year">
+                                                <label class="btn btn-outline-secondary" for="enrollDate1year">1년</label>
+
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateAll" checked>
+                                                <label class="btn btn-outline-secondary" for="enrollDateAll">전체</label>
+
+                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" value="2022-01-01"  style="width: 160px;"/>
+                                                <span>&nbsp;~&nbsp;</span> 
+                                                <input type="date" name="toDate" id="toDate" class="form-control" style="width: 160px;"/>
+
+                                            </div>
+                                            
+                                            <script>
+                                                var d= new Date();
+                                                
+                                                var kor_date = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+                                                /* document.getElementById('fromDate').value = kor_date.substring(0, 10); */
+                                                document.getElementById('toDate').value = kor_date.substring(0, 10);
+                                                
+                                                $("input:radio[name=enrollDate]").click(e=>{
+                                                    let selectDate = $(e.target).next()[0].innerText;
+                                                    let newDate = new Date(d.getTime() - (d.getTimezoneOffset() * 60000));
+                                                    // console.log(selectDate);
+                                                    // console.log("변경전 newDate : " + newDate);
+
+                                                    switch(selectDate){
+                                                        case "오늘": break;
+                                                        case "3일": newDate.setDate(newDate.getDate()-3); break;
+                                                        case "7일": newDate.setDate(newDate.getDate()-7); break;
+                                                        case "1개월": newDate.setMonth(newDate.getMonth()-1); break;
+                                                        case "3개월": newDate.setMonth(newDate.getMonth()-3); break;
+                                                        case "6개월": newDate.setMonth(newDate.getMonth()-6); break;
+                                                        case "1년": newDate.setFullYear(newDate.getFullYear()-1); break;
+                                                        case "전체": newDate.setFullYear(2022);
+                                                       		newDate.setMonth(0);
+                                                        	newDate.setDate(1);
+                                                        	break;
+
+                                                    }
+                                                    // console.log("변경후 newDate : " + newDate);
+                                                    let cFromDate = newDate.toISOString().substring(0,10);
+                                                    console.log(cFromDate);
+                                                    document.getElementById('fromDate').value = cFromDate;
+                                                });
+                                            </script>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="container-fluid" style="display:block; margin:10px 0; position: relative; text-align: center;">
@@ -101,46 +172,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_7</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">7</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_9</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">9</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_11</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">11</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                
+                                <c:forEach items="${productOptList }" var="productOpt">
+                                	
+	                                <tr>
+	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
+	                                    <td scope="col"><img src="${path }/resources/images/product/${productOpt.pdCode.pdImage }"  alt="상품 이미지" width="100px" height="100px"></td>
+	                                    <td scope="col" class="productNo">${productOpt.pdCode.pdCode }</td>
+	                                    <td scope="col" class="optCode">${productOpt.optNo }</td>
+	                                    <td scope="col" class="productName">${productOpt.pdCode.pdName }</td>
+	                                    <td scope="col" class="productPrice">${productOpt.pdCode.pdPrice }</td>
+	                                    <c:if test="${productOpt.size == 0}">
+	                                    	<td scope="col" class="size">FREE</td>
+	                                    </c:if>
+	                                    <c:if test="${productOpt.size != 0}">
+	                                    	<td scope="col" class="size">${productOpt.size }</td>
+	                                    </c:if>
+	                                    <td scope="col" class="stock">
+	                                        <input type="number" class="form-control-sm" value="${productOpt.stock }" style="width: 70px;">
+	                                    </td>
+	                                    <td scope="col" class="productDate">${productOpt.pdCode.pdDate }</td>
+	                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                         <table class="table table-borderless">
@@ -152,16 +204,29 @@
                                         
                                         <script>
                                             $(()=>{
-                                                //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
+                                            	//최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(재고 변경)
                                                 let rowChk = document.getElementsByClassName("rowChk_optCode");
                                                 console.log(rowChk);
-                                                $(".dropdown-item").click(e=>{
+                                                let stock = "";
+                                                let optNo = "";
+                                                let updateData = "";
+                                                let deleteData = "";
+                                                
+                                                $(".updateStock").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
+                                                    updateData = "";
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log("stock : "+rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value);
+                                                        	stock = rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value;
+                                                        	console.log(rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data);
+                                                        	optNo = rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data;
+                                                        	updateData += optNo+"|"+stock;
+                                                        	updateData += ",";
                                                         }
+                                                        
                                                     }
                                                     if(count==0){
                                                         alert("최소 1개 이상의 상품을 선택해주세요.");
@@ -169,7 +234,32 @@
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
-                                                    
+                                                    updateData = updateData.replace(/,$/, '');
+                                                    console.log(updateData);
+                                                    $("#updateData").attr("value",updateData);
+                                                });
+                                              //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(삭제)
+                                              $(".deleteStock").click(e=>{
+                                                    let i = 0;
+                                                    let count = 0;
+                                                    deleteData = "";
+                                                    for(i=0; i<rowChk.length; i++) {
+                                                        if(rowChk[i].checked){
+                                                            count++;
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data);
+                                                            optNo = rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data;
+                                                            deleteData += optNo+",";
+                                                        }
+                                                        
+                                                    }
+                                                    if(count==0){
+                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
+                                                        return;
+                                                    }
+                                                    console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    // 여기 밑에 로직 적기
+                                                    deleteData = deleteData.replace(/,$/, '');
+                                                    $("#deleteData").attr("value",deleteData);
                                                 });
                                                 //===========================================================
                                                 //allChk 로직
@@ -193,22 +283,8 @@
                                                     
                                                 });
                                                 //===========================================================
-                                                //재고 관리 변경 클릭시 모두 누락시 버튼 클릭 안되게 막기
-                                                $(".updateStock,.deleteStock").click(e=>{
-                                                    let i = 0;
-                                                    let count = 0;
-                                                    for(i=0; i<rowChk.length; i++) {
-                                                        if(rowChk[i].checked){
-                                                            count++;
-                                                            // console.log(rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value);
-                                                        }
-                                                    }
-                                                    if(count==0){
-                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
-                                                        return;
-                                                    }
-                                                    
-                                                });
+                                               
+                                                
                                                 
                                             });
                                         </script>

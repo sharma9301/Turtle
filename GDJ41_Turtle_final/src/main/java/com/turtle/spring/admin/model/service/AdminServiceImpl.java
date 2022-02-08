@@ -35,5 +35,43 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectProductList(session,param);
 	}
 	
+	@Override
+	public List<Product> selectProductOptList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectProductOptList(session,param);
+	}
+
+	@Override
+	public int selectProductCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectProductCount(session,param);
+	}
+
+	@Override
+	public int selectProductOptCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectProductOptCount(session,param);
+	}
+	
+	@Override
+	public int insertProduct(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.insertProduct(session,param);
+	}
+
+	@Override
+	public int insertProductOpt(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.insertProductOpt(session,param);
+	}
+
+	@Override
+	public int selectProductCodeCheck(String productCode) {
+		// TODO Auto-generated method stub
+		return dao.selectProductCodeCheck(session,productCode);
+	}
+
+	
+	
 	
 }

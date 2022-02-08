@@ -12,4 +12,18 @@ public interface AdminService {
 
 	List<Product> selectProductList(Map<String, Object> param);
 
+	List<Product> selectProductOptList(Map<String, Object> param);
+	
+	int selectProductCount(Map<String, Object> param);
+
+	int selectProductOptCount(Map<String, Object> param);
+
+	int insertProduct(Map<String, Object> param);
+	
+	int insertProductOpt(Map<String, Object> param);
+
+	int selectProductCodeCheck(String productCode);
+
+
+
 }

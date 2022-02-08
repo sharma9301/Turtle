@@ -24,5 +24,45 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.selectProductList",param);
 	}
 
+	@Override
+	public List<Product> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.selectProductOptList",param);
+	}
+	
+	@Override
+	public int selectProductCount(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectProductCount",param);
+	}
+
+	@Override
+	public int selectProductOptCount(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectProductOptCount",param);
+	}
+	
+	@Override
+	public int insertProduct(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("admin.insertProduct",param);
+	}
+
+	@Override
+	public int insertProductOpt(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("admin.insertProductOpt",param);
+	}
+
+	@Override
+	public int selectProductCodeCheck(SqlSessionTemplate session, String productCode){
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectProductCodeCheck",productCode);
+	}
+
+	
+
+	
+
 	
 }

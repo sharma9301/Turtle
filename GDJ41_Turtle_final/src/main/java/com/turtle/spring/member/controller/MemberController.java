@@ -187,8 +187,14 @@ public class MemberController {
 		String loc = "";
 		if(m!=null && encoder.matches((String)param.get("password"), m.getPassword())) {
 			mv.addObject("loginMember", m);
-			msg="로그인 성공";
-			loc="/";
+			if(userId == "admin") {
+				msg="관리자 로그인 성공";
+				loc="/admin/adminMainPage";
+			}else {
+				msg="로그인 성공";
+				loc="/";
+			}
+			
 		}else {
 			msg="로그인 실패 다시 시도하세요";
 			loc="/member/login/login";
