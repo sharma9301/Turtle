@@ -26,7 +26,7 @@
         <!-- Bootstrap core JS-->
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="${path }/resources/js/scripts.js"></script>
         
         <link href="${path }/resources/css/styles_gr.css" rel="stylesheet" />
         <link href="${path }/resources/css/styles.css" rel="stylesheet" />
@@ -37,6 +37,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Gowun+Batang&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
         <!-- 폰트 어썸 -->
  		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             *{
                 font-family: "Gowun Batang";
@@ -89,7 +90,7 @@
                     	<li><a href="${path }/member/mypage/myMain">My page</a></li>
                     </c:if>
                     <!-- 장바구니버튼 -->
-                    <li><a href="${path }/member/mypage/delivery"><img src="${path }/resources/images/pocket.png" width="20px" height="30px"></a></li>
+                    <li><a href="${path }/member/mypage/wishList"><img src="${path }/resources/images/pocket.png" width="20px" height="30px"></a></li>
                     <!-- 검색창 -->
                     <div id="myOverlay" class="overlay">
                         <span class="closebtn" onclick="closeSearch();" title="Close Overlay">x</span>

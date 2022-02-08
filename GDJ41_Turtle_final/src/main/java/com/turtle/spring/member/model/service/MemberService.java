@@ -10,7 +10,11 @@ public interface MemberService {
 	
 	Member myInfo(String userId);
 	
+	int myInfoUpdate(Map param);
 	
+	int enrollEnd(Map param);
+	
+	int userIdChk(String userId);
 	
 	
 	
