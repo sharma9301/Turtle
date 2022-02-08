@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-75">
-                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchMember" method="get">
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchMember.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">고객 관리</h1>
                                 <style>
@@ -49,6 +49,7 @@
                                                 </div>
                                             </div>
                                             <script>
+                                            	$("#searchTypeDiv>div[id^=search]").css("display","none");//처음 시작할때 모두 안보이게 설정
                                                 $(()=>{
                                                     $("#searchType").change(e=>{
                                                         console.log($(e.target).val());

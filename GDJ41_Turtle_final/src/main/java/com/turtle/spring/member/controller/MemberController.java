@@ -43,6 +43,8 @@ public class MemberController {
 		return "member/login/finding";
 	}
 	
+	
+	
 	@RequestMapping("/member/mypage/myMain")
 	public String myMain() {
 		return "member/mypage/myMain";
@@ -91,18 +93,19 @@ public class MemberController {
 			password = newPassword;
 		}
 		
-		String address = sample6postcode +"|"+ sample6address +"|"+ sample6detailAddress;
+		String address = sample6postcode +"/"+ sample6address +"/"+ sample6detailAddress;
 		
 		System.out.println("oriPassword : "+oriPassword);
 		System.out.println("newPassword : "+newPassword);
 		System.out.println("password : "+password);
 		System.out.println("address : "+address);
 		
+		String encPassword =encoder.encode(password);
 		
 		Map<String,Object> param = new HashMap();
 		param.put("userName", userName);
 		param.put("userId", userId);
-		param.put("password", password);
+		param.put("password", encPassword);
 		param.put("phone", phone);
 		param.put("address", address);
 		
@@ -184,8 +187,14 @@ public class MemberController {
 		String loc = "";
 		if(m!=null && encoder.matches((String)param.get("password"), m.getPassword())) {
 			mv.addObject("loginMember", m);
-			msg="로그인 성공";
-			loc="/";
+			if(userId == "admin") {
+				msg="관리자 로그인 성공";
+				loc="/admin/adminMainPage";
+			}else {
+				msg="로그인 성공";
+				loc="/";
+			}
+			
 		}else {
 			msg="로그인 실패 다시 시도하세요";
 			loc="/member/login/login";
@@ -227,7 +236,7 @@ public class MemberController {
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
 		
-		String address = addr0 +"|"+ addr1 +"|"+ addr2;
+		String address = addr0 +"/"+ addr1 +"/"+ addr2;
 		
 		String encPassword =encoder.encode(password);
 		System.out.println("변경 전 패스워드 : " + password);
@@ -273,6 +282,23 @@ public class MemberController {
 		}else {
 			return "success";
 		}
+		
+		
+	}
+	
+	
+	
+	//저장되어있는 현재 비밀번호 암호화 & 입력한 현재 비밀번호 암호화 비교  
+	@RequestMapping("/passwordChk.do")
+	@ResponseBody
+	public String passwordChk(String ori, String ori2) {
+		
+		if(encoder.matches(ori, ori2)) {
+			return "success";
+		}else {
+			return "fail";
+		}
+
 		
 		
 	}

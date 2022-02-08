@@ -114,7 +114,7 @@
               <input name="phone" type="text" value="${loginMember.phone}" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
-            <c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
+            <c:set var="addressArr" value="${fn:split(loginMember.address,'/')}"/>
             
               <input type="text" id="sample6_postcode" name="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" required>
               <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
@@ -195,29 +195,35 @@
 	   console.log("np : "+newPassword);
 	   console.log("pk : "+passwordCh);
 	   
-	   if(oriPassword != oriPassword2){
-		   alert("비밀번호가 일치하지 않습니다.");
-		   $("#oriPassword").focus();
-		   return false;
+	   if(((newPassword == "" || newPassword == null) && (passwordCh == "" || passwordCh == null)) || (newPassword == passwordCh)) {
+		   
 	   }else{
-		   if(((newPassword == "" || newPassword == null) && (passwordCh == "" || passwordCh == null)) || (newPassword == passwordCh)) {
-			   
-		   }else{
-			   
-			   alert("비밀번호 확인이 일치하지 않습니다.");
-			   $("#newPassword").val("");
-			   $("#passwordCh").val("");
-			   $("#newPassword").focus();
-			   
-			   
-			   
-			   return false;
-			   
-			   
-		   }
 		   
-		   
+		   alert("비밀번호 확인이 일치하지 않습니다.");
+		   $("#newPassword").val("");
+		   $("#passwordCh").val("");
+		   $("#newPassword").focus();
+
+		   return false;
+
 	   }
+	   
+	   let data = {ori1 : oriPassword, ori2 : oriPassword2};
+	   
+	   
+	   $.ajax({
+			type : "post",
+			url : "/passwordChk.do",
+			data : data,
+			success : function(result) {
+				
+				if(result == 'fail'){
+					alert("현재 비밀번호가 일치하지 않습니다.");
+					$("#password").focus();
+					$("#password").val("");
+				}
+			}
+		});
 	   
    });
    

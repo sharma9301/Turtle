@@ -81,6 +81,7 @@
                                                 </div>
                                             </div>
                                             <script>
+                                            	$("#searchTypeDiv>div[id^=search]").css("display","none");//처음 시작할때 모두 안보이게 설정
                                                 $(()=>{
                                                     $("#searchType").change(e=>{
                                                         console.log($(e.target).val());
@@ -96,15 +97,27 @@
                                             </script>    
                                         </td>
                                     </tr>
-                                    
                                     <tr>
-                                        <th class="table-active">기간</th>
+                                        <th class="table-active">결제 수단</th>
+                                        <td>
+                                            <div id="searchTypeDiv" style="display: flex;">
+                                                <select class="form-select me-2" id="pay_method" name="pay_method" style="width: 120px;">
+                                                    <option selected value="">분류 선택</option>
+                                                    <option value="카드">카드</option>
+                                                    <option value="네이버페이">네이버페이</option>
+                                                    <option value="카카오페이">카카오페이</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-active">주문일</th>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group">
-                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateToday" checked>
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateToday">
                                                 <label class="btn btn-outline-secondary" for="enrollDateToday">오늘</label>
                                                 
-                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateYesterday" checked>
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateYesterday">
                                                 <label class="btn btn-outline-secondary" for="enrollDateYesterday">어제</label>
 
                                                 <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate3day">
@@ -128,10 +141,10 @@
                                                 <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDate1year">
                                                 <label class="btn btn-outline-secondary" for="enrollDate1year">1년</label>
 
-                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateAll">
+                                                <input type="radio" class="btn-check btn-sm" name="enrollDate" id="enrollDateAll" checked>
                                                 <label class="btn btn-outline-secondary" for="enrollDateAll">전체</label>
 
-                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" style="width: 160px;"/>
+                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" value="2022-01-01" style="width: 160px;"/>
                                                 <span>&nbsp;~&nbsp;</span> 
                                                 <input type="date" name="toDate" id="toDate" class="form-control" style="width: 160px;"/>
 
@@ -141,7 +154,7 @@
                                                 var d= new Date();
                                                 
                                                 var kor_date = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
-                                                document.getElementById('fromDate').value = kor_date.substring(0, 10);
+                                                /* document.getElementById('fromDate').value = kor_date.substring(0, 10); */
                                                 document.getElementById('toDate').value = kor_date.substring(0, 10);
                                                 
                                                 $("input:radio[name=enrollDate]").click(e=>{
@@ -160,7 +173,10 @@
                                                         case "3개월": newDate.setMonth(newDate.getMonth()-3); break;
                                                         case "6개월": newDate.setMonth(newDate.getMonth()-6); break;
                                                         case "1년": newDate.setFullYear(newDate.getFullYear()-1); break;
-                                                        case "전체": break;
+                                                        case "전체": newDate.setFullYear(2022);
+                                                   		newDate.setMonth(0);
+                                                    	newDate.setDate(1);
+                                                    	break;
 
                                                     }
                                                     // console.log("변경후 newDate : " + newDate);

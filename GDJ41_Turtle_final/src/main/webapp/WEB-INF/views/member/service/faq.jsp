@@ -192,17 +192,17 @@
 			</p>
           </div>
 
-          <button class="accordion">배송문의 4</button>
+          <button class="accordion" style="display:none">배송문의 4</button>
           <div class="panel">
             <p>배송문의에 대한 답변</p>
           </div>
 
-          <button class="accordion">배송문의 5</button>
+          <button class="accordion" style="display:none">배송문의 5</button>
           <div class="panel">
             <p>배송문의에 대한 답변</p>
           </div>
 
-          <button class="accordion">배송문의 6</button>
+          <button class="accordion" style="display:none">배송문의 6</button>
           <div class="panel">
             <p>배송문의에 대한 답변</p>
           </div>
@@ -237,7 +237,7 @@
 			</p>
           </div>
 
-          <button class="accordion">취소/교환/반품문의 4</button>
+          <button class="accordion" style="display:none">취소/교환/반품문의 4</button>
           <div class="panel">
             <p>취소/교환/반품문의에 대한 답변</p>
           </div>

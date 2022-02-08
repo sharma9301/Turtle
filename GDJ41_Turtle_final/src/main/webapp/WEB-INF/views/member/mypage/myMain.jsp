@@ -176,7 +176,7 @@
                   </div></a>
             </div>
             <div class="col">
-                <a href="${path }/member/service/fnq"><div class="card" id="mypage4">
+                <a href="${path }/member/service/faq"><div class="card" id="mypage4">
                     <div class="card-body">
                         <h4>고객센터</h4>
                         <div>
