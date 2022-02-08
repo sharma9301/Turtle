@@ -274,7 +274,23 @@ public class AdminController {
 	
 	}
 
-
+	@RequestMapping("/admin/updateProduct.do")
+	public ModelAndView updateProduct(ModelAndView mv, HttpServletRequest request) {
+		log.debug("=====");
+		String updateData = request.getParameter("updateData");
+		System.out.println("updateData : "+updateData);
+		String[] dataList = updateData.split(",");
+		for(int i=0;i<dataList.length;i++) {
+			System.out.println(dataList[i]);
+			String[] dataArr = dataList[i].split("/");
+			for(int j=0;j<dataArr.length;j++) {
+				System.out.println(dataArr[j]);
+			}
+		}
+		
+		mv.setViewName("/admin/productList");
+		return mv;
+	}
 
 
 

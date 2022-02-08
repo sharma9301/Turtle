@@ -9,6 +9,8 @@
                     <div class="container-fluid w-100">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProductOpt.do" method="get">
                             <div class="container">
+                            	<input type="text" class="updateData" id="updateData" name="updateData">
+                            	<input type="text" class="deleteData" id="deleteData" name="deleteData">
                                 <h1 class="mt-4 mb-4">재고 관리</h1>
                                 <style>
                                     th{
@@ -202,16 +204,29 @@
                                         
                                         <script>
                                             $(()=>{
-                                                //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
+                                            	//최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(재고 변경)
                                                 let rowChk = document.getElementsByClassName("rowChk_optCode");
                                                 console.log(rowChk);
-                                                $(".dropdown-item").click(e=>{
+                                                let stock = "";
+                                                let optNo = "";
+                                                let updateData = "";
+                                                let deleteData = "";
+                                                
+                                                $(".updateStock").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
+                                                    updateData = "";
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log("stock : "+rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value);
+                                                        	stock = rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value;
+                                                        	console.log(rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data);
+                                                        	optNo = rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data;
+                                                        	updateData += optNo+"|"+stock;
+                                                        	updateData += ",";
                                                         }
+                                                        
                                                     }
                                                     if(count==0){
                                                         alert("최소 1개 이상의 상품을 선택해주세요.");
@@ -219,7 +234,32 @@
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
-                                                    
+                                                    updateData = updateData.replace(/,$/, '');
+                                                    console.log(updateData);
+                                                    $("#updateData").attr("value",updateData);
+                                                });
+                                              //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(삭제)
+                                              $(".deleteStock").click(e=>{
+                                                    let i = 0;
+                                                    let count = 0;
+                                                    deleteData = "";
+                                                    for(i=0; i<rowChk.length; i++) {
+                                                        if(rowChk[i].checked){
+                                                            count++;
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data);
+                                                            optNo = rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data;
+                                                            deleteData += optNo+",";
+                                                        }
+                                                        
+                                                    }
+                                                    if(count==0){
+                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
+                                                        return;
+                                                    }
+                                                    console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    // 여기 밑에 로직 적기
+                                                    deleteData = deleteData.replace(/,$/, '');
+                                                    $("#deleteData").attr("value",deleteData);
                                                 });
                                                 //===========================================================
                                                 //allChk 로직
@@ -243,22 +283,8 @@
                                                     
                                                 });
                                                 //===========================================================
-                                                //재고 관리 변경 클릭시 모두 누락시 버튼 클릭 안되게 막기
-                                                $(".updateStock,.deleteStock").click(e=>{
-                                                    let i = 0;
-                                                    let count = 0;
-                                                    for(i=0; i<rowChk.length; i++) {
-                                                        if(rowChk[i].checked){
-                                                            count++;
-                                                            // console.log(rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value);
-                                                        }
-                                                    }
-                                                    if(count==0){
-                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
-                                                        return;
-                                                    }
-                                                    
-                                                });
+                                               
+                                                
                                                 
                                             });
                                         </script>

@@ -10,7 +10,8 @@
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct.do" method="get">
                             <div class="container">
                             	<input type="hidden" class="productCount" id="productCount" name="productCount" value="${productCount}">
-                            	<input type="hidden" class="updateData" id="updateData" name="updateData">
+                            	<input type="text" class="updateData" id="updateData" name="updateData">
+                            	<input type="text" class="deleteData" id="deleteData" name="deleteData">
                                 <h1 class="mt-4 mb-4">상품 목록</h1>
                                 <style>
                                     th{
@@ -173,7 +174,8 @@
 	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
 	                                    <td scope="col">
 	                                    	<img src="${path }/resources/images/product/${product.pdImage}" class="pd_image" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
-	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
+	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" value="${product.pdImage}" style="display:none">
+	                                    	<input type="hidden" class="pd_imageFileName" id="pd_imageFileName" name="pd_imageFileName" value="${product.pdImage}">
 	                                    </td>
 	                                    <td scope="col">${product.pdCode }</td>
 	                                    <td scope="col">${product.pdName }</td>
@@ -222,16 +224,16 @@
                                 <td colspan="11">
                                     <div style="text-align: left;">
                                         
-                                        <button class="btn btn-secondary updateProduct" onclick="">정보 수정</button>
+                                        <button class="btn btn-secondary updateProduct">정보 수정</button>
                                         <div style="float: right;">
-	                                        <button class="btn btn-secondary" onclick="location.assign('productEnroll.html');">상품 등록</button>
+	                                        <button class="btn btn-secondary" onclick="location.assign('${path}/admin/productEnroll');">상품 등록</button>
 	                                        <button class="btn btn-secondary deleteProduct" onclick="">상품 삭제</button>
                                         </div>
                                         <script>
                                             $(()=>{
                                             	
                                              	//===========================================================
-                                                //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
+                                                //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(정보 수정)
                                                 let rowChk = document.getElementsByClassName("rowChk_productNo");
                                                 console.log(rowChk);
                                                 let pdImage = "";
@@ -239,16 +241,18 @@
                                                 let pdIsDiscount= "";
                                                 let pdDiscountrate= "";
                                                 let pdDisplay= "";
-                                                let updateData = "";
+                                                let totalData = "";
                                                 
-                                                $(".dropdown-item,.updateProduct").click(e=>{
+                                                $(".updateProduct").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
+                                                    totalData="";
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
-                                                            console.log("pdImage : "+rowChk[i].parentNode.parentNode.childNodes[1].childNodes[1].src);
-															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[1].src;                                                            
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value);
+															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value.replace(/\n|\r/g, "");
+															console.log("pdImage : "+pdImage);
                                                         	console.log("pdPrice : "+rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value);
                                                         	pdPrice = rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value;
                                                         	pdPrice = pdPrice.replace(/[^0-9]/g,"");
@@ -272,8 +276,62 @@
                                                         		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value;
                                                         		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value);
                                                         	}
-                                                        	updateData += pdImage + "|" + pdPrice + "|"  + pdIsDiscount + "|"  + pdDiscountrate + "|"  + pdDisplay;
-                                                        	updateData += ",";
+                                                        	totalData += pdImage + "/" + pdPrice + "/"  + pdIsDiscount + "/"  + pdDiscountrate + "/"  + pdDisplay;
+                                                        	totalData += ",";
+                                                        }
+                                                        
+                                                    }
+                                                    if(count==0){
+                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
+                                                        return;
+                                                    }
+                                                    console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    // 여기 밑에 로직 적기
+                                                    totalData = totalData.replace(/,$/, '');
+                                                    console.log(totalData);
+                                                    $("#updateData").attr("value",totalData);
+                                                    console.log(encodeURI(totalData))
+                                                    
+                                                    console.log(decodeURI(encodeURI(totalData)))
+                                                    location.assign("/admin/updateProduct.do?updateData="+encodeURI(totalData));
+                                                    
+                                                });
+                                              //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(상품 삭제)
+                                              $(".deleteProduct").click(e=>{
+                                                    let i = 0;
+                                                    let count = 0;
+                                                    totalData="";
+                                                    for(i=0; i<rowChk.length; i++) {
+                                                        if(rowChk[i].checked){
+                                                            count++;
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value);
+															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value.replace(/\n|\r/g, "");
+															console.log("pdImage : "+pdImage);                                                       
+                                                        	console.log("pdPrice : "+rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value);
+                                                        	pdPrice = rowChk[i].parentNode.parentNode.childNodes[4].childNodes[1].value;
+                                                        	pdPrice = pdPrice.replace(/[^0-9]/g,"");
+                                                        	console.log("pdPrice(콤마 제거) : "+pdPrice);
+                                                        	if(rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].selected==true){
+                                                        		pdIsDiscount = rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].value;
+                                                        		console.log("pdIsDiscount : "+rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][0].value);
+                                                        		pdDiscountrate = rowChk[i].parentNode.parentNode.childNodes[6].childNodes[1].value;
+                                                        		console.log("pdDiscountrate : "+rowChk[i].parentNode.parentNode.childNodes[6].childNodes[1].value);
+                                                        	}else{
+                                                        		pdIsDiscount = rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][1].value;
+                                                        		console.log("pdIsDiscount : "+rowChk[i].parentNode.parentNode.childNodes[5].childNodes[1][1].value);
+                                                        		pdDiscountrate = 0;
+                                                        		console.log("pdDiscountrate : "+pdDiscountrate);
+                                                        	}
+                                                        	
+                                                        	if(rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].selected==true){
+                                                        		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].value;
+                                                        		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][0].value);
+                                                        	}else{
+                                                        		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value;
+                                                        		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value);
+                                                        	}
+                                                        	totalData += pdImage + "/" + pdPrice + "/"  + pdIsDiscount + "/"  + pdDiscountrate + "/"  + pdDisplay;
+                                                        	totalData += ",";
                                                         }
                                                         
                                                         
@@ -285,9 +343,9 @@
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
-                                                    updateData = updateData.replace(/,$/, '');
-                                                    console.log(updateData);
-                                                    $("#updateData").attr("value",updateData);
+                                                    totalData = totalData.replace(/,$/, '');
+                                                    console.log(totalData);
+                                                    $("#deleteData").attr("value",totalData);
                                                     
                                                 });
                                                 //===========================================================
