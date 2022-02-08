@@ -14,10 +14,14 @@
     <div class="container px-4 px-lg-5 my-5" style="margin-bottom: 100px;">
         <div class="row gx-4 gx-lg-5 align-items-center">
         ${product }
-            <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/${product.pdImage}" alt="" /></div>
+        
+       <br>
+       
+        ${reviews }
+            <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/${product.pdCode.pdImage}" alt="" /></div>
             <div class="col-md-6">
-                <div class="small mb-2">상품 코드: <c:out value="${product.pdCode }"/></div>
-                <h1 class="display-5 fw-bolder"><c:out value="${product.pdName }"/></h1>
+                <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
+                <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>
                 <div class='RatingStar mb-3'>
                     <div class='RatingScore'>
                         <div class='outer-star'>
@@ -40,10 +44,20 @@
                 </script>
 
                 <div class="fs-5 mb-3">
-                    <span class="text-decoration-line-through">₩<c:out value="${product.pdPrice }"/></span>
-                    &nbsp;<span>₩90,000</span>
+                    <c:if test="${product.pdCode.pdIsDiscount =='Y' }">
+	                    <span class="text-decoration-line-through">￦<fmt:formatNumber value="${product.pdCode.pdPrice }" pattern="#,###,###" /></span>
+	                    &nbsp;
+	                    <span>
+	                    	￦<fmt:formatNumber value="${product.pdCode.pdPrice - product.pdCode.pdPrice*product.pdCode.pdDiscountrate/100}" pattern="#,###,###" />
+	                    </span>
+	                </c:if>
+	                <c:if test="${product.pdCode.pdIsDiscount !='Y' }">
+	                    <span>
+	                    	￦<fmt:formatNumber value="${product.pdCode.pdPrice}" pattern="#,###,###" />
+	                    </span>
+	                </c:if>
                 </div>
-               	<c:if test="${product.categoryCode.categoryCode eq 'ring' }">
+               	<c:if test="${product.pdCode.categoryCode.categoryCode eq 'ring' }">
 	                <div class="fs-5 mb-3">
 	                    <span class="fs-5 mb-1 d-block">Size</span>
 	                    <c:forEach items="${sizeList }" var="size">
@@ -52,7 +66,7 @@
 	                    </c:forEach>
 	                </div>
 	            </c:if>
-	            <c:if test="${product.categoryCode.categoryCode != 'ring' }">
+	            <c:if test="${product.pdCode.categoryCode.categoryCode != 'ring' }">
 	            <div class="fs-5 mb-5">
                     <span class="fs-5 mb-1 d-block">Size</span>
 	            	<input type="radio" id="size${size.size}" name="size" value="${size.size}" checked readonly><label for="size${size.size}" class="selectSize">FREE</label>

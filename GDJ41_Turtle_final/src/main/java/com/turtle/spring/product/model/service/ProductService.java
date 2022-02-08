@@ -3,12 +3,13 @@ package com.turtle.spring.product.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 public interface ProductService {
 
-	List<Product> productList(int cPage, int numPerpage);
+	List<Product> productList(int cPage, int numPerpage,Map param);
 
 	List<Product> productCategoryList(Map param, int cPage, int numPerpage);
 
@@ -16,7 +17,7 @@ public interface ProductService {
 
 	int productCategoryListCount(Map param);
 
-	Product productDetail(String pdCode);
+	Option productDetail(String pdCode);
 
 	List<Option> pdOptionSizeList(String pdCode);
 
@@ -36,4 +37,6 @@ public interface ProductService {
 
 //	index페이지용 
 	List<Product> productMainSaleList();
+
+	List<Reviews> selectReivews(String pdCode);
 }

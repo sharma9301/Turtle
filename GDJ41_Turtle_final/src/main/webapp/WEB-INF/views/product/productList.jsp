@@ -25,12 +25,15 @@
             </div>
             <script>
             	$("#kindSelect").change(e=>{
-            		let selectedValue = $(".kindSelectValue:selected").val();
+            		let selectedValue = $(e.target).val();
             		let title = $(".title").val();
-            		console.log(title);
-            		console.log(selectedValue);
-            		let data = {selectedValue : selectedValue, title : title};
+            		if(title!="All"){
+            			location.assign("/product/productCategoryList.do?title="+title+"&selectedValue="+selectedValue);
+            		}else{
+            			location.assign("/product/productList.do?title="+title+"&selectedValue="+selectedValue);
+            		}
             		
+            		/* let data = {selectedValue : selectedValue, title : title};
             		$.ajax({
             			type : "post",
             			url : "/product/productCategoryList.do",
@@ -38,7 +41,7 @@
             			success : function(result) {
             				console.log("데이터 확인용!!!!!!");
             			}
-            		});
+            		}); */
             	});           	
             </script>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-around">

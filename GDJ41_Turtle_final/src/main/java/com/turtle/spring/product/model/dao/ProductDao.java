@@ -5,12 +5,13 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 public interface ProductDao {
 
-	List<Product> productList(SqlSessionTemplate session,int cPage, int numPerpage);
+	List<Product> productList(SqlSessionTemplate session,int cPage, int numPerpage, Map param);
 
 	List<Product> productCategoryList(SqlSessionTemplate session, Map param,int cPage, int numPerpage);
 
@@ -18,7 +19,7 @@ public interface ProductDao {
 
 	int productCategoryListCount(SqlSessionTemplate session, Map param);
 
-	Product productDetail(SqlSessionTemplate session, String pdCode);
+	Option productDetail(SqlSessionTemplate session, String pdCode);
 
 	List<Option> pdOptionSizeList(SqlSessionTemplate session, String pdCode);
 
@@ -37,5 +38,7 @@ public interface ProductDao {
 	int productBestListCount(SqlSessionTemplate session);
 
 	List<Product> productMainSaleList(SqlSessionTemplate session);
+
+	List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode);
 	
 }

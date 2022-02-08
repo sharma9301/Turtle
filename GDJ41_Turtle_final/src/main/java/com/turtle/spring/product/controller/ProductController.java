@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.common.PageFactory;
 import com.turtle.spring.product.model.service.ProductService;
 import com.turtle.spring.product.model.vo.Option;
@@ -32,7 +33,11 @@ public class ProductController {
 	public ModelAndView productList(ModelAndView mv, HttpServletRequest request,
 									@RequestParam(value="cPage",defaultValue="1") int cPage,  
 									@RequestParam(value="numPerpage",defaultValue="16") int numPerpage) {
-		List<Product> list=service.productList(cPage, numPerpage);
+		String selectedValue = request.getParameter("selectedValue");
+		Map<String,Object> param = new HashMap();
+		param.put("selectedValue", selectedValue);
+		
+		List<Product> list=service.productList(cPage, numPerpage,param);
 		int totalData=service.productListCount();
 		String title = request.getParameter("title");
 		mv.addObject("totalContents",totalData);
@@ -53,10 +58,8 @@ public class ProductController {
 									@RequestParam(value="numPerpage",defaultValue="16") int numPerpage) {
 		String title = request.getParameter("title");
 		String category = title.substring(0,4).toLowerCase();
+		
 		String selectedValue = request.getParameter("selectedValue");
-//		System.out.println("title : "+title);
-//		System.out.println("category : "+category);
-//		System.out.println("selectedValue : "+selectedValue);
 		Map<String,Object> param = new HashMap();
 		param.put("category", category);
 		param.put("selectedValue", selectedValue);
@@ -77,14 +80,14 @@ public class ProductController {
 	@RequestMapping("/productDetail.do")
 	public ModelAndView productDetail(ModelAndView mv, HttpServletRequest request) {
 		String pdCode=request.getParameter("pdCode");
-		System.out.println(pdCode);
-		Product product=service.productDetail(pdCode);
-		System.out.println(product);
+		Option product=service.productDetail(pdCode);
 		List<Option> sizeList = service.pdOptionSizeList(pdCode);
+		List<Reviews> reviews=service.selectReivews(pdCode);
 		int sizeCount = service.pdOptionSizeCount(pdCode);
 		mv.addObject("product",product);
 		mv.addObject("sizeList",sizeList);
 		mv.addObject("sizeCount",sizeCount);
+		mv.addObject("reviews",reviews);
 		mv.setViewName("product/productDetail");
 		return mv;
 	}

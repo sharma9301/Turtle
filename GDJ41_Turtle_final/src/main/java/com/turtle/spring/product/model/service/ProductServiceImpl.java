@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.product.model.dao.ProductDao;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
@@ -25,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public List<Product> productList(int cPage, int numPerpage){
-		List<Product> list=dao.productList(session ,cPage, numPerpage);
+	public List<Product> productList(int cPage, int numPerpage,Map param){
+		List<Product> list=dao.productList(session ,cPage, numPerpage,param);
 		return list;
 	}
 	
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product productDetail(String pdCode) {
+	public Option productDetail(String pdCode) {
 		return dao.productDetail(session, pdCode);
 	}
 
@@ -72,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> productBestList(int cPage, int numPerpage) {
+	public List<Product> productBestList(int cPage, int numPerpage ) {
 		return dao.productBestList(session, cPage, numPerpage);
 	}
 	
@@ -94,6 +95,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> productMainSaleList() {
 		return dao.productMainSaleList(session);
+	}
+
+	@Override
+	public List<Reviews> selectReivews(String pdCode) {
+		return dao.selectReivews(session,pdCode);
 	}
 	
 }

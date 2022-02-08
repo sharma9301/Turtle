@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -14,8 +15,8 @@ import com.turtle.spring.product.model.vo.Product;
 public class ProductDaoImpl implements ProductDao {
 
 	@Override
-	public List<Product> productList(SqlSessionTemplate session, int cPage, int numPerpage){
-		return session.selectList("product.productList",null,
+	public List<Product> productList(SqlSessionTemplate session, int cPage, int numPerpage, Map param){
+		return session.selectList("product.productList",param,
 									new RowBounds((cPage-1)*numPerpage,numPerpage));
 	}
 	
@@ -35,7 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public Product productDetail(SqlSessionTemplate session, String pdCode) {
+	public Option productDetail(SqlSessionTemplate session, String pdCode) {
 		return session.selectOne("product.selectProductOne",pdCode);
 	}
 
@@ -82,5 +83,10 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Product> productMainSaleList(SqlSessionTemplate session) {
 		return session.selectList("product.productMainSaleList");
+	}
+
+	@Override
+	public List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode) {
+		return session.selectList("product.selectReivews",pdCode);
 	}
 }

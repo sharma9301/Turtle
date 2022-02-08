@@ -8,15 +8,19 @@ import com.turtle.spring.product.model.vo.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Reviews {
 	
-	private int rvNO;
+	private int rvNo;
 	private Product pdCode;
 	private Member userId;
 	private String rvGrade;
