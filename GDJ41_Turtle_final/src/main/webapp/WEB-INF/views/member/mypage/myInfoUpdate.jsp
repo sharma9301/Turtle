@@ -114,7 +114,7 @@
               <input name="phone" type="text" value="${loginMember.phone}" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
-            <c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
+            <c:set var="addressArr" value="${fn:split(loginMember.address,'/')}"/>
             
               <input type="text" id="sample6_postcode" name="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" required>
               <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>

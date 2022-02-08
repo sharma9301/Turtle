@@ -115,7 +115,7 @@
             
           </div>
           <div class="d-flex" style="width: 300px;">
-          	<c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
+          	<c:set var="addressArr" value="${fn:split(loginMember.address,'/')}"/>
             <input type="text" name="sample6_postcode" id="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" readonly>
           </div>
           <div style="width: 400px">

@@ -43,6 +43,8 @@ public class MemberController {
 		return "member/login/finding";
 	}
 	
+	
+	
 	@RequestMapping("/member/mypage/myMain")
 	public String myMain() {
 		return "member/mypage/myMain";
@@ -91,7 +93,7 @@ public class MemberController {
 			password = newPassword;
 		}
 		
-		String address = sample6postcode +"|"+ sample6address +"|"+ sample6detailAddress;
+		String address = sample6postcode +"/"+ sample6address +"/"+ sample6detailAddress;
 		
 		System.out.println("oriPassword : "+oriPassword);
 		System.out.println("newPassword : "+newPassword);
@@ -228,7 +230,7 @@ public class MemberController {
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
 		
-		String address = addr0 +"|"+ addr1 +"|"+ addr2;
+		String address = addr0 +"/"+ addr1 +"/"+ addr2;
 		
 		String encPassword =encoder.encode(password);
 		System.out.println("변경 전 패스워드 : " + password);
