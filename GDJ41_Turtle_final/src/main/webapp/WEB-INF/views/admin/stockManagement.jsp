@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                        <form class="form" style="margin: 50px auto 50px auto;">
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProductOpt.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">재고 관리</h1>
                                 <style>
@@ -21,23 +21,23 @@
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
                                                 <select class="form-select me-2" id="searchType" name="searchType" style="width: 120px;">
-                                                    <option value="productName">상품명</option>
-                                                    <option value="productCode">상품코드</option>
-                                                    <option value="optCode">옵션코드</option>
+                                                    <option value="pd_Name">상품명</option>
+                                                    <option value="pd_Code">상품코드</option>
+                                                    <option value="opt_No">옵션코드</option>
                                                 </select>
-                                                <div id="search-productName">
+                                                <div id="search-pd_Name">
                                                     <input type="hidden" name="searchType" value="productName">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productName'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Name'?keyword:''}"
                                                     placeholder="상품명을 입력하세요">
                                                 </div>
-                                                <div id="search-productCode">
+                                                <div id="search-pd_Code">
                                                     <input type="hidden" name="searchType" value="productCode">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productCode'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'pd_Code'?keyword:''}"
                                                     placeholder="상품코드를 입력하세요">
                                                 </div>
-                                                <div id="search-optCode">
+                                                <div id="search-opt_No">
                                                     <input type="hidden" name="searchType" value="optCode">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'optCode'?keyword:''}"
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'opt_No'?keyword:''}"
                                                     placeholder="옵션코드를 입력하세요">
                                                 </div>
                                             </div>
@@ -62,7 +62,7 @@
                                         <th class="table-active">상품 분류</th>
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
-                                                <select class="form-select me-2" id="category" name="category" style="width: 120px;">
+                                                <select class="form-select me-2" id="category_code" name="category_code" style="width: 120px;">
                                                     <option selected value="">분류 선택</option>
                                                     <option value="ring">반지</option>
                                                     <option value="brac">팔찌</option>
@@ -170,46 +170,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_7</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">7</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_9</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">9</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
-                                    <td scope="col"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productNo">ring001</td>
-                                    <td scope="col" class="optCode">ring001_11</td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productPrice">100000</td>
-                                    <td scope="col" class="size">11</td>
-                                    <td scope="col" class="stock">
-                                        <input type="number" class="form-control-sm" value="20" style="width: 70px;">
-                                    </td>
-                                    <td scope="col" class="productDate">22/01/28</td>
-                                </tr>
-                                
+                                <c:forEach items="${productOptList }" var="productOpt">
+                                	
+	                                <tr>
+	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_optCode" name="rowChk_optCode"></td>
+	                                    <td scope="col"><img src="${path }/resources/images/product/${productOpt.pdCode.pdImage }"  alt="상품 이미지" width="100px" height="100px"></td>
+	                                    <td scope="col" class="productNo">${productOpt.pdCode.pdCode }</td>
+	                                    <td scope="col" class="optCode">${productOpt.optNo }</td>
+	                                    <td scope="col" class="productName">${productOpt.pdCode.pdName }</td>
+	                                    <td scope="col" class="productPrice">${productOpt.pdCode.pdPrice }</td>
+	                                    <c:if test="${productOpt.size == 0}">
+	                                    	<td scope="col" class="size">FREE</td>
+	                                    </c:if>
+	                                    <c:if test="${productOpt.size != 0}">
+	                                    	<td scope="col" class="size">${productOpt.size }</td>
+	                                    </c:if>
+	                                    <td scope="col" class="stock">
+	                                        <input type="number" class="form-control-sm" value="${productOpt.stock }" style="width: 70px;">
+	                                    </td>
+	                                    <td scope="col" class="productDate">${productOpt.pdCode.pdDate }</td>
+	                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                         <table class="table table-borderless">

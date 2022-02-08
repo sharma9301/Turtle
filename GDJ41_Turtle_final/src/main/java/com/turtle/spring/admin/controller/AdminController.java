@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,7 @@ import com.turtle.spring.admin.model.service.AdminService;
 import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.vo.Product;
 
+import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -132,6 +134,46 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("/admin/searchProductOpt.do")
+	public ModelAndView searchProductOpt(ModelAndView mv, HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		System.out.println("searchType : "+searchType);
+		String[] keywords = request.getParameterValues("searchKeyword");
+		System.out.println("searchKeyword : "+keywords);
+		String category_code = request.getParameter("category_code");
+		System.out.println("category_code : "+category_code);
+		String keyword = "";
+		for(int i=0; i<keywords.length;i++) {
+			if(keywords[i]!="") {
+				keyword = keywords[i];
+			}
+		}
+		System.out.println("keyword : "+keyword);
+		
+		String fromDate = request.getParameter("fromDate");
+		String toDate = request.getParameter("toDate");
+		
+		System.out.println("fromDate : "+fromDate);
+		System.out.println("toDate : "+toDate);
+		
+		
+		Map<String,Object> param = new HashMap();
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+		param.put("category_code", category_code);
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
+		
+		List<Product> list = service.selectProductOptList(param);
+		int count = service.selectProductOptCount(param);
+		
+		System.out.println(list);
+		mv.addObject("productOptList",list);
+		mv.addObject("productOptCount",count);		
+		mv.setViewName("admin/stockManagement");
+		return mv;
+	}
+	
 	@RequestMapping("/admin/productEnrollEnd")
 	public ModelAndView productEnroll(ModelAndView mv, HttpServletRequest request, @RequestParam("productImage") MultipartFile file) throws Exception {
 		
@@ -210,4 +252,31 @@ public class AdminController {
 		mv.setViewName("admin/productEnroll");
 		return mv;
 	}
+
+	@RequestMapping("/admin/productCodeChk")
+	@ResponseBody
+	public String productCodeCheck(String productCode) {
+		
+		log.debug("productCodeCheck 진입");
+		System.out.println(productCode);
+		int result = service.selectProductCodeCheck(productCode);
+		
+		log.debug("결과 값 : "+result);
+		
+		if(result != 0) {
+			log.debug("중복됨");
+			return "fail";
+		} else {
+			log.debug("중복 안됨");
+			return "success";
+		}
+		
+	
+	}
+
+
+
+
+
+	
 }

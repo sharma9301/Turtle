@@ -43,7 +43,7 @@
                                 <tr>
                                     <td>상품 코드 (필수)</td>
                                     <td style="display: flex;">
-                                        <input class="form-control" id="productCode" name="productCode" type="text" style="width: 200px;"><button class="btn btn-secondary ms-3" type="button" onclick="">중복 확인</button>
+                                        <input class="form-control" id="productCode" name="productCode" type="text" style="width: 200px;"><button class="btn btn-secondary ms-3" id="productCodeChk" type="button">중복 확인</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -132,6 +132,28 @@
                         <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">상품 등록</button>
                     </form>
                 </main>
-
-
+<script>
+	
+	
+	
+	$("#productCodeChk").click(e=>{
+		let productCode = $("#productCode").val();
+		let data = {productCode : productCode};
+		console.log(productCode);
+		console.log(data);
+		
+		$.ajax({
+			type : "post",
+			url : "/admin/productCodeChk",
+			data : data,
+			success : function(result) {
+				
+				if(result != 'fail'){
+					alert("이미 존재하는 상품 코드 입니다.");
+				}else{
+					alert("사용할 수 있는 상품 코드 입니다.");}
+				}
+		});
+	});
+</script>
 <jsp:include page="/WEB-INF/views/admin/common/adminFooter.jsp"/>

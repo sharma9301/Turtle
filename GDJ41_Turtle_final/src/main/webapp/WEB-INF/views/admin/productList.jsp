@@ -9,8 +9,8 @@
                     <div class="container-fluid w-75">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct.do" method="get">
                             <div class="container">
-                            	<input type="text" class="productCount" id="productCount" name="productCount" value="${productCount}" style="display:none">
-                            	<input type="text" class="updateData" id="updateData" name="updateData" style="display:none">
+                            	<input type="hidden" class="productCount" id="productCount" name="productCount" value="${productCount}">
+                            	<input type="hidden" class="updateData" id="updateData" name="updateData">
                                 <h1 class="mt-4 mb-4">상품 목록</h1>
                                 <style>
                                     th{
