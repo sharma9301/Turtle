@@ -2,7 +2,7 @@ package com.turtle.spring.common;
 
 public class PageFactory {
 
-	public static String getPageBar(int totalData, int cPage, int numPerpage, int pageBarSize, String url) {
+	public static String getPageBar(int totalData, int cPage, int numPerpage, int pageBarSize, String url, String title) {
 		String pageBar="";
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -46,6 +46,7 @@ public class PageFactory {
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage){";
 		pageBar+="location.assign('"+url+"?cPage='+cPage);";
+//		pageBar+="location.assign('"+url+"?cPage='+cPage'&title='+title);";
 		pageBar+="}";
 		pageBar+="</script>";
 		

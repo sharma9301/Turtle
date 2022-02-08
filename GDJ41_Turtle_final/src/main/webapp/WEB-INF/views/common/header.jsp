@@ -26,7 +26,9 @@
         <!-- Bootstrap core JS-->
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="${path}/resources/js/scripts.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         
         <link href="${path }/resources/css/styles_gr.css" rel="stylesheet" />
         <link href="${path }/resources/css/styles.css" rel="stylesheet" />
@@ -56,15 +58,15 @@
                                 <td><a href="${path }/product/productCategoryList.do?title=Earrings">Earrings</a></td>
                             </tr>
                             <tr>
-                                <td><a href="#">Best</a></td>
+                                <td><a href="${path }/product/productBestList.do?title=Best">Best</a></td>
                                 <td><a href="${path }/product/productCategoryList.do?title=Necklaces">Necklaces</a></td>
                             </tr>
                             <tr>
-                                <td><a href="#">New</a></td>
+                                <td><a href="${path }/product/productNewList.do?title=New">New</a></td>
                                 <td><a href="${path }/product/productCategoryList.do?title=Bracelets">Bracelets</a></td>
                             </tr>
                             <tr>
-                                <td><a href="#">Sale</a></td>
+                                <td><a href="${path }/product/productSaleList.do?title=Sales">Sale</a></td>
                                 <td><a href="${path }/product/productCategoryList.do?title=Rings">Rings</a></td>
                             </tr>
                         </table>

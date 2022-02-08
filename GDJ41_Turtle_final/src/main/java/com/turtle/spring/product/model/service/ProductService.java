@@ -22,4 +22,18 @@ public interface ProductService {
 
 	int pdOptionSizeCount(String pdCode);
 
+	List<Product> productSaleList(int cPage, int numPerpage);
+
+	List<Product> productNewList(int cPage, int numPerpage);
+
+	List<Product> productBestList(int cPage, int numPerpage);
+
+	int productSaleListCount();
+	
+	int productNewListCount();
+	
+	int productBestListCount();
+
+//	index페이지용 
+	List<Product> productMainSaleList();
 }

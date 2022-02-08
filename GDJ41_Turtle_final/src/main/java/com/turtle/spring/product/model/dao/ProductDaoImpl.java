@@ -48,4 +48,39 @@ public class ProductDaoImpl implements ProductDao {
 	public int pdOptionSizeCount(SqlSessionTemplate session, String pdCode) {
 		return session.selectOne("product.pdOptionSizeCount",pdCode);
 	}
+
+	@Override
+	public List<Product> productSaleList(SqlSessionTemplate session, int cPage, int numPerpage) {
+		return session.selectList("product.productSaleList",null,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+	@Override
+	public List<Product> productNewList(SqlSessionTemplate session, int cPage, int numPerpage) {
+		return session.selectList("product.productNewList",null,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+	@Override
+	public List<Product> productBestList(SqlSessionTemplate session, int cPage, int numPerpage) {
+		return session.selectList("product.productBestList",null,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+	@Override
+	public int productSaleListCount(SqlSessionTemplate session) {
+		return session.selectOne("product.productSaleListCount");
+	}
+
+	@Override
+	public int productNewListCount(SqlSessionTemplate session) {
+		return session.selectOne("product.productNewListCount");
+	}
+
+	@Override
+	public int productBestListCount(SqlSessionTemplate session) {
+		return session.selectOne("product.productBestListCount");
+	}
+
+	@Override
+	public List<Product> productMainSaleList(SqlSessionTemplate session) {
+		return session.selectList("product.productMainSaleList");
+	}
 }

@@ -60,5 +60,40 @@ public class ProductServiceImpl implements ProductService {
 	public int pdOptionSizeCount(String pdCode) {
 		return dao.pdOptionSizeCount(session,pdCode);
 	}
+
+	@Override
+	public List<Product> productSaleList(int cPage, int numPerpage) {
+		return dao.productSaleList(session, cPage, numPerpage);
+	}
+
+	@Override
+	public List<Product> productNewList(int cPage, int numPerpage) {
+		return dao.productNewList(session, cPage, numPerpage);
+	}
+
+	@Override
+	public List<Product> productBestList(int cPage, int numPerpage) {
+		return dao.productBestList(session, cPage, numPerpage);
+	}
+	
+	@Override
+	public int productSaleListCount() {
+		return dao.productSaleListCount(session);
+	}
+	
+	@Override
+	public int productNewListCount() {
+		return dao.productNewListCount(session);
+	}
+	
+	@Override
+	public int productBestListCount() {
+		return dao.productBestListCount(session);
+	}
+
+	@Override
+	public List<Product> productMainSaleList() {
+		return dao.productMainSaleList(session);
+	}
 	
 }

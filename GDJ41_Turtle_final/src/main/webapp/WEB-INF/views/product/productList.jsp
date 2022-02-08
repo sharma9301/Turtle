@@ -13,7 +13,34 @@
 <section>
         <div class="container px-4 px-lg-5 mt-5">
             <h1 style="text-align: center; margin-bottom: 40px;">${title }</h1>
-            <h5 style="text-align: right; margin-bottom:10px">총 <c:out value="${totalContents }"/>개의 상품</h5>
+            <input type="hidden" class="title" value="${title }">
+            <div style="display:flex; justify-content: space-between; margin-bottom:10px;">
+            	<select name="kindSelect" id="kindSelect">
+            		<option class="kindSelectValue" value="new">최신상품순</option>
+            		<option class="kindSelectValue" value="best">인기상품순</option>
+            		<option class="kindSelectValue" value="low">낮은가격순</option>
+            		<option class="kindSelectValue" value="high">높은가격순</option>
+            	</select>
+            	<h5 style="text-align: right;">총 <c:out value="${totalContents }"/>개의 상품</h5>
+            </div>
+            <script>
+            	$("#kindSelect").change(e=>{
+            		let selectedValue = $(".kindSelectValue:selected").val();
+            		let title = $(".title").val();
+            		console.log(title);
+            		console.log(selectedValue);
+            		let data = {selectedValue : selectedValue, title : title};
+            		
+            		$.ajax({
+            			type : "post",
+            			url : "/product/productCategoryList.do",
+            			data : data,
+            			success : function(result) {
+            				console.log("데이터 확인용!!!!!!");
+            			}
+            		});
+            	});           	
+            </script>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-around">
                <%-- ${list} --%>
                 <!-- 리스트 시작 -->
@@ -40,11 +67,17 @@
 		                                    <div class="bi-star-fill"></div>
 		                                    <div class="bi-star"></div>
 		                                </div>
+		                                <c:if test="${p.pdIsDiscount == 'Y'}">
 		                                <!-- Product price-->
 		                                <span class="text-muted text-decoration-line-through">
-		                                ￦<fmt:formatNumber value="${p.pdPrice }" pattern="#,###,###" />
+		                                	￦<fmt:formatNumber value="${p.pdPrice }" pattern="#,###,###" />
 										</span>
-										&nbsp; ￦<fmt:formatNumber value="${p.pdPrice }" pattern="#,###,###" />
+										&nbsp; ￦<fmt:formatNumber value="${p.pdPrice - p.pdPrice*p.pdDiscountrate/100}" pattern="#,###,###" />
+										</c:if>
+										<c:if test="${p.pdIsDiscount == 'N'}">
+											<!-- Product price-->
+											&nbsp; ￦<fmt:formatNumber value="${p.pdPrice}" pattern="#,###,###" />
+										</c:if>
 		                            </div>
 		                        </div>
 		                        <!-- Product actions-->
