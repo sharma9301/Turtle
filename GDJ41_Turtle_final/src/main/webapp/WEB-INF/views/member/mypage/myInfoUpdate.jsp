@@ -195,29 +195,35 @@
 	   console.log("np : "+newPassword);
 	   console.log("pk : "+passwordCh);
 	   
-	   if(oriPassword != oriPassword2){
-		   alert("비밀번호가 일치하지 않습니다.");
-		   $("#oriPassword").focus();
-		   return false;
+	   if(((newPassword == "" || newPassword == null) && (passwordCh == "" || passwordCh == null)) || (newPassword == passwordCh)) {
+		   
 	   }else{
-		   if(((newPassword == "" || newPassword == null) && (passwordCh == "" || passwordCh == null)) || (newPassword == passwordCh)) {
-			   
-		   }else{
-			   
-			   alert("비밀번호 확인이 일치하지 않습니다.");
-			   $("#newPassword").val("");
-			   $("#passwordCh").val("");
-			   $("#newPassword").focus();
-			   
-			   
-			   
-			   return false;
-			   
-			   
-		   }
 		   
-		   
+		   alert("비밀번호 확인이 일치하지 않습니다.");
+		   $("#newPassword").val("");
+		   $("#passwordCh").val("");
+		   $("#newPassword").focus();
+
+		   return false;
+
 	   }
+	   
+	   let data = {ori1 : oriPassword, ori2 : oriPassword2};
+	   
+	   
+	   $.ajax({
+			type : "post",
+			url : "/passwordChk.do",
+			data : data,
+			success : function(result) {
+				
+				if(result == 'fail'){
+					alert("현재 비밀번호가 일치하지 않습니다.");
+					$("#password").focus();
+					$("#password").val("");
+				}
+			}
+		});
 	   
    });
    

@@ -223,6 +223,8 @@
 			console.log("password : "+password);
 			console.log("pk : "+passwordCh);
 			
+			
+			
 			if(password != passwordCh){
 				alert("비밀번호가 일치하지 않습니다.");
 				$("#password").focus();
