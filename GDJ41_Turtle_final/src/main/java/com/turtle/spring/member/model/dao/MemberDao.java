@@ -12,4 +12,26 @@ public interface MemberDao {
 	
 	Member myInfo(SqlSessionTemplate session, String userId);
 	
+	int myInfoUpdate(SqlSessionTemplate session, Map param);
+
+	int enrollEnd(SqlSessionTemplate session,Map param);
+
+	int userIdChk(SqlSessionTemplate session, String userId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

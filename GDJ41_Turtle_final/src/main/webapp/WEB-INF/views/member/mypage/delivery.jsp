@@ -92,17 +92,20 @@
           <button class="nav-link active" id="fnqtab1" data-bs-toggle="tab" data-bs-target="#delCon1" type="button" role="tab" aria-controls="home" aria-selected="true" style="color: black;">전체</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab4" data-bs-toggle="tab" data-bs-target="#delCon2" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">배송대기</button>
+          <button class="nav-link" id="fnqtab2" data-bs-toggle="tab" data-bs-target="#delCon2" type="button" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">배송준비중</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab2" data-bs-toggle="tab" data-bs-target="#delCon3" type="button" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">배송준비중</button>
+          <button class="nav-link" id="fnqtab3" data-bs-toggle="tab" data-bs-target="#delCon3" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">배송중</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab3" data-bs-toggle="tab" data-bs-target="#delCon4" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">배송중</button>
-        </li>
+          <button class="nav-link" id="fnqtab4" data-bs-toggle="tab" data-bs-target="#delCon4" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">배송완료</button>
+        </li> 
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab4" data-bs-toggle="tab" data-bs-target="#delCon5" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">배송완료</button>
-        </li>        
+          <button class="nav-link" id="fnqtab5" data-bs-toggle="tab" data-bs-target="#delCon5" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">주문취소</button>
+        </li>   
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="fnqtab6" data-bs-toggle="tab" data-bs-target="#delCon6" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">환불</button>
+        </li>      
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="delCon1" role="tabpanel" aria-labelledby="home-tab">
@@ -249,10 +252,39 @@
                     </div>
               </div>
           
+          </div>
+          
+          <div class="tab-pane fade" id="delCon6" role="tabpanel" aria-labelledby="contact-tab">
+          
+            <!-- 6666 -->
+            
+              <div class="col" style="margin-top: 20px;">
+                  <div class="card" >
+                      <div class="card-body">
+                          <div class="container">
+                              <div class="row row-cols-6" id="orderList">
+                                  <div class="col">                                    
+                                    <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
+                                  </div>
+                                  <div class="col">구매날짜</div>
+                                  <div class="col">상품이름+외n개</div>
+                                  <div class="col">주문번호</div>
+                                  <div class="col">주소</div>
+                                  <div class="col">
+                                    <button type="button" class="btn btn-outline-info" style="margin: 3px;">상세보기</button>
+                                    <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+              </div>
+          
             
             
   
           </div>
+          
       </div>
   </div>
 

@@ -108,19 +108,19 @@
             <input name="userName" type="text" value="${loginMember.userName}" readonly><br>
             <label>아이디</label>
             <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
-            <label>비밀번호</label>
-            <input name="password" type="password" readonly><br>
+           <!--  <label>비밀번호</label>
+            <input name="password" type="password" readonly><br> -->
             <label>연락처</label>
             <input name="phone" type="text" value="${loginMember.phone}" readonly><br>
             
           </div>
           <div class="d-flex" style="width: 300px;">
           	<c:set var="addressArr" value="${fn:split(loginMember.address,'|')}"/>
-            <input type="text" id="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" readonly>
+            <input type="text" name="sample6_postcode" id="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" readonly>
           </div>
           <div style="width: 400px">
-            <input type="text" id="sample6_address" value="${addressArr[1]}" readonly><br>
-            <input type="text" id="sample6_detailAddress" value="${addressArr[2]}" readonly>
+            <input type="text" name="sample6_address" id="sample6_address" value="${addressArr[1]}" readonly><br>
+            <input type="text" name="sample6_detailAddress" id="sample6_detailAddress" value="${addressArr[2]}" readonly>
             <%-- <input type="text" id="sample6_extraAddress" value="${addressArr[2]}" readonly> --%>
           </div>
         </div>

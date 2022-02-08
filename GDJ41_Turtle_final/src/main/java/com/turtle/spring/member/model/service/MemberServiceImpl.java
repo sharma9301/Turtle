@@ -32,6 +32,20 @@ public class MemberServiceImpl implements MemberService {
 		return dao.myInfo(session,userId);
 	}
 	
+	@Override
+	public int myInfoUpdate(Map param) {
+		return dao.myInfoUpdate(session,param);
+	}
+	
+	@Override
+	public int enrollEnd(Map param) {
+		return dao.enrollEnd(session,param);
+	}
+
+	@Override
+	public int userIdChk(String userId) {
+		return dao.userIdChk(session,userId);
+	}
 	
 	
 	
