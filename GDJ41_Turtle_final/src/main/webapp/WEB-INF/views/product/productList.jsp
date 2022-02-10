@@ -14,19 +14,28 @@
         <div class="container px-4 px-lg-5 mt-5">
             <h1 style="text-align: center; margin-bottom: 40px;">${title }</h1>
             <input type="hidden" class="title" value="${title }">
+            <input type="hidden" class="selectedValue" value="${selectedValue }">
+            
             <div style="display:flex; justify-content: space-between; margin-bottom:10px;">
-            	<select name="kindSelect" id="kindSelect">
-            		<option class="kindSelectValue" value="new">최신상품순</option>
-            		<option class="kindSelectValue" value="best">인기상품순</option>
-            		<option class="kindSelectValue" value="low">낮은가격순</option>
-            		<option class="kindSelectValue" value="high">높은가격순</option>
-            	</select>
             	<h5 style="text-align: right;">총 <c:out value="${totalContents }"/>개의 상품</h5>
+            	<c:if test="${title != 'New' and title != 'Best' }">
+	            	<select name="kindSelect" id="kindSelect">
+	            		<option class="kindSelectValue" value="new">최신상품순</option>
+	            		<option class="kindSelectValue" value="best">인기상품순</option>
+	            		<option class="kindSelectValue" value="low">낮은가격순</option>
+	            		<option class="kindSelectValue" value="high">높은가격순</option>
+	            	</select>
+            	</c:if>
+            	<c:if test="${title == 'New' and title == 'Best' }">
+	            	<div style="width:10px;"></div>
+            	</c:if>
             </div>
             <script>
+            		
             	$("#kindSelect").change(e=>{
             		let selectedValue = $(e.target).val();
             		let title = $(".title").val();
+            		
             		if(title!="All"){
             			location.assign("/product/productCategoryList.do?title="+title+"&selectedValue="+selectedValue);
             		}else{

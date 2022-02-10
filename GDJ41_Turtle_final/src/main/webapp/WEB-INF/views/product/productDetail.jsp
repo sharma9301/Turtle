@@ -13,9 +13,6 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5" style="margin-bottom: 100px;">
         <div class="row gx-4 gx-lg-5 align-items-center">
-        ${product }
-       <br><br>
-       <%--  ${reviews } --%>
             <div class="col-md-6 img-div"><img class="card-img-top2 mb-5 mb-md-0" src="${path }/resources/images/product/${product.pdCode.pdImage}" alt="" /></div>
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
@@ -59,8 +56,7 @@
 	                <div class="fs-5 mb-3">
 	                    <span class="fs-5 mb-1 d-block">Size</span>
 	                    <c:forEach items="${sizeList }" var="size">
-	                    <input type="radio" id="size${size.size}" name="size" value="${size.size}" checked><label for="size${size.size}" class="selectSize">${size.size}</label>
-	                    
+	                    	<input type="radio" id="size${size.size}" name="size" value="${size.size}" checked><label for="size${size.size}" class="selectSize">${size.size}</label>
 	                    </c:forEach>
 	                </div>
 	            </c:if>
@@ -70,7 +66,9 @@
 	            	<input type="radio" id="size${size.size}" name="size" value="${size.size}" checked readonly><label for="size${size.size}" class="selectSize">FREE</label>
 	            </div>
 	            </c:if>
-	            
+	            <script>
+		           
+	            </script>
 	            
 	            
                 <style>
@@ -100,38 +98,45 @@
                         </tr>
                         <tr>
                             <td>MATERIAL</td>
-                            <td><c:out value=""/></td>
+                            <td><c:out value="${product.material }"/></td>
                         </tr>
                         <tr>
                             <td>COLOR</td>
-                            <td>GOLD</td>
+                            <td><c:out value="${product.color }"/></td>
                         </tr>
                         <tr>
                             <td>WEIGHT</td>
-                            <td>3.0g</td>
+                            <td><c:out value="${product.weight }"/></td>
                         </tr>
                         <tr>
                             <td>재고</td>
                             <td>
-                                몇개
+                                <c:out value="${product.stock }"/>
                             </td>
                         </tr>
                         <tr>
-                            <td>수량</td>
+                            <td>구매수량</td>
                             <td>
-                                <input type="number" id="amount" name="amount" style="width: 30%;" placeholder="0"/>
+                               	<input type="number" id="amount" name="amount" style="width: 30%;" placeholder="1" min="1" max="10"/>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <div class="fs-5 mb-3">
-                    
-                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button">
+                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button" onclick="orderBtn();">
                         <i class="bi-cart-fill me-1"></i>
                         바로 구매
                     </button>
-
-                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button">
+					<script>
+						const orderBtn=()=>{
+							let amount=$("#amount").val();
+							console.log(amount);
+							let size=$("input[name=size]:checked").val();
+							console.log(size);
+							location.assign('/product/orderProduct.do?pdCode=${product.pdCode.pdCode}&userId=${loginMember.userId }&amount='+amount+'&size='+size);
+						}
+					</script>
+                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button" onclick="">
                         <i class="bi bi-bag-plus"></i>
                         장바구니
                     </button>
@@ -155,13 +160,10 @@
                 <li>4</li>
                 <li>5</li>
                 <li>6</li>
-                <!-- <li>7</li>
+                <li>7</li>
                 <li>8</li>
                 <li>9</li>
                 <li>10</li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li> -->          
             </ul>
         </div>
         <script>
@@ -201,91 +203,35 @@
             <button class="insert-review">리뷰 작성하기</button>
         </div>
         <div class="reviews-line"></div>
-        <div class="reviews-content">
-            <div class="review-info">
-                <p>임*린</p>
-                <p>2022/1/24</p>
-                <div class='RatingStar mb-3'>
-                    <div class='RatingScore'>
-                        <div class='outer-star'>
-                            <div class='inner-star'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="review-detail">
-                <h5>(댓글제목) 이거 진짜 사진보다 실물이 더 예쁨</h5>
-                <p>사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여 사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여</p>
-            </div>
-            <div class="review-img">
-                <img src="${path }/resources/images/sale1.png" alt="" width="120px" height="120px">
-            </div>
-        </div>
-        <div class="reviews-line"></div>
-        <div class="reviews-content">
-            <div class="review-info">
-                <p>임*린</p>
-                <p>2022/1/24</p>
-                <div class='RatingStar mb-3'>
-                    <div class='RatingScore'>
-                        <div class='outer-star'>
-                            <div class='inner-star'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="review-detail">
-                <h5>(댓글제목) 이거 진짜 사진보다 실물이 더 예쁨</h5>
-                <p>사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여 사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여</p>
-            </div>
-            <div class="review-img">
-                <img src="${path }/resources/images/sale1.png" alt="" width="120px" height="120px">
-            </div>
-        </div>
-        <div class="reviews-line"></div>
-        <div class="reviews-content">
-            <div class="review-info">
-                <p>임*린</p>
-                <p>2022/1/24</p>
-                <div class='RatingStar mb-3'>
-                    <div class='RatingScore'>
-                        <div class='outer-star'>
-                            <div class='inner-star'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="review-detail">
-                <h5>(댓글제목) 이거 진짜 사진보다 실물이 더 예쁨</h5>
-                <p>사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여 사진으로 봣을때보다 실물이 훨씬 이쁘네요 진짜 마음에 들어여.... 지인들한테 다 추천해주는중 여러분들 고민말고 사세여</p>
-            </div>
-            <div class="review-img">
-                
-            </div>
-        </div>
-        <div class="reviews-line"></div>
+       	<c:if test="${not empty reviews }">
+       		<c:forEach var="r" items="${reviews }">
+		        <div class="reviews-content">
+		            <div class="review-info">
+		                <p><c:out value="${r.userId.userId }"/></p>
+		                <p><c:out value="${r.rvDate }"/></p>
+		                <div class='RatingStar mb-3'>
+		                    <div class='RatingScore'>
+		                        <div class='outer-star'>
+		                            <div class='inner-star'></div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="review-detail">
+		                <h5><c:out value="${r.rvTitle }"/></h5>
+		                <p><c:out value="${r.rvContent }"/></p>
+		            </div>
+		            <div class="review-img">
+		                <img src="${path }/resources/images/reviews/${r.rvImage}" width="120px" height="120px">
+		            </div>
+		        </div>
+		        <div class="reviews-line"></div>
+	        </c:forEach>
+        </c:if>
     </div>
     <!-- 페이지바 -->
-    <div style="margin:0 auto;">
-        <nav aria-label="Page navigation example" style="margin: 0 auto;">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-        </nav>
-    </div>
+    <div id="pageBar">
+   		${pageBar }
+   	</div>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.turtle.spring.board.model.vo.Reviews;
+import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -38,5 +39,11 @@ public interface ProductService {
 //	index페이지용 
 	List<Product> productMainSaleList();
 
-	List<Reviews> selectReivews(String pdCode);
+	List<Reviews> selectReivews(int cPage, int numPerpage, String pdCode);
+
+	int reviewsCount(String pdCode);
+
+	Member orderMember(String userId);
+
+	Product productOrderDetail(String pdCode);
 }

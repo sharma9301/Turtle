@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.turtle.spring.board.model.vo.Reviews;
+import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -39,6 +40,12 @@ public interface ProductDao {
 
 	List<Product> productMainSaleList(SqlSessionTemplate session);
 
-	List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode);
+	List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage);
+
+	int reviewsCount(SqlSessionTemplate session, String pdCode);
+
+	Member orderMember(SqlSessionTemplate session, String userId);
+
+	Product productOrderDetail(SqlSessionTemplate session, String pdCode);
 	
 }

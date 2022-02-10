@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.turtle.spring.board.model.vo.Reviews;
+import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -86,7 +87,22 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode) {
-		return session.selectList("product.selectReivews",pdCode);
+	public List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage) {
+		return session.selectList("product.selectReivews",pdCode,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+	@Override
+	public int reviewsCount(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.reviewsCount",pdCode);
+	}
+
+	@Override
+	public Member orderMember(SqlSessionTemplate session, String userId) {
+		return session.selectOne("product.orderMember",userId);
+	}
+
+	@Override
+	public Product productOrderDetail(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.productOrderDetail",pdCode);
 	}
 }

@@ -1,9 +1,15 @@
 package com.turtle.spring.common;
 
+import java.util.Map;
+
 public class PageFactory {
 
-	public static String getPageBar(int totalData, int cPage, int numPerpage, int pageBarSize, String url, String title) {
+	public static String getPageBar(int totalData, int cPage, int numPerpage, int pageBarSize, String url, Map param) {
 		String pageBar="";
+		String title = (String) param.get("title");
+		String selectedValue = (String) param.get("selectedValue");
+		System.out.println("title : "+title);
+		System.out.println("selectedValue : "+selectedValue);
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
@@ -43,11 +49,31 @@ public class PageFactory {
 		}
 		
 		pageBar+="</ul>";
+		pageBar+="\n";
 		pageBar+="<script>";
+		pageBar+="\n";
+		pageBar+="let title = $('.title').val();";
+		pageBar+="\n";
+		pageBar+="console.log(title);";
+		pageBar+="\n";
+		pageBar+="let selectedValue = $('.selectedValue').val();";
+		pageBar+="\n";
+		pageBar+="console.log(selectedValue);";
+		pageBar+="\n";
 		pageBar+="function fn_paging(cPage){";
-		pageBar+="location.assign('"+url+"?cPage='+cPage);";
-//		pageBar+="location.assign('"+url+"?cPage='+cPage'&title='+title);";
+		
+		if(title==null && selectedValue==null) {
+			pageBar+="location.assign('"+url+"cPage='+cPage);";
+		}else if(title!=null && selectedValue==null) {
+			System.out.println("메롱");
+			
+			pageBar+="location.assign('"+url+"cPage='+cPage+'&title='+title);";
+		}else if(title!=null && selectedValue!=null) {
+			pageBar+="location.assign('"+url+"cPage='+cPage+'&title='+title+'&selectedValue='+selectedValue);";
+			
+		}
 		pageBar+="}";
+		pageBar+="\n";
 		pageBar+="</script>";
 		
 		return pageBar;

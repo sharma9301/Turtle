@@ -365,7 +365,7 @@ section{
 
 }
 .payment-content{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 30px 30px 30px 30px;
 }
 .receiver-info{
@@ -387,21 +387,42 @@ section{
   justify-content: space-between;
 }
 /* 버튼 */
-.daumBtn{
+.daumBtn,.beforeBtn{
   background-color: white;
   width: 120px;
   height: 30px;
   border-radius: 5px;
   ;
 }
-.daumBtn:hover{
+.daumBtn:hover,.beforeBtn:hover{
   background-color: tan;
   color: white;
   transition: 0.2s;
   border: none;
 }
-
-
+/* 수량변경 버튼 */
+.updateAmount{
+	background-color: white;
+ 	width: 100px;
+ 	height: 30px;
+  	border-radius: 5px;
+}
+.updateAmount:hover{
+  background-color: tan;
+  color: white;
+  transition: 0.2s;
+  border: none;
+}
+/* 오더체크 */
+#receiver-info-orderFrm h5,#receiver-info-orderFrm input{
+	font-weight: bold;
+}
+#receiver-info-orderFrm input:focus{
+	outline: none;
+}
+#receiver-info-orderFrm input{
+	background-color:rgb(243, 240, 240);
+}
 
 
   

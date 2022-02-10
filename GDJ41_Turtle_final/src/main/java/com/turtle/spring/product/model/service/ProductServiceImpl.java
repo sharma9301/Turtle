@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.turtle.spring.board.model.vo.Reviews;
+import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.dao.ProductDao;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
@@ -98,8 +99,23 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Reviews> selectReivews(String pdCode) {
-		return dao.selectReivews(session,pdCode);
+	public List<Reviews> selectReivews(int cPage, int numPerpage, String pdCode) {
+		return dao.selectReivews(session,pdCode,cPage, numPerpage);
+	}
+
+	@Override
+	public int reviewsCount(String pdCode) {
+		return dao.reviewsCount(session,pdCode);
+	}
+
+	@Override
+	public Member orderMember(String userId) {
+		return dao.orderMember(session, userId);
+	}
+
+	@Override
+	public Product productOrderDetail(String pdCode) {
+		return dao.productOrderDetail(session, pdCode);
 	}
 	
 }

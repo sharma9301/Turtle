@@ -7,7 +7,6 @@
 <link href="${path }/resources/css/service.css" rel="stylesheet" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-
     
  	<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
 
@@ -79,7 +78,7 @@
 
 <main>
   <!-- 사이드바 -->
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; text-align: center;">
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; text-align: center;" >
       <span class="fs-4">고객센터</span>
     <hr>
     <ul class="sidebarUl">
@@ -105,7 +104,7 @@
 
 
   <!-- 페이지내용 -->
-  <div class="container">
+  <div class="container" style="margin-top:150px;">
 
       <div class="csTitle"><h1>계정탈퇴</h1></div>
 
