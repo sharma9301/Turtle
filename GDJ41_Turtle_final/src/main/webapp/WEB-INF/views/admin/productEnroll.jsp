@@ -149,9 +149,9 @@
 			success : function(result) {
 				
 				if(result != 'fail'){
-					alert("이미 존재하는 상품 코드 입니다.");
-				}else{
 					alert("사용할 수 있는 상품 코드 입니다.");}
+				}else{
+					alert("이미 존재하는 상품 코드 입니다.");
 				}
 		});
 	});
