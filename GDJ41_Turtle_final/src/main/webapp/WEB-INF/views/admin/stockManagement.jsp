@@ -223,7 +223,7 @@
                                                         	stock = rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value;
                                                         	console.log(rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data);
                                                         	optNo = rowChk[i].parentNode.parentNode.childNodes[3].childNodes[0].data;
-                                                        	updateData += optNo+"|"+stock;
+                                                        	updateData += optNo+"/"+stock;
                                                         	updateData += ",";
                                                         }
                                                         
@@ -237,6 +237,7 @@
                                                     updateData = updateData.replace(/,$/, '');
                                                     console.log(updateData);
                                                     $("#updateData").attr("value",updateData);
+                                                    location.assign("/admin/updateStock.do?updateData="+updateData);
                                                 });
                                               //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(삭제)
                                               $(".deleteStock").click(e=>{

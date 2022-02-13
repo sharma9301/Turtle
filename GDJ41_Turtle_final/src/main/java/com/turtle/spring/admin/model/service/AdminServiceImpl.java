@@ -71,6 +71,18 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectProductCodeCheck(session,productCode);
 	}
 
+	@Override
+	public int updateProduct(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.updateProduct(session,param);
+	}
+
+	@Override
+	public int deleteProduct(String pd_Code) {
+		// TODO Auto-generated method stub
+		return dao.deleteProduct(session,pd_Code);
+	}
+
 	
 	
 	

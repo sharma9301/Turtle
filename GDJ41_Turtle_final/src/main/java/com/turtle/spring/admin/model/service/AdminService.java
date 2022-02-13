@@ -24,6 +24,10 @@ public interface AdminService {
 
 	int selectProductCodeCheck(String productCode);
 
+	int updateProduct(Map<String, Object> param);
+
+	int deleteProduct(String pd_Code);
+
 
 
 }
