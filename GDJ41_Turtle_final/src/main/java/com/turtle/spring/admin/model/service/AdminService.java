@@ -28,6 +28,10 @@ public interface AdminService {
 
 	int deleteProduct(String pd_Code);
 
+	int updateStock(Map<String, Object> param);
+
+	int deleteProductOption(String opt_No);
+
 
 
 }

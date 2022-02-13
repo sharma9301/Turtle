@@ -385,41 +385,29 @@ public class AdminController {
 		System.out.println("updateData : "+updateData);
 		String[] dataList = updateData.split(",");
 		String[] dataArr = null;
-		String pd_Code = "";
-		String pd_Price = "";
-		String pd_Is_Discount = "";
-		String pd_Discountrate = "";
-		String pd_Is_Display = "";
+		String opt_No = "";
+		String stock = "";
+		
 		String msg = "";
 		String loc = "";
 		
 		for(int i=0;i<dataList.length;i++) {
 			System.out.println(dataList[i]);
 			dataArr = dataList[i].split("/");
-//			for(int j=0;j<dataArr.length;j++) {
-//				System.out.println(dataArr[j]);
-//			}
-			pd_Code = dataArr[0];
-			pd_Price = dataArr[1];
-			pd_Is_Discount = dataArr[2];
-			pd_Discountrate = dataArr[3];
-			pd_Is_Display = dataArr[4];
+
+			opt_No = dataArr[0];
+			stock = dataArr[1];
 			
-			System.out.println(pd_Code);
-			System.out.println(pd_Price);
-			System.out.println(pd_Is_Discount);
-			System.out.println(pd_Discountrate);
-			System.out.println(pd_Is_Display);
+			
+			System.out.println(opt_No);
+			System.out.println(stock);
 			
 			
 			Map<String,Object> param = new HashMap();		
-			param.put("pd_Code",pd_Code);
-			param.put("pd_Price",pd_Price);
-			param.put("pd_Is_Discount",pd_Is_Discount);
-			param.put("pd_Discountrate",pd_Discountrate);
-			param.put("pd_Is_Display", pd_Is_Display);
+			param.put("opt_No",opt_No);
+			param.put("stock",stock);
 			
-			int count = service.updateProduct(param);
+			int count = service.updateStock(param);
 			
 			if(count>0) {
 				log.debug("수정 완료");
@@ -430,7 +418,7 @@ public class AdminController {
 				msg="정보 수정 실패";
 			}
 		}
-		loc="/admin/productList";
+		loc="/admin/stockManagement";
 		
 		
 		mv.addObject("msg",msg);
@@ -440,4 +428,33 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("/admin/deleteProductOption.do")
+	public ModelAndView deleteProductOption(ModelAndView mv, HttpServletRequest request, MultipartFile file) {
+		
+		String deleteData = request.getParameter("deleteData");
+		System.out.println("deleteData : "+deleteData);
+		String[] dataList = deleteData.split(",");
+		String opt_No = "";
+		String msg = "";
+		String loc = "";
+		loc = "/admin/productList";
+		
+		for(int i=0;i<dataList.length;i++) {
+			opt_No = dataList[i];
+			int count = service.deleteProductOption(opt_No);
+			
+			if(count>0) {
+				log.debug("삭제 완료");
+				msg = "삭제 완료";
+			}else {
+				log.debug("삭제 실패");
+				msg = "삭제 실패";
+			}
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 }

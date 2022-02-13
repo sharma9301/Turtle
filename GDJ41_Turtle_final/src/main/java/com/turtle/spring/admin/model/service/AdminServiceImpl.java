@@ -83,6 +83,18 @@ public class AdminServiceImpl implements AdminService {
 		return dao.deleteProduct(session,pd_Code);
 	}
 
+	@Override
+	public int updateStock(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.updateStock(session,param);
+	}
+
+	@Override
+	public int deleteProductOption(String opt_No) {
+		// TODO Auto-generated method stub
+		return dao.deleteProductOption(session,opt_No);
+	}
+
 	
 	
 	

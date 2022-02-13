@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
-                    <div class="container-fluid w-75">
+                    <div class="container-fluid w-100">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchMember.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">고객 관리</h1>

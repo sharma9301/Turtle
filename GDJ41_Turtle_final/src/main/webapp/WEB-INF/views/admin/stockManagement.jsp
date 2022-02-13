@@ -260,7 +260,9 @@
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
                                                     deleteData = deleteData.replace(/,$/, '');
+                                                    console.log(deleteData);
                                                     $("#deleteData").attr("value",deleteData);
+                                                    location.assign("/admin/deleteProductOption.do?deleteData="+deleteData);
                                                 });
                                                 //===========================================================
                                                 //allChk 로직

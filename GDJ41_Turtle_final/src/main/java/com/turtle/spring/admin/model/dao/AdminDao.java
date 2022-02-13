@@ -30,6 +30,10 @@ public interface AdminDao {
 
 	int deleteProduct(SqlSessionTemplate session, String pd_Code);
 
+	int updateStock(SqlSessionTemplate session, Map<String, Object> param);
+
+	int deleteProductOption(SqlSessionTemplate session, String opt_No);
+
 
 	
 }
