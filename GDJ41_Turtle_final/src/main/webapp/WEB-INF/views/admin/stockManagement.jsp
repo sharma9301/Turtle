@@ -200,7 +200,7 @@
                                 <td colspan="11">
                                     <div style="text-align: left;">
                                         <button class="btn btn-secondary updateStock" onclick="">재고 변경</button>
-                                        <button class="btn btn-secondary deleteStock" onclick="" style="float: right;">삭제</button>
+                                        <button class="btn btn-secondary deleteStock" onclick="" style="float: right;">사이즈 삭제</button>
                                         
                                         <script>
                                             $(()=>{
