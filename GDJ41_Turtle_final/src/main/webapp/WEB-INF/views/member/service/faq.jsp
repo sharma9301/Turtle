@@ -172,15 +172,15 @@
           <button class="accordion">1. 주문내역을 확인하고 싶어요.</button>
           <div class="panel">
             <p>
-            	- 주문내역은 마이페이지><a href="${path }/member/mypage/delivery">주문내역</a>에서 확인 가능합니다.<br>
-            	주문별 상세내역은 <a href="${path }/member/mypage/deliveryDetail">주문상세내역</a>에서 확인가능합니다.
+            	- 주문내역은 마이페이지><a href="${path }/member/mypage/delivery?userId=${loginMember.userId}">주문내역</a>에서 확인 가능합니다.<br>
+            	주문별 상세내역은 마이페이지>주문내역><a href="${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}">주문상세내역</a>에서 확인가능합니다.
             </p>
           </div>
 
           <button class="accordion">2. 배송현황이 궁금해요.</button>
           <div class="panel">
             <p>
-            	- 전체 배송현황은 <a href="${path }/member/mypage/myMain">마이페이지</a>에서 확인가능하며, 주문별 배송현황은 <a href="${path }/member/mypage/delivery">주문내역</a>에 배송조회를 통해 확인가능합니다.
+            	- 전체 배송현황은 <a href="${path }/member/mypage/myMain?userId=${loginMember.userId}">마이페이지</a>에서 확인가능하며, 주문별 배송현황은 <a href="${path }/member/mypage/delivery">주문내역</a>에 배송조회를 통해 확인가능합니다.
             </p>
           </div>
 
@@ -215,7 +215,7 @@
           <button class="accordion">1. 주문을 취소하고 싶어요.</button>
           <div class="panel">
             <p>
-	            - 주문취소는 배송상태가 '배송대기'상태인 경우, <a href="${path }/member/mypage/deliveryDetail">주문내역 상세보기</a>에서 가능합니다.<br>
+	            - 주문취소는 배송상태가 '배송대기'상태인 경우, <a href="${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}">주문내역 상세보기</a>에서 가능합니다.<br>
 				그 외의 경우에는 제품을 받으신 후 반품요청을 통해서만 가능합니다. 
 			</p>
           </div>
@@ -223,7 +223,7 @@
           <button class="accordion">2. 반품요청을 하고싶어요.</button>
           <div class="panel">
             <p>
-				- 반품요청은 배송상태가 '배송대기'가 아닐 경우, 마이페이지>주문내역><a href="${path }/member/mypage/deliveryDetail">주문내역상세보기</a>에서 가능합니다.<br>
+				- 반품요청은 배송상태가 '배송대기'가 아닐 경우, 마이페이지>주문내역><a href="${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}">주문내역상세보기</a>에서 가능합니다.<br>
 				 택배사를 통해 상품반송을 해주시면, 택배비를 차감한 금액이 환불됩니다.(택배비를 선불로 지불한 경우, 택배비 차감 없음)<br>
 				반송된 제품 검수 후 환불이 진행된다는 점 양해부탁드립니다.            
 			</p>

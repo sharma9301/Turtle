@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
-                    <div class="container-fluid w-75">
+                    <div class="container-fluid w-100">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchMember.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">고객 관리</h1>
@@ -129,9 +129,9 @@
                             <tr>
                                 <td colspan="11">
                                     <div style="text-align: left;">
-                                        <button class="btn btn-secondary updateMember" >정보 수정</button>
+                                        <!-- <button class="btn btn-secondary updateMember" >정보 수정</button>
                                         
-                                        <button class="btn btn-secondary deleteMember" style="float: right;">삭제</button>
+                                        <button class="btn btn-secondary deleteMember" style="float: right;">삭제</button> -->
                                         <script>
                                             $(()=>{
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직

@@ -6,12 +6,12 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
-                    <div class="container-fluid w-75">
+                    <div class="container-fluid w-100">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProduct.do" method="get">
                             <div class="container">
                             	<input type="hidden" class="productCount" id="productCount" name="productCount" value="${productCount}">
-                            	<input type="text" class="updateData" id="updateData" name="updateData">
-                            	<input type="text" class="deleteData" id="deleteData" name="deleteData">
+                            	<input type="hidden" class="updateData" id="updateData" name="updateData">
+                            	<input type="hidden" class="deleteData" id="deleteData" name="deleteData">
                                 <h1 class="mt-4 mb-4">상품 목록</h1>
                                 <style>
                                     th{
@@ -117,7 +117,7 @@
                                                     // console.log("변경전 newDate : " + newDate);
 
                                                     switch(selectDate){
-                                                        case "오늘": break;
+                                                        case "오늘": new Date(d.getTime() - (d.getTimezoneOffset() * 60000)); break;
                                                         case "3일": newDate.setDate(newDate.getDate()-3); break;
                                                         case "7일": newDate.setDate(newDate.getDate()-7); break;
                                                         case "1개월": newDate.setMonth(newDate.getMonth()-1); break;
@@ -133,6 +133,7 @@
                                                     // console.log("변경후 newDate : " + newDate);
                                                     let cFromDate = newDate.toISOString().substring(0,10);
                                                     console.log(cFromDate);
+                                                    
                                                     document.getElementById('fromDate').value = cFromDate;
                                                 });
                                             </script>
@@ -174,13 +175,13 @@
 	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
 	                                    <td scope="col">
 	                                    	<img src="${path }/resources/images/product/${product.pdImage}" class="pd_image" id="pd_image" name="pd_image" width="100px" height="100px" alt="상품 이미지">
-	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" value="${product.pdImage}" style="display:none">
+	                                    	<input type="file" class="pd_imageFile" id="pd_imageFile" name="pd_imageFile" accept="images/*" style="display:none">
 	                                    	<input type="hidden" class="pd_imageFileName" id="pd_imageFileName" name="pd_imageFileName" value="${product.pdImage}">
 	                                    </td>
 	                                    <td scope="col">${product.pdCode }</td>
 	                                    <td scope="col">${product.pdName }</td>
 	                                    <td scope="col">
-	                                    	<input type="text" class="form-control price" name="price" id="price" maxlength="11" value="<fmt:formatNumber value="${product.pdPrice }" type="number"/>" min="0" style="text-align: center" onkeyup="inputNumberFormat(this); discountPrice();">
+	                                    	<input type="text" class="form-control price" name="price" id="price" maxlength="11" value="<fmt:formatNumber value="${product.pdPrice }" type="number"/>" min="0" style="text-align: center">
 	                                    </td>
 	                                    <td scope="col">
 	                                    	<select class="form-select" name="pdIsDiscount" id="pdIsDiscount" style="width:100px; margin:0 auto;">
@@ -189,7 +190,7 @@
 	                                    	</select>
 	                                    </td>
 	                                    <td scope="col">
-	                                    	<input type="number" name="pdDiscountRate" id="pdDiscountRate" class="form-control-sm pdDiscountRate" style="width: 70px" min="0" max="100" value="<fmt:formatNumber value="${product.pdDiscountrate }" type="number"/>" onchange="discountPrice();">%
+	                                    	<input type="number" name="pdDiscountRate" id="pdDiscountRate" class="form-control-sm pdDiscountRate" style="width: 70px" min="0" max="100" value="<fmt:formatNumber value="${product.pdDiscountrate }" type="number"/>">%
 	                                   	</td>
 	                                    <td scope="col">
 	                                    	<input type="text" class="form-control discountPrice" name="discountPrice" id="discountPrice" value="<fmt:formatNumber value="${product.pdPrice-(product.pdPrice*product.pdDiscountrate/100) }" type="number"/>" maxlength="11" style="text-align: center">
@@ -236,13 +237,14 @@
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(정보 수정)
                                                 let rowChk = document.getElementsByClassName("rowChk_productNo");
                                                 console.log(rowChk);
+                                                let pdCode = "";
                                                 let pdImage = "";
                                                 let pdPrice= "";
                                                 let pdIsDiscount= "";
                                                 let pdDiscountrate= "";
                                                 let pdDisplay= "";
                                                 let totalData = "";
-                                                
+                                                let pdImageFile="";
                                                 $(".updateProduct").click(e=>{
                                                     let i = 0;
                                                     let count = 0;
@@ -250,6 +252,17 @@
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                            console.log("pd_code : "+rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                            pdCode = rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data;
+                                                            
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[1].childNodes[3].files[0]);                                                            
+                                                            pdImageFile = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[3].files[0];
+                                                            
+                                                            
+                                                            
+                                                            console.log(pdImageFile);
                                                             console.log(rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value);
 															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value.replace(/\n|\r/g, "");
 															console.log("pdImage : "+pdImage);
@@ -276,7 +289,7 @@
                                                         		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value;
                                                         		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value);
                                                         	}
-                                                        	totalData += pdImage + "/" + pdPrice + "/"  + pdIsDiscount + "/"  + pdDiscountrate + "/"  + pdDisplay;
+                                                        	totalData += pdCode + "/" + pdPrice + "/"  + pdIsDiscount + "/"  + pdDiscountrate + "/"  + pdDisplay;
                                                         	totalData += ",";
                                                         }
                                                         
@@ -290,9 +303,9 @@
                                                     totalData = totalData.replace(/,$/, '');
                                                     console.log(totalData);
                                                     $("#updateData").attr("value",totalData);
-                                                    console.log(encodeURI(totalData))
+                                                    console.log(encodeURI(totalData));
                                                     
-                                                    console.log(decodeURI(encodeURI(totalData)))
+                                                    console.log(decodeURI(encodeURI(totalData)));
                                                     location.assign("/admin/updateProduct.do?updateData="+encodeURI(totalData));
                                                     
                                                 });
@@ -304,6 +317,9 @@
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log(rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                            console.log("pd_code : "+rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                            pdCode = rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data;
                                                             console.log(rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value);
 															pdImage = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[5].value.replace(/\n|\r/g, "");
 															console.log("pdImage : "+pdImage);                                                       
@@ -330,7 +346,7 @@
                                                         		pdDisplay = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value;
                                                         		console.log("pdDisplay : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1][1].value);
                                                         	}
-                                                        	totalData += pdImage + "/" + pdPrice + "/"  + pdIsDiscount + "/"  + pdDiscountrate + "/"  + pdDisplay;
+                                                        	totalData += pdCode;
                                                         	totalData += ",";
                                                         }
                                                         
@@ -346,7 +362,7 @@
                                                     totalData = totalData.replace(/,$/, '');
                                                     console.log(totalData);
                                                     $("#deleteData").attr("value",totalData);
-                                                    
+                                                    location.assign("/admin/deleteProduct.do?deleteData="+totalData);
                                                 });
                                                 //===========================================================
                                                 //allRowChk 로직
@@ -369,10 +385,10 @@
                                                 });
                                               //===========================================================
                                               	//이미지 미리보기 로직
-        									    $(".pd_image").click(e=>{
-        									    	console.log($(e.target)[0].nextElementSibling);
-        									    	$(e.target)[0].nextElementSibling.click();
-        										})
+        									    //$(".pd_image").click(e=>{
+        									    //	console.log($(e.target)[0].nextElementSibling);
+        									    //	$(e.target)[0].nextElementSibling.click();
+        										//})
         									
         										$("input[name=pd_imageFile]").change(e=>{
         											console.log("=====확인 체크용=======");
@@ -395,6 +411,8 @@
         											}
         											
         										});
+                                              
+                                              	
                                                 
                                             });
                                         //===========================================================

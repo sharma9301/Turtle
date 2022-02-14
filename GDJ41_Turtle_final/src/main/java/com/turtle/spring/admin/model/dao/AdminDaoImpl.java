@@ -60,6 +60,30 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectProductCodeCheck",productCode);
 	}
 
+	@Override
+	public int updateProduct(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("admin.updateProduct",param);
+	}
+
+	@Override
+	public int deleteProduct(SqlSessionTemplate session, String pd_Code) {
+		// TODO Auto-generated method stub
+		return session.delete("admin.deleteProduct",pd_Code);
+	}
+
+	@Override
+	public int updateStock(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("admin.updateStock",param);
+	}
+
+	@Override
+	public int deleteProductOption(SqlSessionTemplate session, String opt_No) {
+		// TODO Auto-generated method stub
+		return session.delete("admin.deleteProductOption",opt_No);
+	}
+
 	
 
 	

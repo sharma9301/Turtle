@@ -44,6 +44,7 @@
                                     <td>상품 코드 (필수)</td>
                                     <td style="display: flex;">
                                         <input class="form-control" id="productCode" name="productCode" type="text" style="width: 200px;"><button class="btn btn-secondary ms-3" id="productCodeChk" type="button">중복 확인</button>
+                                        <input type="hidden" class="form-control" id="productCodeChkYN" value="false">
                                     </td>
                                 </tr>
                                 <tr>
@@ -129,13 +130,13 @@
                                 </tr>
                             </table>
                         </div>
-                        <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">상품 등록</button>
+                        <button type="submit" class="btn btn-secondary" id="insertProductBtn" style="display: block; margin: 0 auto;">상품 등록</button>
                     </form>
                 </main>
 <script>
 	
 	
-	
+	//아이디 체크 확인하는 로직
 	$("#productCodeChk").click(e=>{
 		let productCode = $("#productCode").val();
 		let data = {productCode : productCode};
@@ -149,11 +150,30 @@
 			success : function(result) {
 				
 				if(result != 'fail'){
-					alert("이미 존재하는 상품 코드 입니다.");
+					alert("사용할 수 있는 상품 코드 입니다.");
+					$('#productCodeChkYN').val("true");
+					productCode.onchange = function(){
+   						$('#productCodeChkYN').val("false");
+   					}
 				}else{
-					alert("사용할 수 있는 상품 코드 입니다.");}
+					alert("이미 존재하는 상품 코드 입니다.");
+					$("#productCode").focus();
+					$("#productCode").val("");
 				}
+			}
 		});
+	});
+	
+	$("#insertProductBtn").click(e=>{
+		
+		
+		let productCodeChkYN = $("#productCodeChkYN").val();
+		console.log(productCodeChkYN);
+		
+		if(productCodeChkYN != "true"){
+			alert("상품 코드 중복 확인을 해주세요.");
+			return false;
+		}
 	});
 </script>
 <jsp:include page="/WEB-INF/views/admin/common/adminFooter.jsp"/>

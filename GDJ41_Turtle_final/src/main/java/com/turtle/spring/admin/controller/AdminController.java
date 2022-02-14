@@ -113,6 +113,8 @@ public class AdminController {
 		String fromDate = request.getParameter("fromDate");
 		String toDate = request.getParameter("toDate");
 		
+		
+		
 		System.out.println("fromDate : "+fromDate);
 		System.out.println("toDate : "+toDate);
 		
@@ -189,6 +191,9 @@ public class AdminController {
 		System.out.println("pd_code : "+pd_code);
 		System.out.println("pd_Image : "+pd_Image);
 		
+		String msg = "";
+		String loc = "";
+		loc="/admin/productEnroll";
 		String path = request.getServletContext().getRealPath("/resources/images/product/");
 		File f = new File(path);
 		if(!f.exists()) f.mkdirs();
@@ -205,8 +210,10 @@ public class AdminController {
 		
 		if(insertResult>0) {
 			System.out.println("product 추가 성공");
+			msg = "product 추가 성공";
 		}else {
 			System.out.println("product 추가 실패");
+			msg = "product 추가 성공";
 		}
 		
 		String opt_material = request.getParameter("material");
@@ -233,8 +240,10 @@ public class AdminController {
 				
 				if(insertResult2>0) {
 					System.out.println("product opt 추가 성공");
+					
 				}else {
 					System.out.println("product opt 추가 실패");
+					msg = "product opt 추가 실패";
 				}
 			}
 		}else {
@@ -245,11 +254,14 @@ public class AdminController {
 				System.out.println("product opt 추가 성공");
 			}else {
 				System.out.println("product opt 추가 실패");
+				msg = "product opt 추가 실패";
 			}
 		}
 		
 		
-		mv.setViewName("admin/productEnroll");
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 
@@ -275,24 +287,174 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/updateProduct.do")
-	public ModelAndView updateProduct(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView updateProduct(ModelAndView mv, HttpServletRequest request, MultipartFile file) {
 		log.debug("=====");
 		String updateData = request.getParameter("updateData");
 		System.out.println("updateData : "+updateData);
 		String[] dataList = updateData.split(",");
+		String[] dataArr = null;
+		String pd_Code = "";
+		String pd_Price = "";
+		String pd_Is_Discount = "";
+		String pd_Discountrate = "";
+		String pd_Is_Display = "";
+		String msg = "";
+		String loc = "";
+		
 		for(int i=0;i<dataList.length;i++) {
 			System.out.println(dataList[i]);
-			String[] dataArr = dataList[i].split("/");
-			for(int j=0;j<dataArr.length;j++) {
-				System.out.println(dataArr[j]);
+			dataArr = dataList[i].split("/");
+//			for(int j=0;j<dataArr.length;j++) {
+//				System.out.println(dataArr[j]);
+//			}
+			pd_Code = dataArr[0];
+			pd_Price = dataArr[1];
+			pd_Is_Discount = dataArr[2];
+			pd_Discountrate = dataArr[3];
+			pd_Is_Display = dataArr[4];
+			
+			System.out.println(pd_Code);
+			System.out.println(pd_Price);
+			System.out.println(pd_Is_Discount);
+			System.out.println(pd_Discountrate);
+			System.out.println(pd_Is_Display);
+			
+			
+			Map<String,Object> param = new HashMap();		
+			param.put("pd_Code",pd_Code);
+			param.put("pd_Price",pd_Price);
+			param.put("pd_Is_Discount",pd_Is_Discount);
+			param.put("pd_Discountrate",pd_Discountrate);
+			param.put("pd_Is_Display", pd_Is_Display);
+			
+			int count = service.updateProduct(param);
+			
+			if(count>0) {
+				log.debug("수정 완료");
+				msg="정보 수정 성공";
+				
+			}else {
+				log.debug("수정 실패");
+				msg="정보 수정 실패";
 			}
 		}
+		loc="/admin/productList";
 		
-		mv.setViewName("/admin/productList");
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
 		return mv;
 	}
 
+	@RequestMapping("/admin/deleteProduct.do")
+	public ModelAndView deleteProduct(ModelAndView mv, HttpServletRequest request, MultipartFile file) {
+		
+		String deleteData = request.getParameter("deleteData");
+		System.out.println("deleteData : "+deleteData);
+		String[] dataList = deleteData.split(",");
+		String pd_Code = "";
+		String msg = "";
+		String loc = "";
+		loc = "/admin/productList";
+		
+		for(int i=0;i<dataList.length;i++) {
+			pd_Code = dataList[i];
+			int count = service.deleteProduct(pd_Code);
+			
+			if(count>0) {
+				log.debug("삭제 완료");
+				msg = "삭제 완료";
+			}else {
+				log.debug("삭제 실패");
+				msg = "삭제 실패";
+			}
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 
+	@RequestMapping("/admin/updateStock.do")
+	public ModelAndView updateStock(ModelAndView mv, HttpServletRequest request) {
+		log.debug("=====");
+		String updateData = request.getParameter("updateData");
+		System.out.println("updateData : "+updateData);
+		String[] dataList = updateData.split(",");
+		String[] dataArr = null;
+		String opt_No = "";
+		String stock = "";
+		
+		String msg = "";
+		String loc = "";
+		
+		for(int i=0;i<dataList.length;i++) {
+			System.out.println(dataList[i]);
+			dataArr = dataList[i].split("/");
 
+			opt_No = dataArr[0];
+			stock = dataArr[1];
+			
+			
+			System.out.println(opt_No);
+			System.out.println(stock);
+			
+			
+			Map<String,Object> param = new HashMap();		
+			param.put("opt_No",opt_No);
+			param.put("stock",stock);
+			
+			int count = service.updateStock(param);
+			
+			if(count>0) {
+				log.debug("수정 완료");
+				msg="정보 수정 성공";
+				
+			}else {
+				log.debug("수정 실패");
+				msg="정보 수정 실패";
+			}
+		}
+		loc="/admin/stockManagement";
+		
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 	
+	@RequestMapping("/admin/deleteProductOption.do")
+	public ModelAndView deleteProductOption(ModelAndView mv, HttpServletRequest request, MultipartFile file) {
+		
+		String deleteData = request.getParameter("deleteData");
+		System.out.println("deleteData : "+deleteData);
+		String[] dataList = deleteData.split(",");
+		String opt_No = "";
+		String msg = "";
+		String loc = "";
+		loc = "/admin/productList";
+		
+		for(int i=0;i<dataList.length;i++) {
+			opt_No = dataList[i];
+			int count = service.deleteProductOption(opt_No);
+			
+			if(count>0) {
+				log.debug("삭제 완료");
+				msg = "삭제 완료";
+			}else {
+				log.debug("삭제 실패");
+				msg = "삭제 실패";
+			}
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 }

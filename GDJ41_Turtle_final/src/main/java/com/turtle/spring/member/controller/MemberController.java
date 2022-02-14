@@ -1,6 +1,7 @@
 package com.turtle.spring.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.turtle.spring.mail.service.MailService;
 import com.turtle.spring.member.model.service.MemberService;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,7 +87,7 @@ public class MemberController {
 		String sample6address = request.getParameter("sample6_address");
 		String sample6detailAddress = request.getParameter("sample6_detailAddress");
 		String password = "";
-		
+	
 		if(newPassword==null || newPassword=="") {
 			password = oriPassword;
 		}else {
@@ -137,15 +138,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping("/member/mypage/delivery")
-	public String delivery() {
-		return "member/mypage/delivery";
-	}
 	
-	@RequestMapping("/member/mypage/deliveryDetail")
-	public String deliveryDetail() {
-		return "member/mypage/deliveryDetail";
-	}
 	
 	@RequestMapping("/member/mypage/wishList")
 	public String wishList() {
@@ -174,7 +167,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/login/login.do")
 	public ModelAndView login(ModelAndView mv,HttpServletRequest request) {
-		
+		log.debug("로그인 로직 실행했나?");
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		System.out.println(userId);
@@ -310,6 +303,49 @@ public class MemberController {
 		
 		
 	}
+	
+	
+	/*
+		@RequestMapping("/member/deleteEnd")
+		public ModelAndView deleteEnd(ModelAndView mv,HttpServletRequest request) {
+		String userId = request.getParameter("userId");		
+		String oriPassword = request.getParameter("oriPassword");
+		String oriPassword2 = request.getParameter("oriPassword2");
+		
+		String encPassword =encoder.encode(oriPassword);
+		
+		Map<String,Object> param = new HashMap();
+		param.put("userId", userId);
+		param.put("password", encPassword);
+		
+		String msg = "";
+		String loc = "";
+		if(encoder.matches(oriPassword, oriPassword2)) {
+			int result = service.deleteEnd(param);
+			if(result>0) {
+				msg="탈퇴되었습니다.";
+				//로그아웃 로직
+				loc="/";
+				
+			}else {
+				msg="문제가 생겼습니다. 다시 시도해주세요!";
+				loc="/member/deleteEnd";
+			}
+		}else {
+			msg="비밀번호가 일치하지 않습니다. 다시 시도해주세요!";
+			loc="/member/deleteEnd";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+			
+		
+		return mv;
+	}
+	
+	*/
+	
 	
 	
 	

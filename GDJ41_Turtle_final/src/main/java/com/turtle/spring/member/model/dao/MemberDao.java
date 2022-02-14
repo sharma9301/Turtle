@@ -1,10 +1,12 @@
 package com.turtle.spring.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
 
 public interface MemberDao {
 	
@@ -17,8 +19,10 @@ public interface MemberDao {
 	int enrollEnd(SqlSessionTemplate session,Map param);
 
 	int userIdChk(SqlSessionTemplate session, String userId);
+	
+//	int deleteEnd(SqlSessionTemplate session, Map param);
 
-
+	
 
 
 
