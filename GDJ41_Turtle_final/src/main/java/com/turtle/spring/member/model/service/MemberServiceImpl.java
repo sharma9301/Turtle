@@ -1,5 +1,6 @@
 package com.turtle.spring.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.turtle.spring.member.model.dao.MemberDao;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +48,14 @@ public class MemberServiceImpl implements MemberService {
 	public int userIdChk(String userId) {
 		return dao.userIdChk(session,userId);
 	}
+	
+	//@Override
+	//public int deleteEnd(Map param) {
+	//	return dao.deleteEnd(session,param);
+	//}
+	
+	
+	
 	
 	
 	

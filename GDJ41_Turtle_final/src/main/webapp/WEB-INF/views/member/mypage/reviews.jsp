@@ -63,7 +63,7 @@
 <!-- 경로 -->
 <nav aria-label="breadcrumb" style="margin:20px;"> 
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="${path }/member/mypage/myMain">마이페이지</a></li>
+    <li class="breadcrumb-item"><a href="${path }/member/mypage/myMain?userId=${loginMember.userId}">마이페이지</a></li>
     <li class="breadcrumb-item active" aria-current="page">나의리뷰</li>
   </ol>
 </nav>
