@@ -21,7 +21,7 @@ public class Order {
 	private String rcName;
 	private String rcPhone;
 	private String rcAddress;
-	private String Method;
+	private String method;
 	private int totalPrice;
 	private String invoice;
 

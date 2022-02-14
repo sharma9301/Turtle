@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class OrderDetail {
 	
 	private int orderDetailNo;
-	private Product orderNo;
+	private Order orderNo;
 	private Option optNo;
 	private Date orderDate;
 	private String rcName;

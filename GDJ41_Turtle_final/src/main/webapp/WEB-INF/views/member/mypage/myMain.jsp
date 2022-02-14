@@ -156,7 +156,7 @@
                   </div></a>
             </div>
             <div class="col" style="margin-right: 10px;">
-                <a href="${path }/member/mypage/delivery"><div class="card" id="mypage2">
+                <a href="${path }/member/mypage/delivery?userId=${loginMember.userId}"><div class="card" id="mypage2">
                     <div class="card-body">
                         <h4>주문내역</h4>
                         <div>

@@ -110,13 +110,13 @@
       <div class="csTitle"><h1>계정탈퇴</h1></div>
 
       <div class="csDelete">
-          <form name="csDelete">
+          <form name="csDelete" action="${path }/deleteEnd">
             <label>아이디</label>
             <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
             <label>비밀번호</label>
-            <input name="password" id="oriPassword" type="password" placeholder="비밀번호">
+            <input name="oriPassword" id="oriPassword" type="password" placeholder="비밀번호" required>
             <input name="oriPassword2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none">
-            <button type="button" class="btn btn-dark">확인</button>
+            <button type="submit" class="btn btn-dark" id="deleteBtn">확인</button>
           </form>
       </div>
       
@@ -143,48 +143,6 @@
         }
       });
     }
-    
-    
-    
-    
-    $("#updateBtn").click(e=>{
- 	   let oriPassword = $("#oriPassword").val();
- 	   let oriPassword2 = $("#oriPassword2").val();
- 	   
- 	   console.log("ori1 : "+oriPassword);
- 	   console.log("ori2 : "+oriPassword2);
- 	   
- 	   
- 	   let data = {ori1 : oriPassword, ori2 : oriPassword2};
- 	   
- 	   
- 	   $.ajax({
- 			type : "post",
- 			url : "/delete.do",
- 			data : data,
- 			success : function(result) {
- 				
- 				if(result == 'fail'){
- 					alert("현재 비밀번호가 일치하지 않습니다.");
- 					$("#password").focus();
- 					$("#password").val("");
- 				}
- 			}
- 		});
- 	   
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

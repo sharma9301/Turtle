@@ -68,8 +68,8 @@
 <!-- 경로 -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="${path }/member/mypage/myMain">마이페이지</a></li>
-    <li class="breadcrumb-item"><a href="${path }/member/mypage/delivery">주문내역</a></li>
+    <li class="breadcrumb-item"><a href="${path }/member/mypage/myMain?userId=${loginMember.userId}">마이페이지</a></li>
+    <li class="breadcrumb-item"><a href="${path }/member/mypage/delivery?userId=${loginMember.userId}">주문내역</a></li>
     <li class="breadcrumb-item active" aria-current="page">주문내역상세</li>
   </ol>
  </nav>
@@ -82,7 +82,7 @@
 
       <!-- 페이지본문 -->
     <div class="csTitle"><h1>주문내역 상세보기</h1></div>
-    
+${pdList}
     <!-- 주문내역 주문자 기본정보 -->
     <div class="col" style="margin-top: 20px;">
         <div class="card" >

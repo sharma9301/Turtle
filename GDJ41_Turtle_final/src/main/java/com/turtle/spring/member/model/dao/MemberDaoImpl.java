@@ -1,11 +1,13 @@
 package com.turtle.spring.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -34,5 +36,19 @@ public class MemberDaoImpl implements MemberDao {
 	public int userIdChk(SqlSessionTemplate session,String userId) {
 		return session.selectOne("member.userIdChk",userId);
 	}
+	
+	//@Override
+	// int deleteEnd(SqlSessionTemplate session,Map param) {
+	//	return session.delete("member.deleteEnd",param);
+	//}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

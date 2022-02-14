@@ -109,9 +109,10 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="delCon1" role="tabpanel" aria-labelledby="home-tab">
-         
+         ${oDList }
           <!-- 1111 -->
-          
+          <c:if test="${not empty oDList }">
+          	<c:forEach items="${oDList }" var="o">
             <div class="col" style="margin-top: 20px;">
                 <div class="card" >
                     <div class="card-body">
@@ -120,22 +121,23 @@
                                 <div class="col">                                    
                                   <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">                                    
                                 </div>
-                                <div class="col">구매날짜</div>
-                                <div class="col">상품이름+외n개</div>
-                                <div class="col">주문번호</div>
-                                <div class="col">주소</div>
+                                <div class="col"><c:out value="${o.orderDate }"/></div>
+                                <div class="col">삳ㅇ품이름+외n개</div>
+                                <div class="col"><c:out value="${o.orderNo }"/></div>
+                                <div class="col"><c:out value="${o.rcAddress}"/></div>
                                 <div class="col">
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">상세보기</button>
+                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${o.orderNo }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
                                 </div>
                             </div>
                           </div>
                     </div>
                   </div>
-            </div>
-        
+   			</div>
+        </c:forEach>		
+    </c:if>
 
-        </div>
+    </div>
         <div class="tab-pane fade" id="delCon2" role="tabpanel" aria-labelledby="profile-tab">
           
           <!-- 2222 -->
