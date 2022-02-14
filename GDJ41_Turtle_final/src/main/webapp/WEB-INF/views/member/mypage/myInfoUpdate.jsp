@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <link href="${path }/resources/css/service.css" rel="stylesheet" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<div class="header-line"></div>
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -56,11 +56,11 @@
        width: 100%;
      }
 
-     .csDelete{
+      .csDelete{
        padding: 0px;
        width: 200px;
        
-     }
+     } 
 
      label{
        display: block;
@@ -68,9 +68,9 @@
        
      }
 
-     nav {
+     /* nav {
        margin: 20px;
-     }
+     } */
 
      
 
@@ -80,7 +80,7 @@
 <!-- 헤더들어갈자리(?) -->
 
 <!-- 경로 -->
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" style="margin:20px;">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="${path }/member/mypage/myMain">마이페이지</a></li>
     <li class="breadcrumb-item"><a href="${path }/member/mypage/myInfo">내정보</a></li>

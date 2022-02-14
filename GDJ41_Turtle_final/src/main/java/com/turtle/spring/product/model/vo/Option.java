@@ -17,7 +17,7 @@ public class Option {
 
 	private String optNo;
 	private Product pdCode;
-	private String matarial;
+	private String material;
 	private String color;
 	private String weight;
 	private int size;
