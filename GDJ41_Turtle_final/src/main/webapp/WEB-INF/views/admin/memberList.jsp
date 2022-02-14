@@ -129,9 +129,9 @@
                             <tr>
                                 <td colspan="11">
                                     <div style="text-align: left;">
-                                        <button class="btn btn-secondary updateMember" >정보 수정</button>
+                                        <!-- <button class="btn btn-secondary updateMember" >정보 수정</button>
                                         
-                                        <button class="btn btn-secondary deleteMember" style="float: right;">삭제</button>
+                                        <button class="btn btn-secondary deleteMember" style="float: right;">삭제</button> -->
                                         <script>
                                             $(()=>{
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
