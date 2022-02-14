@@ -1,5 +1,7 @@
 package com.turtle.spring.product.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.common.PageFactory;
-import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.product.model.service.ProductService;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
@@ -190,10 +191,29 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping("/productPayment.do")
-	public ModelAndView productPayment(ModelAndView mv) {
+	@RequestMapping("/payment.do")
+	public String payment(String userId, String pdName, String pdCode, String amount, String payTotalPrice) {
+			Date date = new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			String now=sdf.format(date);
+			int randomNo=(int)(Math.ceil(Math.random()*100000));
+			//주문번호
+			String orderNo=now+randomNo;
+			System.out.println(orderNo);
+			System.out.println(amount);
+			System.out.println(payTotalPrice);
+			String param="cid=TC0ONETIME&partner_order_id"+orderNo+"&partner_user_id="+userId+"&item_name="+pdName+"&item_code="+pdCode
+							+"&quantity="+amount+"&total_amount="+payTotalPrice+"&tax_free_amount=0"
+							+"&approval_url=http://localhost:9999/"
+							+"&cancel_url=http://localhost:9999/product/productDetail.do&fail_url=http://localhost:9999/product/productDetail.do";
+			System.out.println("됐니?");
+			return "index";	
+	}
+	
+	@RequestMapping("/insertReview.do")
+	public ModelAndView insertReview(ModelAndView mv) {
 		
-		mv.setViewName("product/payment");
+		mv.setViewName("product/insertReivew");
 		return mv;
 	}
 }

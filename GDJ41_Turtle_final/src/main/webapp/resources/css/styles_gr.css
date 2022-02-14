@@ -392,7 +392,6 @@ section{
   width: 120px;
   height: 30px;
   border-radius: 5px;
-  ;
 }
 .daumBtn:hover,.beforeBtn:hover{
   background-color: tan;
@@ -423,7 +422,24 @@ section{
 #receiver-info-orderFrm input{
 	background-color:rgb(243, 240, 240);
 }
-
+/* 결제 페이지  */
+.payment-box{
+    border: 1px solid black;
+    width: 900px;
+    height:400px;
+}
+.kakaoPayBtn{
+	background-color: white;
+  	width: 120px;
+  	height: 50px;
+  	border-radius: 5px;
+}
+.kakaoPayBtn:hover{
+	background-color: tan;
+  	color: white;
+  	transition: 0.2s;
+  	border: none;
+}
 
   
 /* The overlay effect with black background */

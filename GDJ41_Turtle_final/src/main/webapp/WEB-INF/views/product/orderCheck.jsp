@@ -22,7 +22,8 @@
                 
             </div>
             <div class="receiver-content">
-                <form action="${path }/product/productPayment.do" id="receiver-info-orderFrm" method="post">
+                <form action="${path }/product/payment.do?userId=${userId}&pdName=${product.pdName}&amount=${amount}&payTotalPrice=${(product.pdPrice - product.pdPrice*product.pdDiscountrate/100)*amount}" 
+                		id="receiver-info-orderFrm" method="post">
                     <h5>수령자 이름</h5>
                     <input type="text" name="userName" size="70%" value="${userName }" readonly>
                     <h5>수령자 연락처</h5>
@@ -33,8 +34,8 @@
                     <input type="text" name="address" size="70%" value="${address }" readonly>
                 </form>
             </div>
-            <button type="submit" class="beforeBtn" style="float:left; margin-left:40px;" onclick="history.back();">이전</button>
-            <button type="submit" class="daumBtn" style="float:right; margin-right:40px;">결제하기</button>
+            <button type="button" class="beforeBtn" style="float:left; margin-left:40px;" onclick="history.back();">이전</button>
+            <button type="submit" class="kakaoPayBtn" style="float:right; margin-right:40px;" form="receiver-info-orderFrm">카카오페이로<br>결제하기</button>
         </div>
         <div class="payment-container">
             <div class="payment-content">

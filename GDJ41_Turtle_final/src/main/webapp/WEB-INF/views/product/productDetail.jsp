@@ -200,8 +200,13 @@
                     </span>
                 </div>
             </div>
-            <button class="insert-review">리뷰 작성하기</button>
+            <button class="insert-review" onclick="insertReviewBtn();">리뷰 작성하기</button>
         </div>
+        <script>
+        	const insertReviewBtn=()=>{
+        		location.assign('${path}/product/insertReview.do?pdCode=${product.pdCode.pdCode}');
+        	}
+        </script>
         <div class="reviews-line"></div>
        	<c:if test="${not empty reviews }">
        		<c:forEach var="r" items="${reviews }">
@@ -228,10 +233,18 @@
 		        <div class="reviews-line"></div>
 	        </c:forEach>
         </c:if>
+        <c:if test="${empty reviews }">
+        	<div class="Noreviews-content" >
+        		<h5 style="text-align: center; margin: 50px 0 50px 0;">해당 상품에 등록된 리뷰가 없습니다.</h5>
+        	</div>
+        	<div class="reviews-line"></div>
+        </c:if>
     </div>
     <!-- 페이지바 -->
-    <div id="pageBar">
-   		${pageBar }
-   	</div>
+    <c:if test="${not empty reviews }">
+	    <div id="pageBar">
+	   		${pageBar }
+	   	</div>
+	</c:if>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
