@@ -31,6 +31,12 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	
 	@Override
+	public List<Product> selectOrderList(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.selectOrderList",param);
+	}
+	
+	@Override
 	public int selectProductCount(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.selectProductCount",param);
@@ -40,6 +46,12 @@ public class AdminDaoImpl implements AdminDao {
 	public int selectProductOptCount(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.selectProductOptCount",param);
+	}
+	
+	@Override
+	public int selectOrderCount(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectOrderCount",param);
 	}
 	
 	@Override
@@ -83,6 +95,22 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.delete("admin.deleteProductOption",opt_No);
 	}
+
+	@Override
+	public int updateInvoice(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("admin.updateInvoice",param);
+	}
+
+	@Override
+	public int updateStatus(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("admin.updateStatus",param);
+	}
+
+	
+
+	
 
 	
 

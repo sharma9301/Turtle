@@ -16,9 +16,13 @@ public interface AdminDao {
 
 	List<Product> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param);
 
+	List<Product> selectOrderList(SqlSessionTemplate session, Map<String, Object> param);
+	
 	int selectProductCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int selectProductOptCount(SqlSessionTemplate session, Map<String, Object> param);
+	
+	int selectOrderCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int insertProduct(SqlSessionTemplate session, Map<String, Object> param);
 
@@ -33,6 +37,14 @@ public interface AdminDao {
 	int updateStock(SqlSessionTemplate session, Map<String, Object> param);
 
 	int deleteProductOption(SqlSessionTemplate session, String opt_No);
+
+	int updateInvoice(SqlSessionTemplate session, Map<String, Object> param);
+
+	int updateStatus(SqlSessionTemplate session, Map<String, Object> param);
+
+	
+
+	
 
 
 	

@@ -9,8 +9,8 @@
                     <div class="container-fluid w-100">
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchProductOpt.do" method="get">
                             <div class="container">
-                            	<input type="text" class="updateData" id="updateData" name="updateData">
-                            	<input type="text" class="deleteData" id="deleteData" name="deleteData">
+                            	<input type="hidden" class="updateData" id="updateData" name="updateData">
+                            	<input type="hidden" class="deleteData" id="deleteData" name="deleteData">
                                 <h1 class="mt-4 mb-4">재고 관리</h1>
                                 <style>
                                     th{
@@ -151,7 +151,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="container-fluid mb-5" style="width: 90%;">
+                    <div class="container-fluid mb-5" style="width: 95%;">
                         <style>
                             td{
                                 vertical-align: middle;

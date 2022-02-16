@@ -87,7 +87,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="container-fluid mb-5" style="width: 90%;">
+                    <div class="container-fluid mb-5" style="width: 95%;">
                         <style>
                             td{
                                 vertical-align: middle;

@@ -457,4 +457,152 @@ public class AdminController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/admin/searchOrder.do")
+	public ModelAndView searchOrder(ModelAndView mv, HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		System.out.println("searchType : "+searchType);
+		String[] keywords = request.getParameterValues("searchKeyword");
+		System.out.println("searchKeyword : "+keywords);
+		String pay_method = request.getParameter("pay_method");
+		System.out.println("pay_method : "+pay_method);
+		String keyword = "";
+		for(int i=0; i<keywords.length;i++) {
+			if(keywords[i]!="") {
+				keyword = keywords[i];
+			}
+		}
+		System.out.println("keyword : "+keyword);
+		
+		String fromDate = request.getParameter("fromDate");
+		String toDate = request.getParameter("toDate");
+		
+		System.out.println("fromDate : "+fromDate);
+		System.out.println("toDate : "+toDate);
+		
+		
+		Map<String,Object> param = new HashMap();
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+		param.put("pay_method", pay_method);
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
+		
+		List<Product> list = service.selectOrderList(param);
+		int count = service.selectOrderCount(param);
+		
+		System.out.println(list);
+		mv.addObject("selectOrderList",list);
+		mv.addObject("selectOrderCount",count);		
+		mv.setViewName("admin/userOrderList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/updateInvoice.do")
+	public ModelAndView updateInvoice(ModelAndView mv, HttpServletRequest request) {
+		log.debug("=====");
+		String updateData = request.getParameter("updateData");
+		System.out.println("updateData : "+updateData);
+		String[] dataList = updateData.split(",");
+		String[] dataArr = null;
+		String order_No = "";
+		String deliveryComp = "";
+		String invoice = "";
+		
+		String msg = "";
+		String loc = "";
+		
+		for(int i=0;i<dataList.length;i++) {
+			System.out.println(dataList[i]);
+			dataArr = dataList[i].split("/");
+
+			order_No = dataArr[0];
+			deliveryComp = dataArr[1];
+			invoice = dataArr[2];
+			
+			
+			
+			System.out.println(order_No);
+			System.out.println(deliveryComp);
+			System.out.println(invoice);
+			
+			
+			Map<String,Object> param = new HashMap();		
+			param.put("order_No",order_No);
+			param.put("deliveryComp",deliveryComp);
+			param.put("invoice",invoice);
+			
+			int count = service.updateInvoice(param);
+			
+			if(count>0) {
+				log.debug("수정 완료");
+				msg="송장 번호 저장 성공";
+				
+			}else {
+				log.debug("수정 실패");
+				msg="송장 번호 저장 실패";
+			}
+		}
+		loc="/admin/userOrderList";
+		
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/admin/updateStatus.do")
+	public ModelAndView updateStatus(ModelAndView mv, HttpServletRequest request) {
+		log.debug("=====");
+		String updateData = request.getParameter("updateData");
+		System.out.println("updateData : "+updateData);
+		String[] dataList = updateData.split(",");
+		String[] dataArr = null;
+		String status = "";
+		
+		String orderNo="";
+		String msg = "";
+		String loc = "";
+		
+		for(int i=0;i<dataList.length;i++) {
+			System.out.println(dataList[i]);
+			dataArr = dataList[i].split("/");
+
+			orderNo = dataArr[0];
+			status = dataArr[1];
+			
+			if(status.equals("미배송")) {
+				status = "결제 완료";
+			}
+			log.debug(status);
+			
+			System.out.println(orderNo);
+			
+			Map<String,Object> param = new HashMap();		
+			param.put("order_No",orderNo);
+			param.put("orderStatus",status);			
+			
+			int count = service.updateStatus(param);
+			
+			if(count>0) {
+				log.debug("수정 완료");
+				msg="상태 수정 성공";
+				
+			}else {
+				log.debug("수정 실패");
+				msg="상태 수정 실패";
+			}
+		}
+		loc="/admin/userOrderList";
+		
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
 }

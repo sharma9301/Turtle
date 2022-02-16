@@ -40,7 +40,13 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.selectProductOptList(session,param);
 	}
-
+	
+	@Override
+	public List<Product> selectOrderList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderList(session,param);
+	}
+	
 	@Override
 	public int selectProductCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
@@ -51,6 +57,12 @@ public class AdminServiceImpl implements AdminService {
 	public int selectProductOptCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dao.selectProductOptCount(session,param);
+	}
+	
+	@Override
+	public int selectOrderCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderCount(session,param);
 	}
 	
 	@Override
@@ -94,6 +106,20 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.deleteProductOption(session,opt_No);
 	}
+
+	@Override
+	public int updateInvoice(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.updateInvoice(session,param);
+	}
+
+	@Override
+	public int updateStatus(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.updateStatus(session,param);
+	}
+
+	
 
 	
 	

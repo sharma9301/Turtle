@@ -7,8 +7,11 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                        <form class="form" style="margin: 50px auto 50px auto;">
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchOrder.do" method="get">
                             <div class="container">
+                            	<%-- ${selectOrderList}
+                            	==================
+                            	${selectOrderCount } --%>
                                 <h1 class="mt-4 mb-4">주문 관리</h1>
                                 <style>
                                     th{
@@ -21,17 +24,17 @@
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
                                                 <select class="form-select me-2" id="searchType" name="searchType" style="width: 120px;">
-                                                    <option value="orderNo">주문 번호</option>
-                                                    <option value="invoiceNo">운송장 번호</option>
+                                                    <option value="ORDER_NO">주문 번호</option>
+                                                    <option value="INVOICE">운송장 번호</option>
                                                     <option value="divider" disabled>---------------</option>
-                                                    <option value="userId">주문자 아이디</option>
-                                                    <option value="userName">주문자 이름</option>
-                                                    <option value="userEmail">주문자 이메일</option>
-                                                    <option value="userPhone">주문자 연락처</option>
+                                                    <option value="USER_ID">주문자 아이디</option>
+                                                    <option value="USER_NAME">주문자 이름</option>
+                                                    <option value="USER_EMAIL">주문자 이메일</option>
+                                                    <option value="USER_PHONE">주문자 연락처</option>
                                                     <option value="divider" disabled>---------------</option>
-                                                    <option value="receiverName">수령자 이름</option>
-                                                    <option value="receiverPhone">수령자 연락처</option>
-                                                    <option value="receiverAddress">수령자 주소</option>
+                                                    <option value="RC_NAME">수령자 이름</option>
+                                                    <option value="RC_PHONE">수령자 연락처</option>
+                                                    <option value="RC_ADDRESS">수령자 주소</option>
 
                                                 </select>
                                                 <div id="search-orderNo">
@@ -195,7 +198,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="container-fluid mb-5" style="width: 90%;">
+                    <div class="container-fluid mb-5" style="width: 95%;">
                         <style>
                             td{
                                 vertical-align: middle;
@@ -205,102 +208,59 @@
                             <thead>
                                 <tr style="background-color: darkgray;">
                                     <th scope="col" style="width: 0px;"><input type="checkbox" class="allChk"></th>
-                                    <th scope="col" class="orderDate">주문일</th>
-                                    <th scope="col" class="orderNo">주문번호</th>
-                                    <th scope="col" class="user">주문자</th>
+                                    <th scope="col" style="width: 80px;" class="orderDate">주문일</th>
+                                    <th scope="col" style="width: 80px;" class="orderNo">주문번호</th>
+                                    <th scope="col" style="width: 100px;" class="user">주문자</th>
                                     <th scope="col" class="productName">상품명</th>
-                                    <th scope="col" class="paymentTotalPrice">총결제금액</th>
-                                    <th scope="col" class="paymentMethod">결제수단</th>
-                                    <th scope="col" class="deliveryCompany">택배사</th>
+                                    <th scope="col" style="width: 100px;" class="paymentTotalPrice">총결제금액</th>
+                                    <th scope="col" style="width: 140px;" class="paymentMethod">결제수단</th>
+                                    <th scope="col" style="width: 90px;" class="deliveryCompany">택배사</th>
                                     <th scope="col" class="invoiceNo">송장번호</th>
-                                    <th scope="col" class="undelivered">미배송</th>
-                                    <th scope="col" class="shipping">배송중</th>
-                                    <th scope="col" class="deliveryCompleted">배송완료</th>
-                                    <th scope="col" class="orderCancel">취소</th>
-                                    <th scope="col" class="orderRefund">환불</th>
+                                    <th scope="col" style="width: 90px;" class="undelivered">미배송</th>
+                                    <th scope="col" style="width: 110px;" class="readyShipping">배송준비</th>
+                                    <th scope="col" style="width: 90px;" class="shipping">배송중</th>
+                                    <th scope="col" style="width: 110px;" class="deliveryCompleted">배송완료</th>
+                                    <th scope="col" style="width: 80px;" class="orderCancel">취소</th>
+                                    <th scope="col" style="width: 110px;" class="orderRefund">환불요청</th>
+                                    <th scope="col" style="width: 110px;" class="orderRefund">환불완료</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col" class="orderDate">22/01/03</td>
-                                    <td scope="col" class="orderNo">220103_0001</td>
-                                    <td scope="col" class="user">user00<br>(유저공공)</td>
-                                    <td scope="col" class="productName">Golden earings 외 1</td>
-                                    <td scope="col" class="paymentTotalPrice">134,000</td>
-                                    <td scope="col" class="paymentMethod">카드</td>
-                                    <td scope="col" class="deliveryCompany">로젠택배</td>
-                                    <td scope="col" class="invoiceNo">
-                                        1111111111111
+                            	<c:forEach var="order" items="${selectOrderList}">
+                            		<tr>
+                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_orderNo" name="rowChk_orderNo"></td>
+                                    <td scope="col" class="orderDate">
+                                    	<fmt:formatDate value="${order.ORDER_DATE }" type="date" pattern="yy/MM/dd"/>
                                     </td>
-                                    <td scope="col" class="undelivered">0</td>
-                                    <td scope="col" class="shipping">0</td>
-                                    <td scope="col" class="deliveryCompleted">1</td>
-                                    <td scope="col" class="orderCancel">0</td>
-                                    <td scope="col" class="orderRefund">0</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col" class="orderDate">22/01/03</td>
-                                    <td scope="col" class="orderNo">220103_0002</td>
-                                    <td scope="col" class="user">user01<br>(유저공일)</td>
-                                    <td scope="col" class="productName">커플용 반지 외 2</td>
-                                    <td scope="col" class="paymentTotalPrice">300,000</td>
-                                    <td scope="col" class="paymentMethod">네이버페이</td>
-                                    <td scope="col" class="deliveryCompany">롯데택배</td>
-                                    <td scope="col" class="invoiceNo">
-                                        2222222222222
-                                    </td>
-                                    <td scope="col" class="undelivered">0</td>
-                                    <td scope="col" class="shipping">0</td>
-                                    <td scope="col" class="deliveryCompleted">1</td>
-                                    <td scope="col" class="orderCancel">0</td>
-                                    <td scope="col" class="orderRefund">0</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col" class="orderDate">22/01/04</td>
-                                    <td scope="col" class="orderNo">220104_0001</td>
-                                    <td scope="col" class="user">user00<br>(유저공공)</td>
-                                    <td scope="col" class="productName">커플용 목걸이</td>
-                                    <td scope="col" class="paymentTotalPrice">90,000</td>
-                                    <td scope="col" class="paymentMethod">네이버페이</td>
-                                    <td scope="col" class="deliveryCompany">우체국 택배</td>
-                                    <td scope="col" class="invoiceNo">
-                                        3333333333333
-                                    </td>
-                                    <td scope="col" class="undelivered">0</td>
-                                    <td scope="col" class="shipping">0</td>
-                                    <td scope="col" class="deliveryCompleted">1</td>
-                                    <td scope="col" class="orderCancel">0</td>
-                                    <td scope="col" class="orderRefund">0</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_productNo" name="rowChk_productNo"></td>
-                                    <td scope="col" class="orderDate">22/01/24</td>
-                                    <td scope="col" class="orderNo">220124_0001</td>
-                                    <td scope="col" class="user">user00<br>(유저공공)</td>
-                                    <td scope="col" class="productName">Golden earings 외 3</td>
-                                    <td scope="col" class="paymentTotalPrice">350,000</td>
-                                    <td scope="col" class="paymentMethod">카카오페이</td>
+                                    <td scope="col" class="orderNo">${order.ORDER_NO }</td>
+                                    <td scope="col" class="user">${order.USER_ID }<br>(${order.USER_NAME })</td>
+                                    <td scope="col" class="productName">${order.PD_NAME } 외 ${order.ALLNUM }</td>
+                                    <td scope="col" class="paymentTotalPrice">
+                                    	<fmt:formatNumber value="${order.PAYTOTALPRICE }" type="currency"/>
+                                   	</td>
+                                    <td scope="col" class="paymentMethod">${order.PAY_METHOD }</td>
                                     <td scope="col" class="deliveryCompany">
                                         <select class="form-select-sm" name="deliveryCompany" id="deliveryCompany">
-                                            <option value="kr.epost">우체국 택배</option>
-                                            <option value="kr.cjlogistics">CJ대한통운</option>
-                                            <option value="kr.hanjin">한진택배</option>
-                                            <option value="kr.logen">로젠택배</option>
-                                            <option value="kr.lotte">롯데택배</option>
+                                            <option value="우체국 택배" ${fn:contains(order.DELIVERY_COMP,'우체국택배')?'selected':'' }>우체국택배</option>
+                                            <option value="CJ대한통운" ${fn:contains(order.DELIVERY_COMP,'CJ대한통운')?'selected':'' }>CJ대한통운</option>
+                                            <option value="한진택배" ${fn:contains(order.DELIVERY_COMP,'한진택배')?'selected':'' }>한진택배</option>
+                                            <option value="로젠택배" ${fn:contains(order.DELIVERY_COMP,'로젠택배')?'selected':'' }>로젠택배</option>
+                                            <option value="롯데택배" ${fn:contains(order.DELIVERY_COMP,'롯데택배')?'selected':'' }>롯데택배</option>
                                         </select>
                                     </td>
                                     <td scope="col" class="invoiceNo">
-                                        <input type="text" name="invoice" id="invoice" size="15" maxlength="13">
+                                        <input type="text" name="invoice" id="invoice" value="${order.INVOICE }" size="15" maxlength="13" placeholder="송장 번호 입력">
                                     </td>
-                                    <td scope="col" class="undelivered">1</td>
-                                    <td scope="col" class="shipping">0</td>
-                                    <td scope="col" class="deliveryCompleted">0</td>
-                                    <td scope="col" class="orderCancel">0</td>
-                                    <td scope="col" class="orderRefund">0</td>
+                                    <td scope="col" class="undelivered">${fn:contains(order.ORDER_STATUS,'결제 완료')?'1':'0' }</td>
+                                    <td scope="col" class="readyShipping">${fn:contains(order.ORDER_STATUS,'배송 준비중')?'1':'0' }</td>
+                                    <td scope="col" class="shipping">${fn:contains(order.ORDER_STATUS,'배송 중')?'1':'0' }</td>
+                                    <td scope="col" class="deliveryCompleted">${fn:contains(order.ORDER_STATUS,'배송 완료')?'1':'0' }</td>
+                                    <td scope="col" class="orderCancel">${fn:contains(order.ORDER_STATUS,'주문 취소')?'1':'0' }</td>
+                                    <td scope="col" class="orderRefundRequest">${fn:contains(order.ORDER_STATUS,'환불 요청')?'1':'0' }</td>
+                                    <td scope="col" class="orderRefundFinish">${fn:contains(order.ORDER_STATUS,'환불 완료')?'1':'0' }</td>
                                 </tr>
+                            	</c:forEach>
+                                
                                 
                             </tbody>
                         </table>
@@ -308,15 +268,17 @@
                             <tr>
                                 <td colspan="11">
                                     <div style="text-align: left;">
-                                        <button class="btn btn-secondary insertInvoice" onclick="">송장 번호 저장</button>
+                                        <button class="btn btn-secondary updateInvoice">송장 번호 저장</button>
                                         <div class="btn-group">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                             배송 상태 변경
                                             </button>
+                                            
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a class="dropdown-item" href="#">미배송</a></li>
-                                            <li><a class="dropdown-item" href="#">배송중</a></li>
-                                            <li><a class="dropdown-item" href="#">배송완료</a></li>
+                                            <li><a class="dropdown-item" >미배송</a></li>
+                                            <li><a class="dropdown-item" >배송 준비중</a></li>
+                                            <li><a class="dropdown-item" >배송 중</a></li>
+                                            <li><a class="dropdown-item" >배송 완료</a></li>
                                             </ul>
                                         </div>
                                         <div class="btn-group" style="float: right;">
@@ -324,44 +286,114 @@
                                             취소/환불
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a class="dropdown-item" href="#">취소</a></li>
-                                            <li><a class="dropdown-item" href="#">환불</a></li>
+                                            <li><a class="dropdown-item" >주문 취소</a></li>
+                                            <li><a class="dropdown-item" >환불 요청</a></li>
+                                            <li><a class="dropdown-item" >환불 완료</a></li>
                                             </ul>
                                         </div>
                                         <script>
+                                        	
+                                        
+                                        
                                             $(()=>{
-                                                //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
-                                                let rowChk = document.getElementsByClassName("rowChk_productNo");
+                                            	//최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
+                                                let rowChk = document.getElementsByClassName("rowChk_orderNo");
                                                 console.log(rowChk);
-                                                $(".dropdown-item").click(e=>{
+                                                let orderNo = "";
+                                                let deliveryComp = "";
+                                                let invoice = "";
+                                                let updateData = "";
+                                                
+                                                //송장 번호 저장하는 로직
+                                                $(".updateInvoice").click(e=>{
+                                                    console.log(rowChk);
                                                     let i = 0;
                                                     let count = 0;
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
+                                                            console.log("체크 됨");
                                                             count++;
+                                                            console.log("orderNo : "+rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                        	orderNo = rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data;
+                                                        	console.log("deliveryComp : "+rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value);
+                                                        	deliveryComp = rowChk[i].parentNode.parentNode.childNodes[7].childNodes[1].value;
+                                                        	if(confirm("주문번호 ["+orderNo+"] 의 택배사가 ["+deliveryComp+"]가 맞습니까?")){
+                                                        		
+                                                        	}else{
+                                                        		alert("택배사를 선택 후 다시 실행해주세요.");
+                                                    			return;
+                                                        	}
+                                                        	
+                                                        	console.log("invoice : "+rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1].value);
+                                                        	invoice = rowChk[i].parentNode.parentNode.childNodes[8].childNodes[1].value;
+                                                        	if(invoice == ""){
+                                                        		alert("주문번호 ["+orderNo+"]의 송장 번호를 기입해주세요");
+                                                        		return;
+                                                        	}
+                                                        	updateData += orderNo+"/"+deliveryComp+"/"+invoice;
+                                                        	updateData += ",";
+                                                        	
                                                         }
                                                     }
                                                     if(count==0){
-                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
+                                                        console.log("체크 아무것도 안됨");
+                                                        alert("최소 1개 이상의 주문 내역을 선택해주세요.");
                                                         return;
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
+                                                    updateData = updateData.replace(/,$/, "");
+                                                    console.log(updateData);
+                                                    
+                                                    location.assign("/admin/updateInvoice.do?updateData="+updateData);
+                                                    
                                                     
                                                 });
+                                                //배송 상태 변경 하는 로직
+                                                let status = "";
+                                                
+                                                $(".dropdown-item").click(e=>{
+                                                	console.log(e.target.innerText);
+                                                	status = e.target.innerText;
+                                                	console.log("status : "+status)
+                                                	let i = 0;
+                                                    let count = 0;
+                                                	for(i=0; i<rowChk.length; i++) {
+                                                        if(rowChk[i].checked){
+                                                            console.log("체크 됨");
+                                                            count++;
+                                                            console.log("orderNo : "+rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data);
+                                                        	orderNo = rowChk[i].parentNode.parentNode.childNodes[2].childNodes[0].data;
+                                                        	updateData += orderNo+"/"+status;
+                                                        	updateData += ",";
+                                                        	
+                                                        }
+                                                    }
+                                                    if(count==0){
+                                                        console.log("체크 아무것도 안됨");
+                                                        alert("최소 1개 이상의 주문 내역을 선택해주세요.");
+                                                        return;
+                                                    }
+                                                    console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    // 여기 밑에 로직 적기
+                                                    updateData = updateData.replace(/,$/, "");
+                                                    console.log(updateData);
+                                                    
+                                                    location.assign("/admin/updateStatus.do?updateData="+updateData);
+                                                })
                                                 //===========================================================
                                                 //allChk 로직
                                                 $(".allChk").click(e=>{
                                                     if($(".allChk").is(":checked")){
-                                                        $(".rowChk_productNo").prop("checked", true);
+                                                        $(".rowChk_orderNo").prop("checked", true);
                                                     }else{
-                                                        $(".rowChk_productNo").prop("checked", false);
+                                                        $(".rowChk_orderNo").prop("checked", false);
                                                     }
                                                 });
 
-                                                $(".rowChk_productNo").click(e=>{
-                                                    let total = $(".rowChk_productNo").length;
-                                                    let checked = $(".rowChk_productNo:checked").length;
+                                                $(".rowChk_orderNo").click(e=>{
+                                                    let total = $(".rowChk_orderNo").length;
+                                                    let checked = $(".rowChk_orderNo:checked").length;
 
                                                     if(total != checked){
                                                         $(".allChk").prop("checked",false);
@@ -371,22 +403,7 @@
                                                     
                                                 });
                                                 //===========================================================
-                                                //송장 번호 입력 모두 누락시 버튼 클릭 안되게 막기
-                                                $(".insertInvoice").click(e=>{
-                                                    let i = 0;
-                                                    let count = 0;
-                                                    console.log($("td>input[name=invoice]")[0].value);
-                                                    for(i=0; i<$("td>input[name=invoice]").length; i++) {
-                                                        if($("td>input[name=invoice]")[i].value!=""){
-                                                            count++;
-                                                        }
-                                                    }
-                                                    if(count==0){
-                                                        alert("최소 1개 이상의 송장번호를 입력하세요.");
-                                                        return;
-                                                    }
-
-                                                });
+                                                
                                                 
                                             });
                                         </script>

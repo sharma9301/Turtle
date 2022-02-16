@@ -19,16 +19,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 		//login여부 확인하기
 		HttpSession session = request.getSession();
 		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			request.setAttribute("msg", "로그인 후 이용가능한 서비스입니다.");
-			request.setAttribute("loc", "/member/login/login");
-			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
-			.forward(request, response);
-			return false;
-		}else {
-			
-			return true;
-		}
+//		if(loginMember==null) {
+//			request.setAttribute("msg", "로그인 후 이용가능한 서비스입니다.");
+//			request.setAttribute("loc", "/member/login/login");
+//			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
+//			.forward(request, response);
+//			return false;
+//		}else {
+//			
+//			return true;
+//		}
+		return true;
 	
 	}
 	

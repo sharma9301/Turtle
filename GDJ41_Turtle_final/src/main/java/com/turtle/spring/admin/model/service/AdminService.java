@@ -14,10 +14,14 @@ public interface AdminService {
 
 	List<Product> selectProductOptList(Map<String, Object> param);
 	
+	List<Product> selectOrderList(Map<String, Object> param);
+
 	int selectProductCount(Map<String, Object> param);
 
 	int selectProductOptCount(Map<String, Object> param);
 
+	int selectOrderCount(Map<String, Object> param);
+	
 	int insertProduct(Map<String, Object> param);
 	
 	int insertProductOpt(Map<String, Object> param);
@@ -31,6 +35,12 @@ public interface AdminService {
 	int updateStock(Map<String, Object> param);
 
 	int deleteProductOption(String opt_No);
+
+	int updateInvoice(Map<String, Object> param);
+
+	int updateStatus(Map<String, Object> param);
+
+	
 
 
 
