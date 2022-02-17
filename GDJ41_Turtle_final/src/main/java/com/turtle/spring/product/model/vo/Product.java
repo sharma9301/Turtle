@@ -22,7 +22,7 @@ public class Product {
 	private int pdPrice;
 	private Date pdDate;
 	private String pdIsDiscount;
-	private double pdDiscountrate;
+	private int pdDiscountrate;
 	private String pdIsDisplay;
 	private String pdImage;
 	

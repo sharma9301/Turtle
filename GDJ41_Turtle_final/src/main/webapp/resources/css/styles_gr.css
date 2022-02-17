@@ -355,7 +355,7 @@ section{
 }
 .receiver-content{
   display: block;
-  margin-bottom: 30px;
+ /*  margin-bottom: 30px; */
   padding: 30px 30px 30px 30px;
 }
 .payment-container{
@@ -419,7 +419,7 @@ section{
 #receiver-info-orderFrm input:focus{
 	outline: none;
 }
-#receiver-info-orderFrm input{
+.checkInput input{
 	background-color:rgb(243, 240, 240);
 }
 /* 결제 페이지  */
@@ -428,7 +428,7 @@ section{
     width: 900px;
     height:400px;
 }
-.kakaoPayBtn{
+/* .kakaoPayBtn{
 	background-color: white;
   	width: 120px;
   	height: 50px;
@@ -439,6 +439,26 @@ section{
   	color: white;
   	transition: 0.2s;
   	border: none;
+} */
+/* 결제 테이블 */
+#paymentTbl{
+	border:1px solid black;
+	width:200px;
+	float:right; 
+	margin-right:40px;
+	text-align:center;
+	font-weight: bold;
+}
+#paymentTbl tr{
+	border:1px solid black;
+}
+#paymentTbl td:hover{
+	cursor: pointer;
+	background-color: tan;
+  	color: white;
+  	transition: 0.2s;
+  	border: none;
+	
 }
 
   
@@ -481,12 +501,21 @@ section{
   }
   
   /* Style the search field */
+  .overlay select {
+    padding: 15px;
+    font-size: 17px;
+    border: none;
+    float: left;
+    width: 15%;
+    background: white;
+    margin: 0 10px;
+  }
   .overlay input[type=text] {
     padding: 15px;
     font-size: 17px;
     border: none;
     float: left;
-    width: 80%;
+    width: 60%;
     background: white;
   }
   

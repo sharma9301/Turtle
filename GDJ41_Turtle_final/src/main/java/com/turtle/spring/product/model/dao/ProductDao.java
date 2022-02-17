@@ -47,5 +47,13 @@ public interface ProductDao {
 	Member orderMember(SqlSessionTemplate session, String userId);
 
 	Product productOrderDetail(SqlSessionTemplate session, String pdCode);
+
+	List<Product> searchProduct(SqlSessionTemplate session, String search);
+
+	int searchProductCount(SqlSessionTemplate session, String search);
+
+	int insertOrder(SqlSessionTemplate session, Map<String, Object> param);
+
+	int insertOrderDetail(SqlSessionTemplate session, Map<String, Object> param2);
 	
 }

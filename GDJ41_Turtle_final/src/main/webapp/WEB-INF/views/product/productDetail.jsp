@@ -17,25 +17,34 @@
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
                 <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>
-                <div class='RatingStar mb-3'>
-                    <div class='RatingScore'>
-                        <div class='outer-star'>
-                            <div class='inner-star'></div>
-                        </div>
-                        <span>
-                            2.5 (10 reviews)
-                        </span>
-                    </div>
-                </div>
+                <input type="text" id="aa" value="3">
+                <div class="starRev">
+					<span class="starR starG1">별1</span>
+					<span class="starR starG2">별2</span>
+					<span class="starR starG3">별3</span>
+					<span class="starR starG4">별4</span>
+					<span class="starR starG5">별5</span>			
+				</div>
                 <style>
-                    .inner-star::before{color: #FF9600;}
-                    .outer-star {position: relative;display: inline-block;color: #CCCCCC;}
-                    .inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
-                    .outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
+					.starR{
+						background: url('/resources/images/ico_review.png') no-repeat right 0;
+						background-size: auto 100%;
+						color: #FF9600;
+						width: 30px;
+						height: 30px;
+						display: inline-block;
+						text-indent: -9999px;
+						
+					}
+					.starR.on{background-position:0 0;}
                 </style>
                     
-                <script>ratings = {RatingScore: 2.5} 
-                totalRating = 5;table = document.querySelector('.RatingStar');function rateIt() {for (rating in ratings) {ratingPercentage = ratings[rating] / totalRating * 100;ratingRounded = Math.round(ratingPercentage / 10) * 10 + '%';star = table.querySelector(`.${rating} .inner-star`);numberRating = table.querySelector(`.${rating} .numberRating`);star.style.width = ratingRounded;numberRating.innerText = ratings[rating];}}rateIt()
+                <script>
+                $(()=>{
+                	let rv_grade = $("#aa").val(); //4
+                	console.log(rv_grade);
+                	$(".starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
+                });
                 </script>
 
                 <div class="fs-5 mb-3">
@@ -63,7 +72,7 @@
 	            <c:if test="${product.pdCode.categoryCode.categoryCode != 'ring' }">
 	            <div class="fs-5 mb-5">
                     <span class="fs-5 mb-1 d-block">Size</span>
-	            	<input type="radio" id="size${size.size}" name="size" value="${size.size}" checked readonly><label for="size${size.size}" class="selectSize">FREE</label>
+	            	<input type="radio" id="size${size.size}" name="size" value="0" checked readonly><label for="size${size.size}" class="selectSize">FREE</label>
 	            </div>
 	            </c:if>
 	            <script>
@@ -117,7 +126,7 @@
                         <tr>
                             <td>구매수량</td>
                             <td>
-                               	<input type="number" id="amount" name="amount" style="width: 30%;" placeholder="1" min="1" max="10"/>
+                               	<input type="number" id="amount" name="amount" style="width: 30%;" placeholder="0" min="1" max="10"/>
                             </td>
                         </tr>
                     </table>
@@ -129,11 +138,20 @@
                     </button>
 					<script>
 						const orderBtn=()=>{
-							let amount=$("#amount").val();
-							console.log(amount);
-							let size=$("input[name=size]:checked").val();
-							console.log(size);
-							location.assign('/product/orderProduct.do?pdCode=${product.pdCode.pdCode}&userId=${loginMember.userId }&amount='+amount+'&size='+size);
+							if(${loginMember==null}){
+								alert('로그인 후 상품구매가 가능합니다.');
+							}else{
+								if($("#amount").val()<1){
+									alert('구매 수량을 선택해주세요.');
+								}else{
+									let amount=$("#amount").val();
+									console.log(amount);
+									let size=$("input[name=size]:checked").val();
+									console.log(size);
+									location.assign('/product/orderProduct.do?pdCode=${product.pdCode.pdCode}&userId=${loginMember.userId }&amount='+amount+'&size='+size);
+									
+								}
+							}
 						}
 					</script>
                     <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button" onclick="">
