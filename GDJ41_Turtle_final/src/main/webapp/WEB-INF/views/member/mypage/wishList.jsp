@@ -57,8 +57,8 @@
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>장바구니</h1></div>
 
-      
-         
+      <c:out value="${cart }"/>
+       <input type="text" value="${loginMember.userId }" id="userId">  
          <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
              <div class="card">
@@ -77,56 +77,65 @@
                                     <th>상품가격</th>
                                     <th></th>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" checked="checked" class="rowChk_productNo">
-                                        <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">
-                                    </td>
-                                    <td>silverring</td>
-                                    <td>N123456</td>
-                                    <td>
-                                        <input type="number" class="form-control-sm" value="1" min="1" max="5">
-                                    </td>
-                                    <td>75,000</td>
-                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" checked="checked" class="rowChk_productNo">
-                                        <img src="https://dummyimage.com/80x80/dee2e6/6c757d.jpg" alt="상품사진">
-                                    </td>
-                                    <td>silverring</td>
-                                    <td>N123456</td>
-                                    <td>
-                                        <input type="number" class="form-control-sm" value="1" min="1" max="5">
-                                    </td>
-                                    <td>75,000</td>
-                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row" style="text-align:right; margin-top: 20px;">
-                <div class="row">
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                        <strong>총 수량 : </strong>
-                    </div>
-                    <div class="col">
-                        <strong>총 금액 : </strong>
-                    </div>
-                    <div class="col" style="padding: 0;">
-                        <button type="submit" class="btn btn-secondary">결제하기</button>
-                    </div>
-                </div>
-            </div> 
-      </div>
+	                                <c:if test="${not empty cart}">
+          								<c:forEach items="${cart }" var="c">
+			                                <tr>
+			                                    <td>
+			                                        <input type="checkbox" checked="checked" class="rowChk_productNo">
+			                                        <img src="${path }/resources/images/product/${c.PD_IMAGE}" width="80px" height="80px" alt="상품사진">
+			                                    </td>
+			                                    <td>
+			                                    	<c:out value="${c.PD_NAME }"/>
+			                                    	<input type="hidden" value="${c.CART_NO }">
+			                                    </td>
+			                                    <td><c:out value="${c.PD_CODE }"/></td>
+			                                    <td>
+			                                        <input type="number" class="form-control-sm amount" value="${c.AMOUNT}" min="1" max="5">
+			                                        <button type="button" class="btn btn-primary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
+			                                    </td>
+			                                    <td><c:out value="${c.PD_PRICE * c.AMOUNT }"/></td>
+			                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
+			                                </tr>
+	                               		</c:forEach>
+									</c:if>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	            <div class="row" style="text-align:right; margin-top: 20px;">
+	                <div class="row">
+	                    <div class="col">
+	                    </div>
+	                    <div class="col">
+	                    </div>
+	                    <div class="col">
+	                        <strong>
+	                        <c:out value="총 수량 : "/>
+								<c:set var = "sum" value = "0" />
+								<c:forEach var="c" items="${cart}">
+									<c:set var= "sum" value="${sum + c.AMOUNT}"/>
+								</c:forEach>
+								<c:out value="${sum }"/>
+	                        </strong>
+	                    </div>
+	                    <div class="col">
+	                        <strong>
+	                        	<c:out value="총 금액 : "/>
+								<c:set var = "sum" value = "0" />
+								<c:forEach var="c" items="${cart}">
+									<c:set var= "sum" value="${sum + (c.PD_PRICE * c.AMOUNT)}"/>
+								</c:forEach>
+								<c:out value="${sum }"/>
+	                        </strong>
+	                    </div>
+	                    <div class="col" style="padding: 0;">
+	                        <button type="submit" class="btn btn-secondary">결제하기</button>
+	                    </div>
+	                </div>
+	            </div> 
+	      </div>
 
 
   <script>
@@ -151,8 +160,33 @@
                     $("#allChk").prop("checked",true);
                 }
             });
+            
+            $(".change").click(e=>{
+            	   
+           			let userId =$("#userId").val();
+           			console.log(userId);
+            	   	console.log(e.target.parentNode.childNodes[1].value);
+            	   	let amount = e.target.parentNode.childNodes[1].value;
+            	   	console.log(e.target.parentNode.parentNode.childNodes[3].childNodes[1].value);
+            	   	let cartNo = e.target.parentNode.parentNode.childNodes[3].childNodes[1].value;
+            	   	updateData = cartNo+"/" +userId + "/" + amount;
+            	   	location.assign("/member/mypage/changeAmount?updateData="+updateData);
+            	   
+            });
       });
-    // 
+    
+      
+      
+      
+
+    
+      
+      
+    
+      
+
+
+
     
 
   </script>

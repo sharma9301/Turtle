@@ -101,6 +101,34 @@
 
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>마이페이지</h1></div>
+      ${stList }
+		<%-- <c:if test="${not empty param}">
+          	<c:forEach items="${param }" var="p">
+				<c:out value="${p.a }"/>
+			</c:forEach>
+		</c:if>	 --%>				
+      <c:set var="orderNo" value=""/>
+      <c:forEach var="o" items="${oDList }" varStatus="status">
+      	<input type="hidden" name="orderNo" class="orderNo" value="${o.orderNo }"/>
+      </c:forEach>
+	      
+      <input type="hidden" name="orderNoList" id="orderNoList" value=""/>
+      <input type="hidden" name="userId" id="userId" value="${loginMember.userId}"/>
+      
+      
+      <script>
+      	$(()=>{
+      		console.log($(".orderNo"));
+      		let orderList = "";
+      		for(let i=0;i<$(".orderNo").length;i++) {
+      			orderList += $(".orderNo")[i].value;
+      			orderList += ",";
+      		}
+      		orderList = orderList.replace(/,$/, '');
+      		console.log(orderList);
+      		$("#orderNoList").val(orderList);
+      	})
+      </script>
       <div class="container">
         <div class="row" style="margin-bottom: 30px;">
             <div class="col">
@@ -114,30 +142,34 @@
                                         <i class="fas fa-truck fa-4x"></i>
                                     </div>
                                 </div>
-                                <div class="col" style="border-right:lightgray 1px solid;">
-                                    <h4>배송대기</h4>
-                                    <div>  
-                                        배송대기수
-                                    </div>
-                                </div>
-                                <div class="col" style="border-right:lightgray 1px solid;">
-                                    <h4>배송준비중</h4>
-                                    <div>  
-                                        배송준비중수
-                                    </div>
-                                </div>
-                                <div class="col" style="border-right:lightgray 1px solid;">
-                                    <h4>배송중</h4>
-                                    <div>  
-                                        배송중수
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <h4>배송완료</h4>
-                                    <div>  
-                                        배송완료수
-                                    </div>
-                                </div>
+                                <c:if test="${not empty stList}">
+        							<c:forEach items="${stList }" var="st">
+		                                <div class="col" style="border-right:lightgray 1px solid;">
+		                                    <h4>결제완료</h4>
+		                                    <div style="margin-top:20px;">  
+		                                        <h3><c:out value="${st.A}"/></h3>
+		                                    </div>
+		                                </div>
+		                                <div class="col" style="border-right:lightgray 1px solid;">
+		                                    <h4>배송준비중</h4>
+		                                    <div style="margin-top:20px;">  
+		                                        <h3><c:out value="${st.B}"/></h3>
+		                                    </div>
+		                                </div>
+		                                <div class="col" style="border-right:lightgray 1px solid;">
+		                                    <h4>배송중</h4>
+		                                    <div style="margin-top:20px;">  
+		                                        <h3><c:out value="${st.C}"/></h3>
+		                                    </div>
+		                                </div>
+		                                <div class="col">
+		                                    <h4>배송완료</h4>
+		                                    <div style="margin-top:20px;">  
+		                                        <h3><c:out value="${st.D}"/></h3>
+		                                    </div>
+		                                </div>
+	                                </c:forEach>
+                                </c:if>
                             </div>
                           </div>
                     </div>
@@ -156,7 +188,8 @@
                   </div></a>
             </div>
             <div class="col" style="margin-right: 10px;">
-                <a href="${path }/member/mypage/delivery?userId=${loginMember.userId}"><div class="card" id="mypage2">
+            <!-- ${path }/member/mypage/delivery?userId=${loginMember.userId} -->
+                <a href="javascript:fn_orderList();"><div class="card" id="mypage2">
                     <div class="card-body">
                         <h4>주문내역</h4>
                         <div>
@@ -164,6 +197,15 @@
                         </div>
                     </div>
                   </div></a>
+                  <script type="text/javascript">
+                  function fn_orderList() {
+                	  let orderNoList = $("#orderNoList").val();
+                	  console.log(orderNoList);
+                	  let userId = $("#userId").val();
+                	  console.log(userId);
+                	  location.assign("/member/mypage/delivery?userId="+userId+"&orderNoList="+orderNoList);
+                  }
+                  </script>
             </div>
             <div class="col" style="margin-right: 10px;">
                 <a href="${path }/member/mypage/reviews"><div class="card" id="mypage3">

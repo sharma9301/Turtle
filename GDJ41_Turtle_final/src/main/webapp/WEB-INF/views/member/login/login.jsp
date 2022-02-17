@@ -20,6 +20,7 @@
 
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
     <style>
       .bd-placeholder-img {
@@ -96,7 +97,7 @@
 		        <input class="log" name="password" type="password" placeholder="비밀번호"><br>   
 		        <input type="checkbox" id="saveId" name="check" value="">
 		        <label for="saveId">아이디 저장</label><br>
-			    <button type="submit" class="btn btn-primary" style="width:300px;">로그인</button>
+			    <button type="submit" class="btn btn-primary" name="loginbtn" style="width:300px;">로그인</button>
 		    </form>
 		    <div id="forLogin">
 				<a href="${path }/member/login/finding"><span>아이디/비밀번호찾기</span></a>
@@ -104,9 +105,117 @@
 		    </div>
       </div>
       
+      
+      <ul>
+		<li onclick="kakaoLogin();" style="list-style:none;">
+	      <a href="javascript:void(0)">
+	          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
+	      </a>
+		</li>
+	</ul>
+	      
+      <script>
+		Kakao.init('3cde81c99012ae10046920cd8847afc1'); //발급받은 키 중 javascript키를 사용해준다.
+		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+		//카카오로그인
+		function kakaoLogin() {
+		    Kakao.Auth.login({
+		      success: function (response) {
+		        Kakao.API.request({
+		          url: '/v2/user/me',
+		          success: function (response) {
+		        	  console.log(response)
+		          },
+		          fail: function (error) {
+		            console.log(error)
+		          },
+		        })
+		      },
+		      fail: function (error) {
+		        console.log(error)
+		      },
+		    })
+		  }
+		//카카오로그아웃  
+		function kakaoLogout() {
+		    if (Kakao.Auth.getAccessToken()) {
+		      Kakao.API.request({
+		        url: '/v1/user/unlink',
+		        success: function (response) {
+		        	console.log(response)
+		        },
+		        fail: function (error) {
+		          console.log(error)
+		        },
+		      })
+		      Kakao.Auth.setAccessToken(undefined)
+		    }
+		  }  
+		</script>
+      
+      
+      
+      
+      
+      
 </section>  
           
-            
+<script>
+        $(document).ready(function(){
+    var userInputId = getCookie("userInputId");//저장된 쿠기값 가져오기
+    $("input[name='userId']").val(userInputId); 
+     
+    if($("input[name='userId']").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩
+                                           // 아이디 저장하기 체크되어있을 시,
+        $("#saveId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+    }
+     
+    $("#saveId").change(function(){ // 체크박스에 변화가 발생시
+        if($("#saveId").is(":checked")){ // ID 저장하기 체크했을 때,
+            var userInputId = $("input[name='userId']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie("userInputId");
+        }
+    });
+     
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $("input[name='userId']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#saveId").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            var userInputId = $("input[name='userId']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }
+    });
+});
+ 
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+ 
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
+}
+     </script>
+
 
          
 

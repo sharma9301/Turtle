@@ -20,7 +20,7 @@ public interface MemberDao {
 
 	int userIdChk(SqlSessionTemplate session, String userId);
 	
-//	int deleteEnd(SqlSessionTemplate session, Map param);
+	int deleteMember(SqlSessionTemplate session, String userId);
 
 	
 

@@ -49,10 +49,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.userIdChk(session,userId);
 	}
 	
-	//@Override
-	//public int deleteEnd(Map param) {
-	//	return dao.deleteEnd(session,param);
-	//}
+	@Override
+	public int deleteMember(String userId) {
+		return dao.deleteMember(session,userId);
+	}
 	
 	
 	

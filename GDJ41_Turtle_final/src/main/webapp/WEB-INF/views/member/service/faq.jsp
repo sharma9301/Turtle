@@ -130,15 +130,16 @@
 
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="fnqtab1" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" style="color: black;">계정</button>
+          <button class="nav-link active" id="faqtab1" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" style="color: black;">계정</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab2" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">주문/배송문의</button>
+          <button class="nav-link" id="faqtab2" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">주문/배송문의</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="fnqtab3" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">취소/교환/반품문의</button>
+          <button class="nav-link" id="faqtab3" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false" style="color: black;">취소/교환/반품문의</button>
         </li>        
       </ul>
+
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
          
