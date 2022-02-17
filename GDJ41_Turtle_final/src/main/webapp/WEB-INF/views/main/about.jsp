@@ -41,7 +41,7 @@
                     우리 터틀스토어는 14k, 18k 만을 취급하며 어쩌고 저쩌고저쩌고룰루랄라 우리의 터틀 스토어를 소개합니다. 
                     우리 터틀스토어는 14k, 18k 만을 취급하며 어쩌고 저쩌고저쩌고룰루랄라 우리의 터틀 스토어를 소개합니다. 
                 </p>  
-                <img src="${path }/resources/images/sale4.png" alt="소개2">
+                <img src="${path }/resources/images/product/sale4.png" alt="소개2">
             </div>
             <div class="about-content"> 
                 <img src="${path }/resources/images/main-best.png" alt="소개3">            

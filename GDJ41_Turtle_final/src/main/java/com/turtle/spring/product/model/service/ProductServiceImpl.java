@@ -117,5 +117,25 @@ public class ProductServiceImpl implements ProductService {
 	public Product productOrderDetail(String pdCode) {
 		return dao.productOrderDetail(session, pdCode);
 	}
+
+	@Override
+	public List<Product> searchProduct(String search) {
+		return dao.searchProduct(session, search);
+	}
+
+	@Override
+	public int searchProductCount(String search) {
+		return dao.searchProductCount(session, search);
+	}
+
+	@Override
+	public int insertOrder(Map<String, Object> param) {
+		return dao.insertOrder(session, param);
+	}
+
+	@Override
+	public int insertOrderDetail(Map<String, Object> param2) {
+		return dao.insertOrderDetail(session, param2);
+	}
 	
 }

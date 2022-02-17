@@ -46,4 +46,12 @@ public interface ProductService {
 	Member orderMember(String userId);
 
 	Product productOrderDetail(String pdCode);
+
+	List<Product> searchProduct(String search);
+
+	int searchProductCount(String search);
+
+	int insertOrder(Map<String, Object> param);
+
+	int insertOrderDetail(Map<String, Object> param2);
 }

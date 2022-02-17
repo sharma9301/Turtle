@@ -19,11 +19,7 @@ public class OrderDetail {
 	private int orderDetailNo;
 	private Order orderNo;
 	private Option optNo;
-	private Date orderDate;
-	private String rcName;
-	private String rcPhone;
-	private String rcAddress;
-	private String Method;
-	private String invoice;
+	private int orderAmount;
+	private String orderStatus;
 
 }

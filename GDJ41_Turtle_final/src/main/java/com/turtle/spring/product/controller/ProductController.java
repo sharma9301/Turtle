@@ -1,17 +1,18 @@
 package com.turtle.spring.product.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.board.model.vo.Reviews;
@@ -191,23 +192,57 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping("/payment.do")
-	public String payment(String userId, String pdName, String pdCode, String amount, String payTotalPrice) {
-			Date date = new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-			String now=sdf.format(date);
-			int randomNo=(int)(Math.ceil(Math.random()*100000));
-			//주문번호
-			String orderNo=now+randomNo;
-			System.out.println(orderNo);
-			System.out.println(amount);
-			System.out.println(payTotalPrice);
-			String param="cid=TC0ONETIME&partner_order_id"+orderNo+"&partner_user_id="+userId+"&item_name="+pdName+"&item_code="+pdCode
-							+"&quantity="+amount+"&total_amount="+payTotalPrice+"&tax_free_amount=0"
-							+"&approval_url=http://localhost:9999/"
-							+"&cancel_url=http://localhost:9999/product/productDetail.do&fail_url=http://localhost:9999/product/productDetail.do";
-			System.out.println("됐니?");
-			return "index";	
+	@RequestMapping("/insertOrder.do")
+	@ResponseBody
+	public ModelAndView payment(HttpServletRequest request, ModelAndView mv) throws ServletException, IOException {
+		String pdName=request.getParameter("pdName");
+		String orderNo=request.getParameter("orderNo");
+		String userId=request.getParameter("userId");
+		String rcName=request.getParameter("rcName");
+		String rcPhone=request.getParameter("rcPhone");
+		String rcAddress=request.getParameter("rcAddress");
+		String payMethod=request.getParameter("payMethod");
+		int payTotalPrice=Integer.parseInt(request.getParameter("payTotalPrice"));
+		int size=Integer.parseInt(request.getParameter("size"));
+		int amount=Integer.parseInt(request.getParameter("amount"));
+		String optNo=pdName+" "+size;
+		
+		Map<String, Object> param = new HashMap();
+		Map<String, Object> param2 = new HashMap();
+		param.put("orderNo", orderNo);
+		param.put("userId", userId);
+		param.put("rcName", rcName);
+		param.put("rcPhone", rcPhone);
+		param.put("rcAddress", rcAddress);
+		param.put("payMethod", payMethod);
+		param.put("payTotalPrice", payTotalPrice);
+		
+		param2.put("orderNo", orderNo);
+		param2.put("amount", amount);
+		param2.put("optNo", optNo);
+		
+		int orderResult=service.insertOrder(param);
+		int orderDetailResult=service.insertOrderDetail(param2);
+		String msg="";
+		String loc="";
+		if(orderResult>0) {
+			if(orderDetailResult>0) {
+				msg="결제가 정상적으로 진행되었습니다. 주문 내역은 마이페이지에서 확인해주세요.";
+				loc="/member/mypage/myMain";
+			}
+			else {
+				msg="결제 실패하였습니다. 관리자에게 문의하세요.";
+				loc="/product/productDetail";
+			}
+		}else {
+			msg="결제 실패하였습니다. 관리자에게 문의하세요.";
+			loc="/product/productDetail";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
 	}
 	
 	@RequestMapping("/insertReview.do")
@@ -216,4 +251,27 @@ public class ProductController {
 		mv.setViewName("product/insertReivew");
 		return mv;
 	}
+	
+	@RequestMapping("/addCart.do")
+	public ModelAndView addCart(ModelAndView mv) {
+		return mv;
+	}
+	
+	@RequestMapping("/searchProduct.do")
+	public ModelAndView searchProduct(ModelAndView mv, String search) {
+		
+		System.out.println(search);
+		List<Product> list=service.searchProduct(search);
+		int count = service.searchProductCount(search);
+		mv.addObject("list",list);
+		mv.addObject("totalContents",count);
+		mv.setViewName("product/productList");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
 }

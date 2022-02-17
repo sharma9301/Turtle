@@ -24,5 +24,6 @@ public class Order {
 	private String method;
 	private int totalPrice;
 	private String invoice;
+	private String deliveryComp;
 
 }
