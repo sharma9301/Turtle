@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
                 <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>
-                <input type="text" id="aa" value="3">
+                <input type="hidden" id="aa" value="3">
                 <div class="starRev">
 					<span class="starR starG1">별1</span>
 					<span class="starR starG2">별2</span>
