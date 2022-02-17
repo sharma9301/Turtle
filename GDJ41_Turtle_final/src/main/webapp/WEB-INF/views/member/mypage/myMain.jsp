@@ -101,7 +101,7 @@
 
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>마이페이지</h1></div>
-      ${stList }
+      <%-- ${stList } --%>
 		<%-- <c:if test="${not empty param}">
           	<c:forEach items="${param }" var="p">
 				<c:out value="${p.a }"/>
@@ -112,7 +112,7 @@
       	<input type="hidden" name="orderNo" class="orderNo" value="${o.orderNo }"/>
       </c:forEach>
 	      
-      <input type="hidden" name="orderNoList" id="orderNoList" value=""/>
+      <!-- <input type="hidden" name="orderNoList" id="orderNoList" value=""/> -->
       <input type="hidden" name="userId" id="userId" value="${loginMember.userId}"/>
       
       
@@ -199,11 +199,12 @@
                   </div></a>
                   <script type="text/javascript">
                   function fn_orderList() {
-                	  let orderNoList = $("#orderNoList").val();
-                	  console.log(orderNoList);
+                	  //let orderNoList = $("#orderNoList").val();
+                	  //console.log(orderNoList);
+                	  //+"&orderNoList="+orderNoList
                 	  let userId = $("#userId").val();
                 	  console.log(userId);
-                	  location.assign("/member/mypage/delivery?userId="+userId+"&orderNoList="+orderNoList);
+                	  location.assign("/member/mypage/delivery?userId="+userId);
                   }
                   </script>
             </div>

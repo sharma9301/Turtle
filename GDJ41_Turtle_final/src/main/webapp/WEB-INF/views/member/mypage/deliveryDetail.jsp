@@ -79,9 +79,9 @@
 
       <!-- 페이지본문 -->
     <div class="csTitle"><h1>주문내역 상세보기</h1></div>
-    	
+    	<input type="hidden" value="${loginMember.userId}" id="hiddenUserId">
 			
-		${pdList }
+		<%-- ${pdList } --%>
     <!-- 주문내역 주문자 기본정보 -->
     
 	    <div class="col" style="margin-top: 20px;">
@@ -92,7 +92,7 @@
 	                        <!-- 주문일자 주문자 주소 운송장번호 주문취소버튼 -->
 	                        <table>
 	                          <tbody>
-							<c:forEach items="${pdList }" var="pd" begin="1" end="1">
+							<c:forEach items="${pdList }" var="pd" begin="0" end="0">
 							<input type="hidden" id="orderNo" value="${pd.ORDER_NO }">	
 	                              <tr>
 	                                  <td><fmt:formatDate value="${pd.ORDER_DATE }" type="date" dateStyle="long"/></td>
@@ -100,23 +100,23 @@
 	                                  <td><c:out value="${pd.RC_ADDRESS}"/></td>
 	                                  <td><c:out value="주문번호 : ${pd.ORDER_NO}"/></td>
 	                                  <td><c:out value="${pd.DELIVERY_COMP}"/><c:out value="${pd.INVOICE}"/></td>
-	                                  <c:if test="${pd.EXPIRY lt 8}">
+	                                  <c:if test="${pd.EXPIRY lt 31}">
 	                                  	<c:choose>
-								        	<c:when test = "${pd.ORDER_STATUS == '결제 완료'} ">
+								        	<c:when test = "${pd.ORDER_STATUS eq '결제 완료'}">
 								            	<td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="cancelBtn">주문취소</button></td>
 								         	</c:when>
-								         	<c:when test = "${pd.ORDER_STATUS == '환불 요청'} ">
-								            	<td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="cancelBtn" disabled>환불요청 처리중</button></td>
+								         	<c:when test = "${pd.ORDER_STATUS eq '환불 요청'}">
+								            	<td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="refundEndBtn" disabled>환불요청 처리중</button></td>
 								         	</c:when>
-									        <c:when test = "${pd.ORDER_STATUS == '주문 취소'} ">
-									           <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="cancelBtn" disabled>주문취소 완료</button></td>
+									        <c:when test = "${pd.ORDER_STATUS eq '주문 취소'}">
+									           <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="cancelEndBtn" disabled>주문취소 완료</button></td>
 									        </c:when>
 									        <c:otherwise>
 									           <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary" id="refundBtn">환불요청</button></td>
 									        </c:otherwise>
 								      </c:choose>
 								      </c:if>
-								      <c:if test="${pd.EXPIRY gt 7 }">
+								      <c:if test="${pd.EXPIRY gt 30 }">
 								      	<td><c:out value="구매완료"/></td>
 								      </c:if>
 	                              </tr>
@@ -172,12 +172,12 @@
 
 
 let orderNo = $("#orderNo").val();
-
+let userId = $("#hiddenUserId").val();
 
 
 $("#cancelBtn").click(e=>{ 
 	if (confirm("주문취소 후 취소가 불가합니다. 주문을 취소하시겠습니까?")) { 
-		location.assign("/member/mypage/orderCancel.do?orderNo="+orderNo);
+		location.assign("/member/mypage/orderCancel.do?orderNo="+orderNo+"&userId="+userId);
 	} 
 	else{ 
 		return false;
@@ -186,7 +186,7 @@ $("#cancelBtn").click(e=>{
 		
 $("#refundBtn").click(e=>{ 
 	if (confirm("환불요청 후 취소가 불가합니다. 환불요청을 하시겠습니까?")) { 
-		location.assign("/member/mypage/refundRequest.do?orderNo="+orderNo);
+		location.assign("/member/mypage/refundRequest.do?orderNo="+orderNo+"&userId="+userId);
 	} 
 	else{ 
 		return false;
