@@ -18,7 +18,7 @@ public interface MemberService {
 	
 	int userIdChk(String userId);
 	
-	//int deleteEnd(Map param);
+	int deleteMember(String userId);
 	
 	
 	

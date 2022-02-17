@@ -18,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.member.model.service.MemberService;
 import com.turtle.spring.member.model.vo.Member;
-import com.turtle.spring.order.model.vo.Order;
+import com.turtle.spring.order.model.service.OrderService;
+import com.turtle.spring.order.model.vo.OrderDetail;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +30,10 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private OrderService service1;
+	
 	
 	//암호화처리 클래스 불러오기
 	@Autowired
@@ -47,12 +52,37 @@ public class MemberController {
 	
 	
 	@RequestMapping("/member/mypage/myMain")
-	public String myMain() {
-		return "member/mypage/myMain";
+	public ModelAndView myMain(HttpServletRequest request,ModelAndView mv) {
+		
+//		Map<String,Object> param = new HashMap();
+//		param.put("userId", userId);
+//		param.put("password", password);
+//		
+//		Member m = service.login(param);
+//		mv.addObject("loginMember", m);
+		
+		
+		HttpSession session = request.getSession();
+		
+		Member m = (Member)session.getAttribute("loginMember");
+		System.out.println("아이디 확인 : "+m.getUserId());
+		log.debug("아이디 확인 : "+m.getUserId());
+		
+		
+		
+		List<OrderDetail> oDList = service1.selectODList(m.getUserId());
+		List stList = service1.stList(m.getUserId());
+		log.debug("oDList 확인 : "+oDList);
+		
+		mv.addObject("oDList",oDList);
+		mv.addObject("stList",stList);
+		mv.setViewName("member/mypage/myMain");
+		return mv;
 	}	
 	
 	@RequestMapping("/member/mypage/reviews")
 	public String reviews() {
+		
 		return "member/mypage/reviews";
 	}	
 	
@@ -139,12 +169,6 @@ public class MemberController {
 	}
 	
 	
-	
-	@RequestMapping("/member/mypage/wishList")
-	public String wishList() {
-		return "member/mypage/wishList";
-	}
-	
 	@RequestMapping("/member/service/faq")
 	public String faq() {
 		return "member/service/faq";
@@ -158,6 +182,38 @@ public class MemberController {
 	@RequestMapping("/member/service/delete")
 	public String delete() {
 		return "member/service/delete";
+	}
+
+	@RequestMapping("/member/service/deleteEnd")
+	public ModelAndView deleteEnd(SessionStatus status,ModelAndView mv, String userId, String ori1, String ori2) {
+		System.out.println("ori1 확인"+ori1);
+		System.out.println("ori2 확인"+ori2);
+		String msg="";
+		String loc="";
+		if(encoder.matches(ori1, ori2)) {
+			System.out.println("비밀번호 일치합니다요");
+			int result = service.deleteMember(userId);
+			System.out.println("result들어왔니"+result);
+			if(result>0) {
+				msg="회원탈퇴 되었습니다.";
+				loc="/";
+				if(!status.isComplete()) { //-> "만약 삭제되지 않았다면"
+					status.setComplete();
+				}
+			}else {
+				msg="회원탈퇴 실패! 다시 시도해주세요.";
+				loc="/member/service/delete";
+			}
+		}else {
+			msg="비밀번호가 일치하지 않습니다.";
+			loc="/member/service/delete";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 	
 	@RequestMapping("/member/login/login")

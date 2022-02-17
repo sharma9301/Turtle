@@ -37,10 +37,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.userIdChk",userId);
 	}
 	
-	//@Override
-	// int deleteEnd(SqlSessionTemplate session,Map param) {
-	//	return session.delete("member.deleteEnd",param);
-	//}
+	@Override
+	public int deleteMember(SqlSessionTemplate session,String userId) {
+		return session.delete("member.deleteMember",userId);
+	}
 
 	
 	

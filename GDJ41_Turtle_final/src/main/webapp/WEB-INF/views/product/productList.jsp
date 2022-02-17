@@ -58,7 +58,7 @@
                 <!-- 리스트 시작 -->
                 <c:if test="${not empty list }">
                 	<c:forEach var="p" items="${list }">
-		                <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.pdCode }')">
+		                <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.pdCode }')" style="cursor:pointer;">
 		                    <div class="card h-100">
 		                        <!-- Sale badge-->
 		                        <c:if test="${p.pdIsDiscount eq 'Y'}">
@@ -94,12 +94,20 @@
 		                        </div>
 		                        <!-- Product actions-->
 		                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+		                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" class="addToCart"
+		                            		href="${path }/product/addCart.do">Add to cart</a></div>
 		                        </div>
 		                    </div>
 		                </div>
 		        	</c:forEach>        
-                </c:if>             
+                </c:if>           
+                <script>
+                	$(".addToCart").click(e=>{
+                		if(${loginMember!=null}){
+                			alert('로그인 후 이용 가능합니다.');
+                		}	
+                	});
+                </script>  
             </div>
     	</div>
         <div id="pageBar">

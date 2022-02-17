@@ -50,13 +50,13 @@
                 <form action="${path }/product/orderCheck.do?pdCode=${product.pdCode}&size=${size}&amount=${amount}&userId=${loginMember.userId}" 
                 		id="receiver-info" method="post">
                     <h5>수령자 이름</h5>
-                    <input type="text" name="userName" placeholder="홍길동" size="70%" value="">
+                    <input type="text" name="userName" placeholder="홍길동" size="70%" value="" required>
                     <h5>수령자 연락처</h5>
-                    <input type="text" name="phone" placeholder="01012341234(-생략)" size="70%" value="">
+                    <input type="text" name="phone" placeholder="01012341234(-생략)" size="70%" value="" required>
                     <h5>수령자 이메일</h5>
-                    <input type="email" name="email" placeholder="abc@naver.com" size="70%" value="">
+                    <input type="email" name="email" placeholder="abc@naver.com" size="70%" value="" required>
                     <h5>수령자 주소</h5>
-                    <input type="text" name="address" placeholder="상세주소" size="70%" value="">
+                    <input type="text" name="address" placeholder="상세주소" size="70%" value="" required>
                 </form>
             </div>
             <button type="button" class="beforeBtn" style="float:left; margin-left:40px;" onclick="history.back();">이전</button>
@@ -69,8 +69,14 @@
                     <div><img src="${path }/resources/images/product/${product.pdImage}" width="120px" height="120px"></div>
                     <div class="productName" style="text-align: left; font-size:20px; width:300px; padding-top:10px;" >
                     	상품코드 : <c:out value="${product.pdCode }"/><br>
-                    	상품명 : <c:out value="${product.pdName }"/><br>
-                    	사이즈 : <c:out value="${size }"/>
+                    	상품명 : <c:out value="${product.pdName }"/><br> 
+                    	<c:if test="${product.categoryCode.categoryCode == 'ring' }">
+                    		사이즈 : <c:out value="${size }"/>
+                    	</c:if>
+                    	<c:if test="${product.categoryCode.categoryCode != 'ring' }">
+                    		사이즈 : FREE
+                    		<c:set var="size" value="${size }"/>
+                    	</c:if>
                     </div>
                 </div>
                

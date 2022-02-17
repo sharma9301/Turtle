@@ -7,12 +7,16 @@ import com.turtle.spring.member.model.vo.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Order {
 	
 	private String orderNo;
@@ -24,5 +28,6 @@ public class Order {
 	private String method;
 	private int totalPrice;
 	private String invoice;
+	private String deliveryComp;
 
 }

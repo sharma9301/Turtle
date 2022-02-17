@@ -109,12 +109,12 @@
       <div class="csTitle"><h1>계정탈퇴</h1></div>
 
       <div class="csDelete">
-          <form name="csDelete" action="${path }/deleteEnd">
+          <form name="csDelete" action="${path }/member/service/deleteEnd">
             <label>아이디</label>
             <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
             <label>비밀번호</label>
-            <input name="oriPassword" id="oriPassword" type="password" placeholder="비밀번호" required>
-            <input name="oriPassword2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none">
+            <input name="ori1" id="oriPassword" type="password" placeholder="비밀번호" required>
+            <input name="ori2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none">
             <button type="submit" class="btn btn-dark" id="deleteBtn">확인</button>
           </form>
       </div>
@@ -142,6 +142,10 @@
         }
       });
     }
+
+
+    
+    
     
     
     
