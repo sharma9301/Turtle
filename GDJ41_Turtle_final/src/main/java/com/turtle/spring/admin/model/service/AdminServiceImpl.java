@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.turtle.spring.admin.model.dao.AdminDao;
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +39,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<Product> selectProductOptList(Map<String, Object> param) {
+	public List<Option> selectProductOptList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dao.selectProductOptList(session,param);
 	}
 	
 	@Override
-	public List<Product> selectOrderList(Map<String, Object> param) {
+	public List<Order> selectOrderList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dao.selectOrderList(session,param);
+	}
+	
+	@Override
+	public List<Reviews> selectReviewsList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewsList(session,param);
 	}
 	
 	@Override
@@ -63,6 +72,12 @@ public class AdminServiceImpl implements AdminService {
 	public int selectOrderCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dao.selectOrderCount(session,param);
+	}
+	
+	@Override
+	public int selectReviewsCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewsCount(session,param);
 	}
 	
 	@Override
@@ -118,6 +133,8 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.updateStatus(session,param);
 	}
+
+	
 
 	
 

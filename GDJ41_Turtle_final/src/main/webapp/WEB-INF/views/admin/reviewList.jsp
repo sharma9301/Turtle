@@ -7,7 +7,8 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                        <form class="form" style="margin: 50px auto 50px auto;">
+                    	${reviewsList}
+                        <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchReviews.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">리뷰 관리</h1>
                                 <style>
@@ -21,36 +22,36 @@
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
                                                 <select class="form-select me-2" id="searchType" name="searchType" style="width: 120px;">
-                                                    <option value="reviewTitle">제목</option>
-                                                    <option value="reviewContent">내용</option>
-                                                    <option value="userId">작성자</option>
-                                                    <option value="productName">상품명</option>
-                                                    <option value="productCode">상품코드</option>
+                                                    <option value="RV_TITLE">제목</option>
+                                                    <option value="RV_CONTENT">내용</option>
+                                                    <option value="USER_ID">작성자</option>
+                                                    <option value="PD_NAME">상품명</option>
+                                                    <option value="PD_CODE">상품코드</option>
 
                                                 </select>
-                                                <div id="search-reviewTitle">
-                                                    <input type="hidden" name="searchType" value="reviewTitle">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'reviewTitle'?keyword:''}"
+                                                <div id="search-RV_TITLE">
+                                                    <input type="hidden" name="searchType" value="RV_TITLE">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'RV_TITLE'?keyword:''}"
                                                     placeholder="리뷰 제목를 입력하세요">
                                                 </div>
-                                                <div id="search-reviewContent">
-                                                    <input type="hidden" name="searchType" value="reviewContent">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'reviewContent'?keyword:''}"
+                                                <div id="search-RV_CONTENT">
+                                                    <input type="hidden" name="searchType" value="RV_CONTENT">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'RV_CONTENT'?keyword:''}"
                                                     placeholder="리뷰 내용를 입력하세요">
                                                 </div>
-                                                <div id="search-userId">
-                                                    <input type="hidden" name="searchType" value="userId">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'userId'?keyword:''}"
+                                                <div id="search-USER_ID">
+                                                    <input type="hidden" name="searchType" value="USER_ID">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'USER_ID'?keyword:''}"
                                                     placeholder="리뷰 작성자 아이디을 입력하세요">
                                                 </div>
-                                                <div id="search-productName">
-                                                    <input type="hidden" name="searchType" value="productName">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productName'?keyword:''}"
+                                                <div id="search-PD_NAME">
+                                                    <input type="hidden" name="searchType" value="PD_NAME">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'PD_NAME'?keyword:''}"
                                                     placeholder="상품명을 입력하세요">
                                                 </div>
-                                                <div id="search-productCode">
-                                                    <input type="hidden" name="searchType" value="productCode">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'productCode'?keyword:''}"
+                                                <div id="search-PD_CODE">
+                                                    <input type="hidden" name="searchType" value="PD_CODE">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'PD_CODE'?keyword:''}"
                                                     placeholder="상품 코드를 입력하세요">
                                                 </div>
                                             </div>
@@ -90,10 +91,10 @@
                                                 <input type="radio" class="btn-check btn-sm" name="reviewDate" id="reviewDate1month">
                                                 <label class="btn btn-outline-secondary" for="reviewDate1month">1개월</label>
 
-                                                <input type="radio" class="btn-check btn-sm" name="reviewDate" id="reviewDateAll">
+                                                <input type="radio" class="btn-check btn-sm" name="reviewDate" id="reviewDateAll" checked>
                                                 <label class="btn btn-outline-secondary" for="reviewDateAll">전체</label>
 
-                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" style="width: 160px;"/>
+                                                <input type="date" name="fromDate" id="fromDate" class="form-control ms-2" value="2022-01-01" style="width: 160px;"/>
                                                 <span>&nbsp;~&nbsp;</span> 
                                                 <input type="date" name="toDate" id="toDate" class="form-control" style="width: 160px;"/>
 
@@ -103,7 +104,6 @@
                                                 var d= new Date();
                                                 
                                                 var kor_date = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
-                                                document.getElementById('fromDate').value = kor_date.substring(0, 10);
                                                 document.getElementById('toDate').value = kor_date.substring(0, 10);
                                                 
                                                 $("input:radio[name=reviewDate]").click(e=>{
@@ -117,7 +117,10 @@
                                                         case "3일": newDate.setDate(newDate.getDate()-3); break;
                                                         case "7일": newDate.setDate(newDate.getDate()-7); break;
                                                         case "1개월": newDate.setMonth(newDate.getMonth()-1); break;
-                                                        case "전체": break;
+                                                        case "전체": newDate.setFullYear(2022);
+                                                   		newDate.setMonth(0);
+                                                    	newDate.setDate(2);
+                                                    	break;
 
                                                     }
                                                     // console.log("변경후 newDate : " + newDate);
@@ -153,28 +156,30 @@
                                     <th scope="col" class="userId">작성자</th>
                                     <th scope="col" class="reviewTitle">리뷰 제목</th>
                                     <th scope="col" class="reviewGrade">리뷰 점수</th>
-                                    <th scope="col" class="reviewIsImage" style="width: 100px;">포토리뷰</th>
+                                    <th scope="col" class="reviewIsImage" style="width: 100px;">포토리뷰 여부</th>
                                     <th scope="col" class="reviewDate">리뷰 날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_reviewNo" name="rowChk_reviewNo"></td>
-                                    <td scope="col" class="reviewNo">1</td>
-                                    <td scope="col" class="reviewImage"><img src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="상품 이미지"></td>
-                                    <td scope="col" class="productName">커플용 반지</td>
-                                    <td scope="col" class="productCode">ring001</td>
-                                    <td scope="col" class="userId">
-                                        user00<br>
-                                        (유저공공)
-                                    </td>
-                                    <td scope="col" class="reviewTitle">이 제품 추천합니다!</td>
-                                    <td scope="col" class="reviewGrade">
-                                        5점
-                                    </td>
-                                    <td scope="col" class="reviewIsImage">예</td>
-                                    <td scope="col" class="reviewDate">22/01/25</td>
-                                </tr>
+                            	<c:forEach items="${reviewsList }" var="reviews">
+	                                <tr>
+	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_reviewNo" name="rowChk_reviewNo"></td>
+	                                    <td scope="col" class="reviewNo">${reviews.rvNo }</td>
+	                                    <td scope="col" class="reviewImage"><img src="${path }/resources/images/reviews/${reviews.rvImage }" width="100px" height="100px" alt="리뷰 이미지"></td>
+	                                    <td scope="col" class="productName">${reviews.pdCode.pdName}</td>
+	                                    <td scope="col" class="productCode">${reviews.pdCode.pdCode}</td>
+	                                    <td scope="col" class="userId">
+	                                        ${reviews.userId.userId}<br>
+	                                        (${reviews.userId.userName})
+	                                    </td>
+	                                    <td scope="col" class="reviewTitle">${reviews.rvTitle}</td>
+	                                    <td scope="col" class="reviewGrade">
+	                                        ${reviews.rvGrade }점
+	                                    </td>
+	                                    <td scope="col" class="reviewIsImage">${reviews.rvIsImage }</td>
+	                                    <td scope="col" class="reviewDate">${reviews.rvDate }</td>
+	                                </tr>
+                                </c:forEach>
                                 
                                 
                             </tbody>
@@ -183,7 +188,7 @@
                             <tr>
                                 <td colspan="11">
                                     <div style="text-align: left;">
-                                        <button class="btn btn-secondary deleteReview" onclick="">삭제</button>
+                                        
                                         <div class="btn-group">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                             포토리뷰 여부
@@ -193,7 +198,10 @@
                                             <li><a class="dropdown-item" href="#">아니오</a></li>
                                             </ul>
                                         </div>
-                                        <button class="btn btn-secondary showProductPage" onclick="" style="float: right;">상품 페이지로 이동</button>
+                                        <div style="float: right;">
+                                        	<button class="btn btn-secondary deleteReview">리뷰 삭제</button>
+                                        	<button class="btn btn-secondary showProductPage">상품 페이지로 이동</button>
+                                        </div>
                                         <script>
                                             $(()=>{
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직

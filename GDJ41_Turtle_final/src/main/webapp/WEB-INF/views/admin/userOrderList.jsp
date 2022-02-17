@@ -178,7 +178,7 @@
                                                         case "1년": newDate.setFullYear(newDate.getFullYear()-1); break;
                                                         case "전체": newDate.setFullYear(2022);
                                                    		newDate.setMonth(0);
-                                                    	newDate.setDate(1);
+                                                    	newDate.setDate(2);
                                                     	break;
 
                                                     }
@@ -226,39 +226,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach var="order" items="${selectOrderList}">
+                            	<c:forEach var="order" items="${orderList}">
                             		<tr>
-                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_orderNo" name="rowChk_orderNo"></td>
-                                    <td scope="col" class="orderDate">
-                                    	<fmt:formatDate value="${order.ORDER_DATE }" type="date" pattern="yy/MM/dd"/>
-                                    </td>
-                                    <td scope="col" class="orderNo">${order.ORDER_NO }</td>
-                                    <td scope="col" class="user">${order.USER_ID }<br>(${order.USER_NAME })</td>
-                                    <td scope="col" class="productName">${order.PD_NAME } 외 ${order.ALLNUM }</td>
-                                    <td scope="col" class="paymentTotalPrice">
-                                    	<fmt:formatNumber value="${order.PAYTOTALPRICE }" type="currency"/>
-                                   	</td>
-                                    <td scope="col" class="paymentMethod">${order.PAY_METHOD }</td>
-                                    <td scope="col" class="deliveryCompany">
-                                        <select class="form-select-sm" name="deliveryCompany" id="deliveryCompany">
-                                            <option value="우체국 택배" ${fn:contains(order.DELIVERY_COMP,'우체국택배')?'selected':'' }>우체국택배</option>
-                                            <option value="CJ대한통운" ${fn:contains(order.DELIVERY_COMP,'CJ대한통운')?'selected':'' }>CJ대한통운</option>
-                                            <option value="한진택배" ${fn:contains(order.DELIVERY_COMP,'한진택배')?'selected':'' }>한진택배</option>
-                                            <option value="로젠택배" ${fn:contains(order.DELIVERY_COMP,'로젠택배')?'selected':'' }>로젠택배</option>
-                                            <option value="롯데택배" ${fn:contains(order.DELIVERY_COMP,'롯데택배')?'selected':'' }>롯데택배</option>
-                                        </select>
-                                    </td>
-                                    <td scope="col" class="invoiceNo">
-                                        <input type="text" name="invoice" id="invoice" value="${order.INVOICE }" size="15" maxlength="13" placeholder="송장 번호 입력">
-                                    </td>
-                                    <td scope="col" class="undelivered">${fn:contains(order.ORDER_STATUS,'결제 완료')?'1':'0' }</td>
-                                    <td scope="col" class="readyShipping">${fn:contains(order.ORDER_STATUS,'배송 준비중')?'1':'0' }</td>
-                                    <td scope="col" class="shipping">${fn:contains(order.ORDER_STATUS,'배송 중')?'1':'0' }</td>
-                                    <td scope="col" class="deliveryCompleted">${fn:contains(order.ORDER_STATUS,'배송 완료')?'1':'0' }</td>
-                                    <td scope="col" class="orderCancel">${fn:contains(order.ORDER_STATUS,'주문 취소')?'1':'0' }</td>
-                                    <td scope="col" class="orderRefundRequest">${fn:contains(order.ORDER_STATUS,'환불 요청')?'1':'0' }</td>
-                                    <td scope="col" class="orderRefundFinish">${fn:contains(order.ORDER_STATUS,'환불 완료')?'1':'0' }</td>
-                                </tr>
+	                                    <td scope="col" style="width: 0px;"><input type="checkbox" class="rowChk_orderNo" name="rowChk_orderNo"></td>
+	                                    <td scope="col" class="orderDate">
+	                                    	<fmt:formatDate value="${order.ORDER_DATE }" type="date" pattern="yy/MM/dd"/>
+	                                    </td>
+	                                    <td scope="col" class="orderNo">${order.ORDER_NO }</td>
+	                                    <td scope="col" class="user">${order.USER_ID }<br>(${order.USER_NAME })</td>
+	                                    <td scope="col" class="productName">${order.PD_NAME } 외 ${order.ALLNUM }</td>
+	                                    <td scope="col" class="paymentTotalPrice">
+	                                    	<fmt:formatNumber value="${order.PAYTOTALPRICE }" type="currency"/>
+	                                   	</td>
+	                                    <td scope="col" class="paymentMethod">${order.PAY_METHOD }</td>
+	                                    <td scope="col" class="deliveryCompany">
+	                                        <select class="form-select-sm" name="deliveryCompany" id="deliveryCompany">
+	                                            <option value="우체국 택배" ${fn:contains(order.DELIVERY_COMP,'우체국택배')?'selected':'' }>우체국택배</option>
+	                                            <option value="CJ대한통운" ${fn:contains(order.DELIVERY_COMP,'CJ대한통운')?'selected':'' }>CJ대한통운</option>
+	                                            <option value="한진택배" ${fn:contains(order.DELIVERY_COMP,'한진택배')?'selected':'' }>한진택배</option>
+	                                            <option value="로젠택배" ${fn:contains(order.DELIVERY_COMP,'로젠택배')?'selected':'' }>로젠택배</option>
+	                                            <option value="롯데택배" ${fn:contains(order.DELIVERY_COMP,'롯데택배')?'selected':'' }>롯데택배</option>
+	                                        </select>
+	                                    </td>
+	                                    <td scope="col" class="invoiceNo">
+	                                        <input type="text" name="invoice" id="invoice" value="${order.INVOICE }" size="15" maxlength="13" placeholder="송장 번호 입력">
+	                                    </td>
+	                                    <td scope="col" class="undelivered">${fn:contains(order.ORDER_STATUS,'결제 완료')?'1':'0' }</td>
+	                                    <td scope="col" class="readyShipping">${fn:contains(order.ORDER_STATUS,'배송 준비중')?'1':'0' }</td>
+	                                    <td scope="col" class="shipping">${fn:contains(order.ORDER_STATUS,'배송 중')?'1':'0' }</td>
+	                                    <td scope="col" class="deliveryCompleted">${fn:contains(order.ORDER_STATUS,'배송 완료')?'1':'0' }</td>
+	                                    <td scope="col" class="orderCancel">${fn:contains(order.ORDER_STATUS,'주문 취소')?'1':'0' }</td>
+	                                    <td scope="col" class="orderRefundRequest">${fn:contains(order.ORDER_STATUS,'환불 요청')?'1':'0' }</td>
+	                                    <td scope="col" class="orderRefundFinish">${fn:contains(order.ORDER_STATUS,'환불 완료')?'1':'0' }</td>
+                                	</tr>
                             	</c:forEach>
                                 
                                 

@@ -16,10 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.admin.model.service.AdminService;
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
-import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -166,7 +168,7 @@ public class AdminController {
 		param.put("fromDate", fromDate);
 		param.put("toDate", toDate);
 		
-		List<Product> list = service.selectProductOptList(param);
+		List<Option> list = service.selectProductOptList(param);
 		int count = service.selectProductOptCount(param);
 		
 		System.out.println(list);
@@ -488,12 +490,12 @@ public class AdminController {
 		param.put("fromDate", fromDate);
 		param.put("toDate", toDate);
 		
-		List<Product> list = service.selectOrderList(param);
+		List<Order> list = service.selectOrderList(param);
 		int count = service.selectOrderCount(param);
 		
 		System.out.println(list);
-		mv.addObject("selectOrderList",list);
-		mv.addObject("selectOrderCount",count);		
+		mv.addObject("orderList",list);
+		mv.addObject("orderCount",count);		
 		mv.setViewName("admin/userOrderList");
 		return mv;
 	}
@@ -602,6 +604,44 @@ public class AdminController {
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
 		
+		return mv;
+	}
+	
+	@RequestMapping("/admin/searchReviews.do")
+	public ModelAndView searchReviews(ModelAndView mv, HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		System.out.println("searchType : "+searchType);
+		String[] keywords = request.getParameterValues("searchKeyword");
+		System.out.println("searchKeyword : "+keywords);
+		
+		String keyword = "";
+		for(int i=0; i<keywords.length;i++) {
+			if(keywords[i]!="") {
+				keyword = keywords[i];
+			}
+		}
+		System.out.println("keyword : "+keyword);
+		
+		String fromDate = request.getParameter("fromDate");
+		String toDate = request.getParameter("toDate");
+		
+		System.out.println("fromDate : "+fromDate);
+		System.out.println("toDate : "+toDate);
+		
+		
+		Map<String,Object> param = new HashMap();
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
+		
+		List<Reviews> list = service.selectReviewsList(param);
+		int count = service.selectReviewsCount(param);
+		
+		System.out.println(list);
+		mv.addObject("reviewsList",list);
+		mv.addObject("reviewsCount",count);		
+		mv.setViewName("admin/reviewList");
 		return mv;
 	}
 	

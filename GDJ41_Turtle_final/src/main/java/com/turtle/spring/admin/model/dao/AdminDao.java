@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 public interface AdminDao {
@@ -14,15 +17,19 @@ public interface AdminDao {
 
 	List<Product> selectProductList(SqlSessionTemplate session, Map<String, Object> param);
 
-	List<Product> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param);
+	List<Option> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param);
 
-	List<Product> selectOrderList(SqlSessionTemplate session, Map<String, Object> param);
+	List<Order> selectOrderList(SqlSessionTemplate session, Map<String, Object> param);
+
+	List<Reviews> selectReviewsList(SqlSessionTemplate session, Map<String, Object> param);
 	
 	int selectProductCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int selectProductOptCount(SqlSessionTemplate session, Map<String, Object> param);
 	
 	int selectOrderCount(SqlSessionTemplate session, Map<String, Object> param);
+
+	int selectReviewsCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int insertProduct(SqlSessionTemplate session, Map<String, Object> param);
 
@@ -41,6 +48,8 @@ public interface AdminDao {
 	int updateInvoice(SqlSessionTemplate session, Map<String, Object> param);
 
 	int updateStatus(SqlSessionTemplate session, Map<String, Object> param);
+
+
 
 	
 

@@ -6,7 +6,10 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Order;
+import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
 @Repository
@@ -25,15 +28,21 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Product> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param) {
+	public List<Option> selectProductOptList(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.selectProductOptList",param);
 	}
 	
 	@Override
-	public List<Product> selectOrderList(SqlSessionTemplate session, Map<String, Object> param) {
+	public List<Order> selectOrderList(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.selectOrderList",param);
+	}
+	
+	@Override
+	public List<Reviews> selectReviewsList(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.selectReviewsList",param);
 	}
 	
 	@Override
@@ -52,6 +61,12 @@ public class AdminDaoImpl implements AdminDao {
 	public int selectOrderCount(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.selectOrderCount",param);
+	}
+	
+	@Override
+	public int selectReviewsCount(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectReviewsCount",param);
 	}
 	
 	@Override
@@ -107,6 +122,8 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.update("admin.updateStatus",param);
 	}
+
+	
 
 	
 

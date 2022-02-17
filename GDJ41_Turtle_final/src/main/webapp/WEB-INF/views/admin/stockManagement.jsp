@@ -131,7 +131,7 @@
                                                         case "1년": newDate.setFullYear(newDate.getFullYear()-1); break;
                                                         case "전체": newDate.setFullYear(2022);
                                                        		newDate.setMonth(0);
-                                                        	newDate.setDate(1);
+                                                        	newDate.setDate(2);
                                                         	break;
 
                                                     }
