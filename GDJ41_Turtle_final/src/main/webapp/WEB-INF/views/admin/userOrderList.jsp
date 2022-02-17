@@ -23,7 +23,7 @@
                                         <th class="table-active">검색어</th>
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
-                                                <select class="form-select me-2" id="searchType" name="searchType" style="width: 120px;">
+                                                <select class="form-select me-2" id="searchType" name="searchType" style="width: 150px;">
                                                     <option value="ORDER_NO">주문 번호</option>
                                                     <option value="INVOICE">운송장 번호</option>
                                                     <option value="divider" disabled>---------------</option>
@@ -37,49 +37,49 @@
                                                     <option value="RC_ADDRESS">수령자 주소</option>
 
                                                 </select>
-                                                <div id="search-orderNo">
-                                                    <input type="hidden" name="searchType" value="orderNo">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'orderNo'?keyword:''}"
+                                                <div id="search-ORDER_NO">
+                                                    <input type="hidden" name="searchType" value="ORDER_NO">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'ORDER_NO'?keyword:''}"
                                                     placeholder="주문 번호를 입력하세요">
                                                 </div>
-                                                <div id="search-invoiceNo">
-                                                    <input type="hidden" name="searchType" value="invoiceNo">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'invoiceNo'?keyword:''}"
+                                                <div id="search-INVOICE">
+                                                    <input type="hidden" name="searchType" value="INVOICE">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'INVOICE'?keyword:''}"
                                                     placeholder="운송장 번호를 입력하세요">
                                                 </div>
-                                                <div id="search-userId">
-                                                    <input type="hidden" name="searchType" value="userId">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'userId'?keyword:''}"
+                                                <div id="search-USER_ID">
+                                                    <input type="hidden" name="searchType" value="USER_ID">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'USER_ID'?keyword:''}"
                                                     placeholder="주문자 아이디를 입력하세요">
                                                 </div>
-                                                <div id="search-userName">
-                                                    <input type="hidden" name="searchType" value="userName">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'userName'?keyword:''}"
+                                                <div id="search-USER_NAME">
+                                                    <input type="hidden" name="searchType" value="USER_NAME">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'USER_NAME'?keyword:''}"
                                                     placeholder="주문자 이름을 입력하세요">
                                                 </div>
-                                                <div id="search-userEmail">
-                                                    <input type="hidden" name="searchType" value="userEmail">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'userEmail'?keyword:''}"
+                                                <div id="search-USER_EMAIL">
+                                                    <input type="hidden" name="searchType" value="USER_EMAIL">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'USER_EMAIL'?keyword:''}"
                                                     placeholder="주문자 이메일을 입력하세요">
                                                 </div>
-                                                <div id="search-userPhone">
-                                                    <input type="hidden" name="searchType" value="userPhone">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'userPhone'?keyword:''}"
+                                                <div id="search-USER_PHONE">
+                                                    <input type="hidden" name="searchType" value="USER_PHONE">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'USER_PHONE'?keyword:''}"
                                                     placeholder="주문자 연락처를 입력하세요">
                                                 </div>
-                                                <div id="search-receiverName">
-                                                    <input type="hidden" name="searchType" value="receiverName">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'receiverName'?keyword:''}"
+                                                <div id="search-RC_NAME">
+                                                    <input type="hidden" name="searchType" value="RC_NAME">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'RC_NAME'?keyword:''}"
                                                     placeholder="수령자 이름을 입력하세요">
                                                 </div>
-                                                <div id="search-receiverPhone">
-                                                    <input type="hidden" name="searchType" value="receiverPhone">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'receiverPhone'?keyword:''}"
+                                                <div id="search-RC_PHONE">
+                                                    <input type="hidden" name="searchType" value="RC_PHONE">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'RC_PHONE'?keyword:''}"
                                                     placeholder="수령자 연락처를 입력하세요">
                                                 </div>
-                                                <div id="search-receiverAddress">
-                                                    <input type="hidden" name="searchType" value="receiverAddress">
-                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'receiverAddress'?keyword:''}"
+                                                <div id="search-RC_ADDRESS">
+                                                    <input type="hidden" name="searchType" value="RC_ADDRESS">
+                                                    <input type="text" class="form-select" name="searchKeyword" size="50" value="${searchType != null && searchType == 'RC_ADDRESS'?keyword:''}"
                                                     placeholder="수령자 주소를 입력하세요">
                                                 </div>
                                             </div>
@@ -104,11 +104,11 @@
                                         <th class="table-active">결제 수단</th>
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
-                                                <select class="form-select me-2" id="pay_method" name="pay_method" style="width: 120px;">
+                                                <select class="form-select me-2" id="pay_method" name="pay_method" style="width: 150px;">
                                                     <option selected value="">분류 선택</option>
                                                     <option value="카드">카드</option>
-                                                    <option value="네이버페이">네이버페이</option>
-                                                    <option value="카카오페이">카카오페이</option>
+                                                    <option value="네이버페이">네이버 페이</option>
+                                                    <option value="카카오페이">카카오 페이</option>
                                                 </select>
                                             </div>
                                         </td>
