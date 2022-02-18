@@ -23,6 +23,8 @@ public interface AdminDao {
 
 	List<Reviews> selectReviewsList(SqlSessionTemplate session, Map<String, Object> param);
 	
+	List selectStatusList(SqlSessionTemplate session);
+	
 	int selectProductCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int selectProductOptCount(SqlSessionTemplate session, Map<String, Object> param);
@@ -48,6 +50,8 @@ public interface AdminDao {
 	int updateInvoice(SqlSessionTemplate session, Map<String, Object> param);
 
 	int updateStatus(SqlSessionTemplate session, Map<String, Object> param);
+
+	
 
 
 

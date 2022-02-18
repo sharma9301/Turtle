@@ -55,7 +55,7 @@
                                 주문 관리
                             </a>
 
-							<a class="nav-link" href="/admin/stockManagement">
+							<a class="nav-link" href="${path }/admin/stockManagement">
                                 <div class="sb-nav-link-icon"><i class="fas fa-store"></i></div>
                                 재고 관리
                             </a>

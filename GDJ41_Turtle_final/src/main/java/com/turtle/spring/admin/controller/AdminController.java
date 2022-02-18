@@ -32,8 +32,13 @@ public class AdminController {
 	private AdminService service;
 	
 	@RequestMapping("/admin/adminMainPage")
-	public String adminMainPage() {
-		return "admin/adminMainPage";
+	public ModelAndView adminMainPage(ModelAndView mv) {
+		
+		List list = service.selectStatusList();
+		
+		mv.addObject("statusList",list);
+		mv.setViewName("admin/adminMainPage");
+		return mv;
 	}
 	
 	@RequestMapping("/admin/memberList")

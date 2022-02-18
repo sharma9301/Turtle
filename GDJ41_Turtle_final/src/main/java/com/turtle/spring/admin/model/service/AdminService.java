@@ -21,6 +21,8 @@ public interface AdminService {
 	
 	List<Reviews> selectReviewsList(Map<String, Object> param);
 
+	List selectStatusList();
+
 	int selectProductCount(Map<String, Object> param);
 
 	int selectProductOptCount(Map<String, Object> param);
@@ -46,6 +48,7 @@ public interface AdminService {
 	int updateInvoice(Map<String, Object> param);
 
 	int updateStatus(Map<String, Object> param);
+
 
 
 

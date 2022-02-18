@@ -57,6 +57,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public List selectStatusList() {
+		// TODO Auto-generated method stub
+		return dao.selectStatusList(session);
+	}
+	
+	@Override
 	public int selectProductCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dao.selectProductCount(session,param);
@@ -133,6 +139,8 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.updateStatus(session,param);
 	}
+
+	
 
 	
 

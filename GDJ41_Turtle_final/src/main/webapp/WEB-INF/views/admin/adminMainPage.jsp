@@ -23,6 +23,7 @@
                             <div class="container">
                             	<div class="csTitle mb-5">
                             		<h1>관리자페이지</h1>
+                            		
                             	</div>
                                 <div class="card align-middle text-center">
 				                    <div class="card-body">
@@ -34,30 +35,32 @@
 				                                        <i class="fas fa-truck fa-4x"></i>
 				                                    </div>
 				                                </div>
+				                                
 				                                <div class="col" style="border-right:lightgray 1px solid;">
-				                                    <h4>배송대기</h4>
+				                                    <h4>미배송</h4>
 				                                    <div>  
-				                                        배송대기수
+				                                        ${statusList[0].undelivered}
 				                                    </div>
 				                                </div>
 				                                <div class="col" style="border-right:lightgray 1px solid;">
 				                                    <h4>배송준비중</h4>
 				                                    <div>  
-				                                        배송준비중수
+				                                        ${statusList[0].readyShipping}
 				                                    </div>
 				                                </div>
 				                                <div class="col" style="border-right:lightgray 1px solid;">
 				                                    <h4>배송중</h4>
 				                                    <div>  
-				                                        배송중수
+				                                        ${statusList[0].shipping}
 				                                    </div>
 				                                </div>
 				                                <div class="col">
 				                                    <h4>배송완료</h4>
 				                                    <div>  
-				                                        배송완료수
+				                                        ${statusList[0].deliveryCompleted}
 				                                    </div>
 				                                </div>
+				                               
 				                            </div>
 				                          </div>
 				                    </div>
