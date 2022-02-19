@@ -39,7 +39,7 @@ public interface ProductService {
 //	index페이지용 
 	List<Product> productMainSaleList();
 
-	List<Reviews> selectReivews(int cPage, int numPerpage, String pdCode);
+	List<Reviews> selectReviews(int cPage, int numPerpage, String pdCode);
 
 	int reviewsCount(String pdCode);
 
@@ -54,4 +54,10 @@ public interface ProductService {
 	int insertOrder(Map<String, Object> param);
 
 	int insertOrderDetail(Map<String, Object> param2);
+
+	List<Reviews> selectReviews2(String pdCode);
+
+	int reviewsSum(String pdCode);
+
+	double reviewsSum2(String pdCode);
 }

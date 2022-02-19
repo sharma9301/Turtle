@@ -99,8 +99,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Reviews> selectReivews(int cPage, int numPerpage, String pdCode) {
-		return dao.selectReivews(session,pdCode,cPage, numPerpage);
+	public List<Reviews> selectReviews(int cPage, int numPerpage, String pdCode) {
+		return dao.selectReviews(session,pdCode,cPage, numPerpage);
 	}
 
 	@Override
@@ -136,6 +136,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int insertOrderDetail(Map<String, Object> param2) {
 		return dao.insertOrderDetail(session, param2);
+	}
+
+	@Override
+	public List<Reviews> selectReviews2(String pdCode) {
+		return dao.selectReviews2(session, pdCode);
+	}
+
+	@Override
+	public int reviewsSum(String pdCode) {
+		return dao.reviewsSum(session, pdCode);
+	}
+
+	@Override
+	public double reviewsSum2(String pdCode) {
+		return dao.reviewsSum2(session, pdCode);
 	}
 	
 }

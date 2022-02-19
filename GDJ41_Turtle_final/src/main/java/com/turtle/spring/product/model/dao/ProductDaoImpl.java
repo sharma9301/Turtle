@@ -87,8 +87,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage) {
-		return session.selectList("product.selectReivews",pdCode,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	public List<Reviews> selectReviews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage) {
+		return session.selectList("product.selectReviews",pdCode,new RowBounds((cPage-1)*numPerpage,numPerpage));
 	}
 
 	@Override
@@ -125,5 +125,20 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int insertOrderDetail(SqlSessionTemplate session, Map<String, Object> param2) {
 		return session.insert("product.insertOrderDetail",param2);
+	}
+
+	@Override
+	public List<Reviews> selectReviews2(SqlSessionTemplate session, String pdCode) {
+		return session.selectList("product.selectReviews2",pdCode);
+	}
+
+	@Override
+	public int reviewsSum(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.reviewsSum",pdCode);
+	}
+
+	@Override
+	public double reviewsSum2(SqlSessionTemplate session, String pdCode) {
+		return session.selectOne("product.reviewsSum2",pdCode);
 	}
 }

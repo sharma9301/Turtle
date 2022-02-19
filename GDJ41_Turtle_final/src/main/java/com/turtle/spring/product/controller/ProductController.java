@@ -89,7 +89,12 @@ public class ProductController {
 		String pdCode=request.getParameter("pdCode");
 		Option product=service.productDetail(pdCode);
 		List<Option> sizeList = service.pdOptionSizeList(pdCode);
-		List<Reviews> reviews=service.selectReivews(cPage, numPerpage,pdCode);
+		List<Reviews> reviews=service.selectReviews(cPage, numPerpage,pdCode);
+		List<Reviews> reviews2=service.selectReviews2(pdCode);
+		//소수점 자른것
+		int reviewsSum=service.reviewsSum(pdCode);
+		//소수점자르기전
+		double reviewsSum2=service.reviewsSum2(pdCode);
 		int totalData=service.reviewsCount(pdCode);
 //		안쓰는 title
 		String title="";
@@ -101,6 +106,10 @@ public class ProductController {
 		mv.addObject("sizeList",sizeList);
 		mv.addObject("sizeCount",sizeCount);
 		mv.addObject("reviews",reviews);
+		mv.addObject("reviews2",reviews2);
+		mv.addObject("reviewsSum",reviewsSum);
+		mv.addObject("reviewsSum2",reviewsSum2);
+		mv.addObject("totalData",totalData);
 		mv.setViewName("product/productDetail");
 		return mv;
 	}

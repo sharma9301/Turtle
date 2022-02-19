@@ -17,13 +17,14 @@
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
                 <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>
-                <input type="hidden" id="aa" value="3">
-                <div class="starRev">
+                <input type="hidden" id="aa" value="${reviewsSum }">
+                <div class="starRev" style="margin-bottom:10px;">
 					<span class="starR starG1">별1</span>
 					<span class="starR starG2">별2</span>
 					<span class="starR starG3">별3</span>
 					<span class="starR starG4">별4</span>
-					<span class="starR starG5">별5</span>			
+					<span class="starR starG5">별5</span>
+					<span>&nbsp;${reviewsSum2 }&nbsp;(${totalData } reviews)</span>			
 				</div>
                 <style>
 					.starR{
@@ -169,19 +170,18 @@
                 <div class="mousearea"></div>
             </div>
         </div>
-
         <div class="frame">
             <ul class="slidee">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
+            	<c:if test="${not empty reviews2}">
+            		<c:forEach var="r2" items="${reviews2 }">
+	            		<c:if test="${r2.rvIsImage == 'Y' }">
+	            			<li><img src="${path }/resources/images/reviews/${r2.rvImage}" width="240px" height="270px"></li>
+	            		</c:if>
+            		</c:forEach>
+                </c:if>
+                <c:if test="${empty reviews2}">
+					<h3 style="text-align: center; margin-top:30px;">등록된 포토리뷰가 없습니다.</h3>
+                </c:if>
             </ul>
         </div>
         <script>
@@ -214,7 +214,7 @@
                         <div class='inner-star'></div>
                     </div>
                     <span>
-                        2.5 (10 reviews)
+                        ${reviewsSum2 } (${totalData } reviews)
                     </span>
                 </div>
             </div>
@@ -232,13 +232,35 @@
 		            <div class="review-info">
 		                <p><c:out value="${r.userId.userId }"/></p>
 		                <p><c:out value="${r.rvDate }"/></p>
-		                <div class='RatingStar mb-3'>
-		                    <div class='RatingScore'>
-		                        <div class='outer-star'>
-		                            <div class='inner-star'></div>
-		                        </div>
-		                    </div>
-		                </div>
+		                <input type="hidden" id="bb${r.rvNo }" value="${r.rvGrade }">
+		                <div class="starRev2" style="margin-bottom:10px;">
+							<p>별점 : ${r.rvGrade } 점</p>
+							<span class="starR2 ${r.rvNo }starG1">별1</span>
+							<span class="starR2 ${r.rvNo }starG2">별2</span>
+							<span class="starR2 ${r.rvNo }starG3">별3</span>
+							<span class="starR2 ${r.rvNo }starG4">별4</span>
+							<span class="starR2 ${r.rvNo }starG5">별5</span>
+						</div>
+		                <style>
+							.starR2{
+								background: url('/resources/images/ico_review.png') no-repeat right 0;
+								background-size: auto 100%;
+								color: #FF9600;
+								width: 15px;
+								height: 15px;
+								display: inline-block;
+								text-indent: -9999px;
+								
+							}
+							.starR2.on{background-position:0 0;}
+		                </style>
+		                <script>
+		                $(()=>{
+		                	let rv_grade = $("#bb${r.rvNo }").val();
+		                	console.log(rv_grade);
+		                	$(".${r.rvNo }starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
+		                });
+		                </script>
 		            </div>
 		            <div class="review-detail">
 		                <h5><c:out value="${r.rvTitle }"/></h5>
