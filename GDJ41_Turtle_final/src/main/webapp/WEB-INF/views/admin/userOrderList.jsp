@@ -309,6 +309,7 @@
                                                     console.log(rowChk);
                                                     let i = 0;
                                                     let count = 0;
+                                                    updateData = "";
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             console.log("체크 됨");
@@ -345,7 +346,7 @@
                                                     updateData = updateData.replace(/,$/, "");
                                                     console.log(updateData);
                                                     
-                                                    location.assign("/admin/updateInvoice.do?updateData="+updateData);
+                                                    location.assign("${path}/admin/updateInvoice.do?updateData="+updateData);
                                                     
                                                     
                                                 });
@@ -379,7 +380,7 @@
                                                     updateData = updateData.replace(/,$/, "");
                                                     console.log(updateData);
                                                     
-                                                    location.assign("/admin/updateStatus.do?updateData="+updateData);
+                                                    location.assign("${path}/admin/updateStatus.do?updateData="+updateData);
                                                 })
                                                 //===========================================================
                                                 //allChk 로직

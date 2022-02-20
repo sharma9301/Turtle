@@ -130,6 +130,12 @@ public class AdminDaoImpl implements AdminDao {
 		return session.update("admin.updateStatus",param);
 	}
 
+	@Override
+	public int updateReviewIsImage(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("admin.updateReviewIsImage",param);
+	}
+
 	
 	
 

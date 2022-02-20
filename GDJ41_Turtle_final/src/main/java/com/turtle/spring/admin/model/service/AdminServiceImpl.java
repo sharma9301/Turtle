@@ -140,6 +140,12 @@ public class AdminServiceImpl implements AdminService {
 		return dao.updateStatus(session,param);
 	}
 
+	@Override
+	public int updateReviewIsImage(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.updateReviewIsImage(session,param);
+	}
+
 	
 
 	

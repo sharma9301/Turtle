@@ -51,6 +51,8 @@ public interface AdminDao {
 
 	int updateStatus(SqlSessionTemplate session, Map<String, Object> param);
 
+	int updateReviewIsImage(SqlSessionTemplate session, Map<String, Object> param);
+
 	
 
 

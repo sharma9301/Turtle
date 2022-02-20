@@ -49,6 +49,8 @@ public interface AdminService {
 
 	int updateStatus(Map<String, Object> param);
 
+	int updateReviewIsImage(Map<String, Object> param);
+
 
 
 

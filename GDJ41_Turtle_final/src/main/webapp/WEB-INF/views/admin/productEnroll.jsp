@@ -145,7 +145,7 @@
 		
 		$.ajax({
 			type : "post",
-			url : "/admin/productCodeChk",
+			url : "${path}/admin/productCodeChk",
 			data : data,
 			success : function(result) {
 				
