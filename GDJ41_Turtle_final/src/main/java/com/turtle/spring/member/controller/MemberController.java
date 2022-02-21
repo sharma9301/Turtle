@@ -80,11 +80,6 @@ public class MemberController {
 		return mv;
 	}	
 	
-	@RequestMapping("/member/mypage/reviews")
-	public String reviews() {
-		
-		return "member/mypage/reviews";
-	}	
 	
 	@RequestMapping("/member/mypage/myInfo")
 	public ModelAndView myInfo(String userId, ModelAndView mv) { 
@@ -360,47 +355,27 @@ public class MemberController {
 		
 	}
 	
-	
 	/*
-		@RequestMapping("/member/deleteEnd")
-		public ModelAndView deleteEnd(ModelAndView mv,HttpServletRequest request) {
-		String userId = request.getParameter("userId");		
-		String oriPassword = request.getParameter("oriPassword");
-		String oriPassword2 = request.getParameter("oriPassword2");
-		
-		String encPassword =encoder.encode(oriPassword);
-		
-		Map<String,Object> param = new HashMap();
-		param.put("userId", userId);
-		param.put("password", encPassword);
-		
-		String msg = "";
-		String loc = "";
-		if(encoder.matches(oriPassword, oriPassword2)) {
-			int result = service.deleteEnd(param);
-			if(result>0) {
-				msg="탈퇴되었습니다.";
-				//로그아웃 로직
-				loc="/";
-				
-			}else {
-				msg="문제가 생겼습니다. 다시 시도해주세요!";
-				loc="/member/deleteEnd";
-			}
-		}else {
-			msg="비밀번호가 일치하지 않습니다. 다시 시도해주세요!";
-			loc="/member/deleteEnd";
-		}
-		
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("common/msg");
-			
-		
-		return mv;
-	}
-	
-	*/
+	 * @RequestMapping("/member/login/kakaologin.do") public ModelAndView
+	 * kakaologin(ModelAndView mv,HttpServletRequest request) {
+	 * log.debug("로그인 로직 실행했나?"); String userId = request.getParameter("userId");
+	 * System.out.println(userId);
+	 * 
+	 * Map<String,Object> param = new HashMap(); param.put("userId", userId);
+	 * 
+	 * Member m = service.login(param);
+	 * 
+	 * System.out.println(m); String msg = ""; String loc = ""; if(m!=null) {
+	 * mv.addObject("loginMember", m); if(userId.equals("admin")) {
+	 * msg="관리자 로그인 성공"; loc="/admin/adminMainPage"; }else { msg="로그인 성공"; loc="/";
+	 * }
+	 * 
+	 * }else { msg="로그인 실패 다시 시도하세요"; loc="/member/login/login"; }
+	 * mv.addObject("msg",msg); mv.addObject("loc",loc);
+	 * mv.setViewName("common/msg");
+	 * 
+	 * return mv; }
+	 */
 	
 	
 	

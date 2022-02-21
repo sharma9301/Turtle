@@ -39,7 +39,6 @@
         <!-- 폰트 어썸 -->
  		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
  		
-        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             *{
                 font-family: "Gowun Batang";
