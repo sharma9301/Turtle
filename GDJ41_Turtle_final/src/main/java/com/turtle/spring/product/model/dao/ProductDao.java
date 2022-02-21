@@ -40,7 +40,7 @@ public interface ProductDao {
 
 	List<Product> productMainSaleList(SqlSessionTemplate session);
 
-	List<Reviews> selectReivews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage);
+	List<Reviews> selectReviews(SqlSessionTemplate session, String pdCode, int cPage, int numPerpage);
 
 	int reviewsCount(SqlSessionTemplate session, String pdCode);
 
@@ -48,12 +48,18 @@ public interface ProductDao {
 
 	Product productOrderDetail(SqlSessionTemplate session, String pdCode);
 
-	List<Product> searchProduct(SqlSessionTemplate session, String search);
+	List<Product> searchProduct(SqlSessionTemplate session, Map<String, Object> param);
 
-	int searchProductCount(SqlSessionTemplate session, String search);
+	int searchProductCount(SqlSessionTemplate session, Map<String, Object> param);
 
 	int insertOrder(SqlSessionTemplate session, Map<String, Object> param);
 
 	int insertOrderDetail(SqlSessionTemplate session, Map<String, Object> param2);
+
+	List<Reviews> selectReviews2(SqlSessionTemplate session, String pdCode);
+
+	int reviewsSum(SqlSessionTemplate session, String pdCode);
+
+	double reviewsSum2(SqlSessionTemplate session, String pdCode);
 	
 }

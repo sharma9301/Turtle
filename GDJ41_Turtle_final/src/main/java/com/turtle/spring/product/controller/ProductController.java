@@ -44,9 +44,11 @@ public class ProductController {
 		int totalData=service.productListCount();
 		String title = request.getParameter("title");
 		
+		
+		
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productList.do?",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productList.do?",param ));
 		mv.addObject("selectedValue",selectedValue);
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -71,7 +73,7 @@ public class ProductController {
 		int totalData=service.productCategoryListCount(param);
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productCategoryList.do?",param));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productCategoryList.do?",param));
 
 		List<Product> list=service.productCategoryList(param,cPage, numPerpage );
 		mv.addObject("list", list);
@@ -89,18 +91,40 @@ public class ProductController {
 		String pdCode=request.getParameter("pdCode");
 		Option product=service.productDetail(pdCode);
 		List<Option> sizeList = service.pdOptionSizeList(pdCode);
-		List<Reviews> reviews=service.selectReivews(cPage, numPerpage,pdCode);
+		List<Reviews> reviews=service.selectReviews(cPage, numPerpage,pdCode);
+		List<Reviews> reviews2=service.selectReviews2(pdCode);
+
+		int reviewsSum=0;
+		double reviewsSum2=0;
+		
 		int totalData=service.reviewsCount(pdCode);
+		
+		if(totalData>0) {
+			//소수점 자른것
+			reviewsSum=service.reviewsSum(pdCode);
+			//소수점자르기전
+			reviewsSum2=service.reviewsSum2(pdCode);
+		}else {
+			reviewsSum=0;
+			reviewsSum2=0;
+		}
+
+		
+		
 //		안쓰는 title
 		String title="";
 		Map<String,Object> param = new HashMap();
 		int sizeCount = service.pdOptionSizeCount(pdCode);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productDetail.do?pdCode="+pdCode+"&",param));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productDetail.do?pdCode="+pdCode+"&",param));
 		mv.addObject("product",product);
 		mv.addObject("sizeList",sizeList);
 		mv.addObject("sizeCount",sizeCount);
 		mv.addObject("reviews",reviews);
+		mv.addObject("reviews2",reviews2);
+		mv.addObject("reviewsSum",reviewsSum);
+		mv.addObject("reviewsSum2",reviewsSum2);
+		mv.addObject("totalData",totalData);
 		mv.setViewName("product/productDetail");
 		return mv;
 	}
@@ -116,7 +140,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productSaleList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productSaleList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -135,7 +159,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productNewList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productNewList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -154,7 +178,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "/product/productBestList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productBestList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -245,10 +269,47 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping("/insertReview.do")
-	public ModelAndView insertReview(ModelAndView mv) {
+	
+	@RequestMapping("/searchProduct.do")
+	public ModelAndView searchProduct(ModelAndView mv, String search, HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		String keyword = request.getParameter("keyword");
 		
-		mv.setViewName("product/insertReivew");
+		System.out.println(searchType);
+		System.out.println(keyword);
+		
+		Map<String,Object> param = new HashMap();
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+
+		List<Product> list=service.searchProduct(param);
+		int count = service.searchProductCount(param);
+		
+		mv.addObject("list",list);
+		mv.addObject("totalContents",count);
+		mv.setViewName("product/productList");
+		return mv;
+	}
+	
+	@RequestMapping("/insertReview.do")
+	public ModelAndView insertReview(ModelAndView mv,HttpServletRequest request) {
+		String pdCode=request.getParameter("pdCode");
+		String userId=request.getParameter("userId");
+		
+		//int result = service.insertReview(pdCode);
+		
+		if(userId != null) {
+			System.out.println("로그인 후 사용 가능, 제품구매 이력이 있어야 가능 -> 마이페이지로 이동하게끔 하는게 좋겠음");
+		}
+		mv.setViewName("product/insertReview");
+		return mv;
+	}
+	
+	@RequestMapping("/insertReviewEnd.do")
+	public ModelAndView insertReviewEnd(ModelAndView mv,HttpServletRequest request) {
+		
+		
+		mv.setViewName("member/mypage/mymain");
 		return mv;
 	}
 	
@@ -256,19 +317,6 @@ public class ProductController {
 	public ModelAndView addCart(ModelAndView mv) {
 		return mv;
 	}
-	
-	@RequestMapping("/searchProduct.do")
-	public ModelAndView searchProduct(ModelAndView mv, String search) {
-		
-		System.out.println(search);
-		List<Product> list=service.searchProduct(search);
-		int count = service.searchProductCount(search);
-		mv.addObject("list",list);
-		mv.addObject("totalContents",count);
-		mv.setViewName("product/productList");
-		return mv;
-	}
-	
 	
 	
 	

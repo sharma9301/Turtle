@@ -99,8 +99,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Reviews> selectReivews(int cPage, int numPerpage, String pdCode) {
-		return dao.selectReivews(session,pdCode,cPage, numPerpage);
+	public List<Reviews> selectReviews(int cPage, int numPerpage, String pdCode) {
+		return dao.selectReviews(session,pdCode,cPage, numPerpage);
 	}
 
 	@Override
@@ -119,13 +119,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> searchProduct(String search) {
-		return dao.searchProduct(session, search);
+	public List<Product> searchProduct(Map<String, Object> param) {
+		return dao.searchProduct(session, param);
 	}
 
 	@Override
-	public int searchProductCount(String search) {
-		return dao.searchProductCount(session, search);
+	public int searchProductCount(Map<String, Object> param) {
+		return dao.searchProductCount(session, param);
 	}
 
 	@Override
@@ -136,6 +136,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int insertOrderDetail(Map<String, Object> param2) {
 		return dao.insertOrderDetail(session, param2);
+	}
+
+	@Override
+	public List<Reviews> selectReviews2(String pdCode) {
+		return dao.selectReviews2(session, pdCode);
+	}
+
+	@Override
+	public int reviewsSum(String pdCode) {
+		return dao.reviewsSum(session, pdCode);
+	}
+
+	@Override
+	public double reviewsSum2(String pdCode) {
+		return dao.reviewsSum2(session, pdCode);
 	}
 	
 }
