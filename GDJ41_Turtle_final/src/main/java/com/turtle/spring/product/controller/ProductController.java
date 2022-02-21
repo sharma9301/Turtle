@@ -300,12 +300,6 @@ public class ProductController {
 	public ModelAndView insertReview(ModelAndView mv,HttpServletRequest request) {
 		String pdCode=request.getParameter("pdCode");
 		String userId=request.getParameter("userId");
-		
-		//int result = service.insertReview(pdCode);
-		
-		if(userId != null) {
-			System.out.println("로그인 후 사용 가능, 제품구매 이력이 있어야 가능 -> 마이페이지로 이동하게끔 하는게 좋겠음");
-		}
 		mv.setViewName("product/insertReview");
 		return mv;
 	}

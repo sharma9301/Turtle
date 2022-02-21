@@ -141,4 +141,9 @@ public class ProductDaoImpl implements ProductDao {
 	public double reviewsSum2(SqlSessionTemplate session, String pdCode) {
 		return session.selectOne("product.reviewsSum2",pdCode);
 	}
+
+	@Override
+	public int addCart(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("product.addCart",param);
+	}
 }

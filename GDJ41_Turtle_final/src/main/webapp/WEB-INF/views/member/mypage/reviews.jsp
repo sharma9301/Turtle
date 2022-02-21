@@ -152,7 +152,7 @@
                                         </td>
                                         <td><c:out value="${n.PD_NAME }"/></td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-outline-secondary">리뷰작성</button>
+                                            <button type="button" class="btn btn-outline-secondary insertReview">리뷰작성</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -165,7 +165,11 @@
             </c:if>
         </div>
         </div>
-        
+        <script>
+        	$(".insertReview").click(e=>{
+        		location.assign('${path}/product/insertReview.do?userId=${loginMember.userId}');
+        	})
+        </script>
       </div>
   </div>
   

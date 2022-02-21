@@ -235,7 +235,7 @@
         </div>
         <script>
         	const insertReviewBtn=()=>{
-        		location.assign('${path}/member/mypage/reviews?pdCode=${product.pdCode.pdCode}');
+        		location.assign('${path}/member/mypage/reviews?userId=${loginMember.userId}');
         	}
         </script>
         <div class="reviews-line"></div>

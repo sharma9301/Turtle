@@ -60,4 +60,6 @@ public interface ProductService {
 	int reviewsSum(String pdCode);
 
 	double reviewsSum2(String pdCode);
+
+	int addCart(Map<String, Object> param);
 }
