@@ -106,13 +106,13 @@
       </div>
       
       
-      <ul>
+      <%-- <ul>
 		<li onclick="kakaoLogin();" style="list-style:none;">
 	      <a href="javascript:void(0)">
 	          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
 	      </a>
 		</li>
-	</ul>
+	</ul> --%>
 	      
       <script>
 		Kakao.init('3cde81c99012ae10046920cd8847afc1'); //발급받은 키 중 javascript키를 사용해준다.

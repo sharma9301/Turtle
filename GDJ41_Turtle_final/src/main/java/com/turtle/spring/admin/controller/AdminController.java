@@ -32,8 +32,13 @@ public class AdminController {
 	private AdminService service;
 	
 	@RequestMapping("/admin/adminMainPage")
-	public String adminMainPage() {
-		return "admin/adminMainPage";
+	public ModelAndView adminMainPage(ModelAndView mv) {
+		
+		List list = service.selectStatusList();
+		
+		mv.addObject("statusList",list);
+		mv.setViewName("admin/adminMainPage");
+		return mv;
 	}
 	
 	@RequestMapping("/admin/memberList")
@@ -642,6 +647,55 @@ public class AdminController {
 		mv.addObject("reviewsList",list);
 		mv.addObject("reviewsCount",count);		
 		mv.setViewName("admin/reviewList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/updateReviewIsImage.do")
+	public ModelAndView updateReviewIsImage(ModelAndView mv, HttpServletRequest request) {
+		log.debug("=====");
+		String updateData = request.getParameter("updateData");
+		System.out.println("updateData : "+updateData);
+		String[] dataList = updateData.split(",");
+		String[] dataArr = null;
+		String rv_No = "";
+		String rv_Is_Image = "";
+		
+		String msg = "";
+		String loc = "";
+		
+		for(int i=0;i<dataList.length;i++) {
+			System.out.println(dataList[i]);
+			dataArr = dataList[i].split("/");
+
+			rv_No = dataArr[0];
+			rv_Is_Image = dataArr[1];
+			
+			System.out.println(rv_No);
+			System.out.println(rv_Is_Image);
+			
+			
+			Map<String,Object> param = new HashMap();		
+			param.put("rv_No",rv_No);
+			param.put("rv_Is_Image",rv_Is_Image);
+			
+			int count = service.updateReviewIsImage(param);
+			
+			if(count>0) {
+				log.debug("수정 완료");
+				msg="포토리뷰 여부 변경 완료";
+				
+			}else {
+				log.debug("수정 실패");
+				msg="포토리뷰 여부 변경 실패";
+			}
+		}
+		loc="/admin/reviewList";
+		
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
 		return mv;
 	}
 	

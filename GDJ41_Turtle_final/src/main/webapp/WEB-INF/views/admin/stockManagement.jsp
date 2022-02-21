@@ -237,7 +237,7 @@
                                                     updateData = updateData.replace(/,$/, '');
                                                     console.log(updateData);
                                                     $("#updateData").attr("value",updateData);
-                                                    location.assign("/admin/updateStock.do?updateData="+updateData);
+                                                    location.assign("${path}/admin/updateStock.do?updateData="+updateData);
                                                 });
                                               //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(삭제)
                                               $(".deleteStock").click(e=>{
@@ -262,7 +262,7 @@
                                                     deleteData = deleteData.replace(/,$/, '');
                                                     console.log(deleteData);
                                                     $("#deleteData").attr("value",deleteData);
-                                                    location.assign("/admin/deleteProductOption.do?deleteData="+deleteData);
+                                                    location.assign("${path}/admin/deleteProductOption.do?deleteData="+deleteData);
                                                 });
                                                 //===========================================================
                                                 //allChk 로직

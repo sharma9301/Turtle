@@ -306,7 +306,7 @@
                                                     console.log(encodeURI(totalData));
                                                     
                                                     console.log(decodeURI(encodeURI(totalData)));
-                                                    location.assign("/admin/updateProduct.do?updateData="+encodeURI(totalData));
+                                                    location.assign("${path}/admin/updateProduct.do?updateData="+encodeURI(totalData));
                                                     
                                                 });
                                               //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직 + 값 넣어주는 로직(상품 삭제)
@@ -362,7 +362,7 @@
                                                     totalData = totalData.replace(/,$/, '');
                                                     console.log(totalData);
                                                     $("#deleteData").attr("value",totalData);
-                                                    location.assign("/admin/deleteProduct.do?deleteData="+totalData);
+                                                    location.assign("${path}/admin/deleteProduct.do?deleteData="+totalData);
                                                 });
                                                 //===========================================================
                                                 //allRowChk 로직

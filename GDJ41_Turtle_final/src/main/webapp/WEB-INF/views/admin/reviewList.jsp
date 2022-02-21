@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                    	${reviewsList}
+                    	<%-- ${reviewsList} --%>
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchReviews.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">리뷰 관리</h1>
@@ -206,13 +206,30 @@
                                             $(()=>{
                                                 //최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
                                                 let rowChk = document.getElementsByClassName("rowChk_reviewNo");
+                                                let photoYN = "";
+                                                let reviewNo ="";
+                                                let pdCode="";
+                                                let updateData = "";
                                                 console.log(rowChk);
                                                 $(".dropdown-item").click(e=>{
+                                                	console.log(e.target.innerText);
                                                     let i = 0;
                                                     let count = 0;
+                                                    updateData = "";
+                                                    if(e.target.innerText=="예") {
+	                                                    photoYN = "Y";
+                                                    }else{
+	                                                    photoYN = "N";
+                                                    }
+                                                    console.log(photoYN);
+                                                    
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log("reviewNo : "+rowChk[i].parentNode.parentNode.childNodes[1].childNodes[0].data);
+                                                            reviewNo = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[0].data
+                                                        	updateData += reviewNo+"/"+photoYN;
+                                                            updateData += ",";
                                                         }
                                                     }
                                                     if(count==0){
@@ -221,6 +238,10 @@
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
                                                     // 여기 밑에 로직 적기
+                                                    updateData = updateData.replace(/,$/, "");
+                                                    console.log(updateData);
+                                                    
+                                                    location.assign("${path}/admin/updateReviewIsImage.do?updateData="+updateData);
                                                     
                                                 });
                                                 //===========================================================
@@ -250,9 +271,12 @@
                                                     console.log(rowChk);
                                                     let i = 0;
                                                     let count = 0;
+                                                    pdCode="";
                                                     for(i=0; i<rowChk.length; i++) {
                                                         if(rowChk[i].checked){
                                                             count++;
+                                                            console.log("pdCode : "+rowChk[i].parentNode.parentNode.childNodes[4].childNodes[0].data);
+                                                            pdCode = rowChk[i].parentNode.parentNode.childNodes[4].childNodes[0].data;
                                                         }
                                                     }
                                                     if(count==0){
@@ -263,6 +287,7 @@
                                                         return;
                                                     }
                                                     console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    location.assign("${path}/product/productDetail.do?pdCode="+pdCode);
                                                 });
                                                 
                                             });

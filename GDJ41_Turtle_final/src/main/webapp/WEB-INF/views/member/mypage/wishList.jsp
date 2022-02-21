@@ -57,8 +57,8 @@
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>장바구니</h1></div>
 
-      <c:out value="${cart }"/>
-       <input type="text" value="${loginMember.userId }" id="userId">  
+      <%-- <c:out value="${cart }"/> --%>
+       <input type="hidden" value="${loginMember.userId }" id="userId">  
          <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
              <div class="card">
@@ -73,6 +73,7 @@
                                     </th>
                                     <th>상품명</th>
                                     <th>상품코드</th>
+                                    <th>사이즈</th>
                                     <th>수량</th>
                                     <th>상품가격</th>
                                     <th></th>
@@ -85,16 +86,17 @@
 			                                        <img src="${path }/resources/images/product/${c.PD_IMAGE}" width="80px" height="80px" alt="상품사진">
 			                                    </td>
 			                                    <td>
-			                                    	<c:out value="${c.PD_NAME }"/>
+			                                    	<c:out value="${c.PD_NAME}"/>
 			                                    	<input type="hidden" value="${c.CART_NO }">
 			                                    </td>
 			                                    <td><c:out value="${c.PD_CODE }"/></td>
+			                                    <td><c:out value="${c.OPT_SIZE}"/></td>
 			                                    <td>
 			                                        <input type="number" class="form-control-sm amount" value="${c.AMOUNT}" min="1" max="5">
 			                                        <button type="button" class="btn btn-primary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
 			                                    </td>
 			                                    <td><c:out value="${c.PD_PRICE * c.AMOUNT }"/></td>
-			                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary">상세보기</button></td>
+			                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/product/productDetail.do?pdCode=${c.PD_CODE}')">상세보기</button></td>
 			                                </tr>
 	                               		</c:forEach>
 									</c:if>
@@ -106,6 +108,8 @@
 	        </div>
 	            <div class="row" style="text-align:right; margin-top: 20px;">
 	                <div class="row">
+	                    <div class="col">
+	                    </div>
 	                    <div class="col">
 	                    </div>
 	                    <div class="col">

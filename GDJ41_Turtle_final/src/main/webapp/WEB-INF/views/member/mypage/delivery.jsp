@@ -112,7 +112,7 @@
          ==================================================================
          ${oDListCount }
          ================================================================== --%>
-         ${first}
+         <%-- ${first} --%>
           <!-- 1111 -->
           <c:if test="${not empty first}">
           	<c:forEach items="${first }" var="f">
@@ -127,7 +127,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -143,9 +143,9 @@
     </div>
         <div class="tab-pane fade" id="delCon2" role="tabpanel" aria-labelledby="order2-tab">
           
-          <!-- 2222 -->
-	2222
-            <c:if test="${not empty first}">
+          <!-- 2222 -->    
+          
+<c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '결제 완료'}">
             <div class="col" style="margin-top: 20px;">
@@ -159,7 +159,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -178,7 +178,6 @@
         <div class="tab-pane fade" id="delCon3" role="tabpanel" aria-labelledby="order3-tab">
           
           <!-- 3333 -->
-          33333
             <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '배송 준비중'}">
@@ -193,7 +192,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -214,7 +213,6 @@
         <div class="tab-pane fade" id="delCon4" role="tabpanel" aria-labelledby="order4-tab">
           
             <!-- 4444 -->
-			44444
 <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '배송 중'}">
@@ -229,7 +227,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -248,7 +246,6 @@
         </div>
         <div class="tab-pane fade" id="delCon5" role="tabpanel" aria-labelledby="order5-tab">
             <!-- 5555 -->
-            55555
               <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '배송 완료'}">
@@ -263,7 +260,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -282,7 +279,7 @@
           <div class="tab-pane fade" id="delCon6" role="tabpanel" aria-labelledby="order6-tab">
           
             <!-- 6666 -->
-            66666
+            
               <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '주문 취소'}">
@@ -297,7 +294,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
@@ -308,14 +305,15 @@
                   </div>
    			</div>
 		</c:if>
-    </c:forEach>		
+			
+    </c:forEach>
+    
 </c:if>
           </div>
           
                   <div class="tab-pane fade" id="delCon7" role="tabpanel" aria-labelledby="order7-tab">
           
             <!-- 7777 -->
-			7777
 <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '환불 요청' || f.ORDER_STATUS == '환불 완료'}">
@@ -330,7 +328,7 @@
                                 <div class="col"><fmt:formatDate value="${f.ORDER_DATE }" type="date" dateStyle="long"/></div>
                                 <div class="col"><c:out value="${f.PD_NAME} 외 ${f.ALLNUM}개 "/></div>
                                 <div class="col"><c:out value="${f.ORDER_NO }"/></div>
-                                <div class="col"><c:out value="${f.RC_ADDRESS}"/></div>
+                                <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>

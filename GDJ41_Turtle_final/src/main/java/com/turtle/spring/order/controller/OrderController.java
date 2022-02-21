@@ -26,15 +26,15 @@ public class OrderController {
 	private OrderService service;
 
 	@RequestMapping("/member/mypage/delivery")
-	public ModelAndView delivery(HttpServletRequest request, ModelAndView mv, String userId, String orderNoList) {
+	public ModelAndView delivery(HttpServletRequest request, ModelAndView mv, String userId) {
 		System.out.println("userId들어왔나요" + userId);
 
 		/* String[] orderNoListArr = orderNoList.split(","); */
 		/* System.out.println("orderNoListArr : "+orderNoListArr); */
-		System.out.println("orderNoList : " + orderNoList);
+		//System.out.println("orderNoList : " + orderNoList);
 
 		
-		List<OrderDetail> oDList = service.selectODList(userId); 
+		//List<OrderDetail> oDList = service.selectODList(userId); 
 			/* List oDListCount =service.selectODListCount(userId); */
 		 
 		List first = service.selectFirst(userId);
@@ -67,7 +67,7 @@ public class OrderController {
 	
 	
 	@RequestMapping("/member/mypage/orderCancel.do")
-	public ModelAndView orderCancel(ModelAndView mv, String orderNo) {
+	public ModelAndView orderCancel(ModelAndView mv, String orderNo,String userId) {
 		
 		int result = service.orderCancel(orderNo);
 		String msg="";
@@ -75,11 +75,11 @@ public class OrderController {
 		
 		if(result>0) {
 			msg="주문취소 되었습니다.";
-			loc="/member/mypage/deliveryDetail";
+			loc="/member/mypage/delivery?userId="+userId;
 
 		}else {
 			msg="주문취소 실패! 다시 시도해주세요.";
-			loc="/member/mypage/deliveryDetail";
+			loc="/member/mypage/deliveryDetail?userId="+userId;
 		}
 		
 		
@@ -92,7 +92,7 @@ public class OrderController {
 	
 	
 	@RequestMapping("/member/mypage/refundRequest.do")
-	public ModelAndView refundRequest(ModelAndView mv, String orderNo) {
+	public ModelAndView refundRequest(ModelAndView mv, String orderNo,String userId) {
 		
 		int result = service.refundRequest(orderNo);
 		String msg="";
@@ -100,7 +100,7 @@ public class OrderController {
 		
 		if(result>0) {
 			msg="환불요청 되었습니다.";
-			loc="/member/mypage/deliveryDetail";
+			loc="/member/mypage/delivery?userId="+userId;
 
 		}else {
 			msg="환불요청 실패! 다시 시도해주세요.";
