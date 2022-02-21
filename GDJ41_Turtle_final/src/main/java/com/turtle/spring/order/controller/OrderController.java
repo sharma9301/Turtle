@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.order.model.service.OrderService;
 import com.turtle.spring.order.model.vo.Cart;
 import com.turtle.spring.order.model.vo.OrderDetail;
@@ -161,12 +162,42 @@ public class OrderController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping("/member/mypage/reviews")
+	public ModelAndView reviews(ModelAndView mv, String userId) {
+		System.out.println("리뷰에 userId = " + userId);
+		
+		List<Reviews> reviews = service.selectReviews(userId);
+		List<OrderDetail> notYet = service.selectNotYet(userId);
+		
+		mv.addObject("notYet",notYet);
+		mv.addObject("reviews",reviews);
+		mv.setViewName("member/mypage/reviews");
+		
+		return mv;
+	}	
+
+	@RequestMapping("/member/deleteRv.do")
+	public ModelAndView reviews(ModelAndView mv, int detailNo,String userId) {
+		System.out.println("리뷰삭제에 detailNo = " + detailNo);
+		
+		int delete = service.deleteRv(detailNo);
+		int update = service.updateRvYn(detailNo);
+		String msg = "";
+		String loc = "";
+		if(delete>0 && update>0) {
+			msg="리뷰가 삭제되었습니다.";
+			loc="/member/mypage/reviews?userId="+userId;
+		}else {
+			msg="다시 시도하세요.";
+			loc="/member/mypage/reviews?userId="+userId;
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}	
 	
 	
 	

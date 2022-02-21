@@ -36,7 +36,6 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="mypage.css" rel="stylesheet">
   </head>
   <body>
     
@@ -69,9 +68,9 @@
 </nav>
 
 
+<%-- ${reviews } --%>
 
-
-  
+  ${notYet}
 
   <!-- 페이지내용 -->
 
@@ -96,6 +95,8 @@
          
          <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
+          <c:if test="${not empty reviews}">
+          	<c:forEach items="${reviews }" var="r">
             <div class="card" >
                 <div class="card-body">
                     <div class="container">
@@ -103,15 +104,17 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><img src="" alt="상품사진"></td>
+                                        <td><img src="${path }/resources/images/product/${r.PD_IMAGE}" width="80px" height="80px" alt="상품사진"></td>
                                         <td>
-                                            <div class="mb-3">구매날짜</div>
-                                            <button type="button" class="btn btn-outline-secondary">리뷰보기</button>
+                                            <div class="mb-3"><fmt:formatDate value="${r.PD_DATE }" type="date" dateStyle="long"/></div>
+                                            <button type="button" class="btn btn-outline-secondary rvPage" id="rvPage">리뷰보기</button>
+                                            <input type="hidden" class="rvPdCode" value="${r.PD_CODE }">
+  											<input type="hidden" class="rvUserId" value="${r.USER_ID}">
                                         </td>
-                                        <td>상품이름</td>
+                                        <td><c:out value="${r.PD_NAME }"/></td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-outline-secondary">수정하기</button>
-                                            <button type="button" class="btn btn-outline-secondary">삭제하기</button>
+                                            <button type="button" class="btn btn-outline-secondary deleteRv">삭제하기</button>
+                                            <input type="hidden" class="rvNo" value="${r.ORDER_DETAIL_NO }">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -120,6 +123,9 @@
                     </div>
                 </div>
             </div>
+  				
+            </c:forEach>
+            </c:if>
         </div>
         
                 
@@ -131,6 +137,8 @@
           
             <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
+         <c:if test="${not empty notYet}">
+          	<c:forEach items="${notYet }" var="n">
             <div class="card" >
                 <div class="card-body">
                     <div class="container">
@@ -138,11 +146,11 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><img src="" alt="상품사진"></td>
+                                        <td><img src="${path }/resources/images/product/${n.PD_IMAGE}" width="80px" height="80px" alt="상품사진"></td>
                                         <td>
-                                            <div>구매날짜</div>
+                                            <div>리뷰를 작성해주세요 :)</div>
                                         </td>
-                                        <td>상품이름</td>
+                                        <td><c:out value="${n.PD_NAME }"/></td>
                                         <td style="text-align:right">
                                             <button type="button" class="btn btn-outline-secondary">리뷰작성</button>
                                         </td>
@@ -153,15 +161,56 @@
                     </div>
                 </div>
             </div>
+            </c:forEach>
+            </c:if>
         </div>
-          
-          
-
-
-
         </div>
         
       </div>
   </div>
+  
+<input type="hidden" id="reviewsUserId" value="${loginMember.userId }">  
+<script>
+  
+	let pdCode = "";
+	let userId = "";
+	let detailNo = "";
+	
+	$(".rvPage").click(e=>{ 
+		console.log(e.target.parentNode.childNodes[5].value);
+		console.log(e.target.nextElementSibling.value);
+		
+		pdCode = e.target.parentNode.childNodes[5].value;
+		console.log(e.target.parentNode.childNodes[7].value);
+		userId = e.target.parentNode.childNodes[7].value
+		location.assign("${path}/product/productDetail.do?pdCode="+pdCode);
+	});
+  
+	$(".deleteRv").click(e=>{ 
+		
+		console.log(e.target.nextElementSibling.value);
+		detailNo = e.target.nextElementSibling.value
+		userId = $("#reviewsUserId").val();
+		console.log(userId);
+		if (confirm("리뷰삭제 후 복구가 불가합니다. 리뷰를 삭제하시겠습니까?")) { 
+			location.assign("${path}/member/deleteRv.do?detailNo="+detailNo+"&userId="+userId);
+		} 
+		else{ 
+			return false;
+		}
+	});
+  
+  
+	
+  
+  
+  
+</script>
+  
+  
+  
+  
+  
+  
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties.Storage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,11 +81,6 @@ public class MemberController {
 		return mv;
 	}	
 	
-	@RequestMapping("/member/mypage/reviews")
-	public String reviews() {
-		
-		return "member/mypage/reviews";
-	}	
 	
 	@RequestMapping("/member/mypage/myInfo")
 	public ModelAndView myInfo(String userId, ModelAndView mv) { 
@@ -272,6 +268,7 @@ public class MemberController {
 			status.setComplete();
 		}
 		
+		
 		String msg="로그아웃 되었습니다.";
 		String loc="/";
 		mv.addObject("msg",msg);
@@ -305,6 +302,8 @@ public class MemberController {
 		param.put("phone", phone);
 		param.put("email", email);
 		param.put("address", address);
+		param.put("enrollType", "TURTLE");
+		
 		
 
 		
@@ -361,46 +360,48 @@ public class MemberController {
 	}
 	
 	
-	/*
-		@RequestMapping("/member/deleteEnd")
-		public ModelAndView deleteEnd(ModelAndView mv,HttpServletRequest request) {
-		String userId = request.getParameter("userId");		
-		String oriPassword = request.getParameter("oriPassword");
-		String oriPassword2 = request.getParameter("oriPassword2");
+	@RequestMapping("/member/login/kakaologin.do")
+	public ModelAndView kakaologin(ModelAndView mv,HttpServletRequest request) {
+		log.debug("로그인 로직 실행했나?");
+		String updateData = request.getParameter("updateData");
+		System.out.println(updateData);
 		
-		String encPassword =encoder.encode(oriPassword);
+		String[] dataList = updateData.split("/");
+		
+		String userId = dataList[0];
+		String email = dataList[0];
+		String userName = dataList[1];
 		
 		Map<String,Object> param = new HashMap();
 		param.put("userId", userId);
-		param.put("password", encPassword);
+		param.put("email", email);
+		param.put("userName", userName);
+		param.put("enrollType", "KAKAO");
 		
+		Member m = service.login(param);
+		
+		System.out.println(m);
 		String msg = "";
 		String loc = "";
-		if(encoder.matches(oriPassword, oriPassword2)) {
-			int result = service.deleteEnd(param);
-			if(result>0) {
-				msg="탈퇴되었습니다.";
-				//로그아웃 로직
-				loc="/";
-				
-			}else {
-				msg="문제가 생겼습니다. 다시 시도해주세요!";
-				loc="/member/deleteEnd";
-			}
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			
+			msg="로그인 성공";
+			loc="/";
+			
+			
 		}else {
-			msg="비밀번호가 일치하지 않습니다. 다시 시도해주세요!";
-			loc="/member/deleteEnd";
+			int result = service.enrollEnd(param);
+			
+			msg="회원 가입을 성공했습니다. 다시 로그인 해주세요.";
+			loc="/member/login/login";
 		}
-		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
-			
 		
 		return mv;
 	}
-	
-	*/
 	
 	
 	

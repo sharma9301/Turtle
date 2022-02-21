@@ -29,6 +29,7 @@
         <script src="${path}/resources/js/scripts.js"></script>
         <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="${path}/resources/js/sly.js"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <link href="${path }/resources/css/styles_gr.css" rel="stylesheet" />
         <link href="${path }/resources/css/styles.css" rel="stylesheet" />
         <link href="${path }/resources/css/service.css" rel="stylesheet" type="text/css">
@@ -39,7 +40,6 @@
         <!-- 폰트 어썸 -->
  		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
  		
-        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             *{
                 font-family: "Gowun Batang";
@@ -88,7 +88,7 @@
                     </c:if>
                      <!-- 로그인시 -->
                      <c:if test="${loginMember != null }">
-                    	<li><a href="${path }/logout.do">Log out</a></li>
+                    	<li><a href="#" class="logout">Log out</a></li>
                     	<li><a href="${path }/member/mypage/myMain">My page</a></li>
                     </c:if>
                     <!-- 장바구니버튼 -->
@@ -129,6 +129,29 @@
         })
         $(".menu-category").mouseleave(e=>{
             $(".category-sub-menu").hide();
+        })
+        $(".logout").click(e=>{
+        	Kakao.init('40107ef843d459334464468561c5d265'); //발급받은 키 중 javascript키를 사용해준다.
+    		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+        	    if (Kakao.Auth.getAccessToken()) {
+        	      Kakao.API.request({
+        	        url: '/v1/user/unlink',
+        	        success: function (response) {
+        	        	console.log(response)
+        	        	console.log("성공");
+        	        	location.assign("${path}/logout.do");
+        	        },
+        	        fail: function (error) {
+        	          console.log(error)
+        	        },
+        	      })
+        	      Kakao.Auth.setAccessToken(undefined)
+        	    }else{
+        	    	location.assign("${path}/logout.do");
+        	    }
+    		
+        	    
+        	
         })
     })
 
