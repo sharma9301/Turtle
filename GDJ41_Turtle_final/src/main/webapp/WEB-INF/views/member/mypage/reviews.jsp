@@ -110,7 +110,6 @@
                                         </td>
                                         <td>상품이름</td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-outline-secondary">수정하기</button>
                                             <button type="button" class="btn btn-outline-secondary">삭제하기</button>
                                         </td>
                                     </tr>

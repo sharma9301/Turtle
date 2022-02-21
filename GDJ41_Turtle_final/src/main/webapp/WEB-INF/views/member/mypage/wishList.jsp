@@ -174,7 +174,7 @@
             	   	console.log(e.target.parentNode.parentNode.childNodes[3].childNodes[1].value);
             	   	let cartNo = e.target.parentNode.parentNode.childNodes[3].childNodes[1].value;
             	   	updateData = cartNo+"/" +userId + "/" + amount;
-            	   	location.assign("/member/mypage/changeAmount?updateData="+updateData);
+            	   	location.assign("${path}/member/mypage/changeAmount?updateData="+updateData);
             	   
             });
       });

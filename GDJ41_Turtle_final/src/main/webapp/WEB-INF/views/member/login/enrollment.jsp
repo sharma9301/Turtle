@@ -134,7 +134,7 @@
     		console.log(data);
     		$.ajax({
     			type : "post",
-    			url: "/sendEmail.do",
+    			url: "${path}/sendEmail.do",
     			data : data,
     			success : function(result) {
     				console.log("메일 전송 완료");
@@ -253,7 +253,7 @@
 	   		
 	   		$.ajax({
 	   			type:"POST",
-	   			url: "/checkToken.do",
+	   			url: "${path}/checkToken.do",
 	   			data:{email:email,token:token},
 	   			success : function(result){
 	   				console.log(result);
@@ -294,7 +294,7 @@
 			
 			$.ajax({
 				type : "post",
-				url : "/userIdChk.do",
+				url : "${path}/userIdChk.do",
 				data : data,
 				success : function(result) {
 					
