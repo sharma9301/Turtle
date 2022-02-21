@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                    	<%-- ${reviewsList} --%>
+                    	${reviewsList}
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchReviews.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">리뷰 관리</h1>
@@ -210,6 +210,7 @@
                                                 let reviewNo ="";
                                                 let pdCode="";
                                                 let updateData = "";
+                                                let deleteData = "";
                                                 console.log(rowChk);
                                                 $(".dropdown-item").click(e=>{
                                                 	console.log(e.target.innerText);
@@ -242,6 +243,34 @@
                                                     console.log(updateData);
                                                     
                                                     location.assign("${path}/admin/updateReviewIsImage.do?updateData="+updateData);
+                                                    
+                                                });
+                                                $(".deleteReview").click(e=>{
+                                                	console.log(e.target.innerText);
+                                                    let i = 0;
+                                                    let count = 0;
+                                                    deleteData = "";
+                                                    
+                                                    
+                                                    for(i=0; i<rowChk.length; i++) {
+                                                        if(rowChk[i].checked){
+                                                            count++;
+                                                            console.log("reviewNo : "+rowChk[i].parentNode.parentNode.childNodes[1].childNodes[0].data);
+                                                            reviewNo = rowChk[i].parentNode.parentNode.childNodes[1].childNodes[0].data
+                                                            deleteData += reviewNo;
+                                                            deleteData += ",";
+                                                        }
+                                                    }
+                                                    if(count==0){
+                                                        alert("최소 1개 이상의 상품을 선택해주세요.");
+                                                        return;
+                                                    }
+                                                    console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                                    // 여기 밑에 로직 적기
+                                                    deleteData = deleteData.replace(/,$/, "");
+                                                    console.log(deleteData);
+                                                    
+                                                    //location.assign("${path}/admin/deleteReviews.do?deleteData="+deleteData);
                                                     
                                                 });
                                                 //===========================================================
