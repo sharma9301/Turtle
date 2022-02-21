@@ -37,9 +37,9 @@
             		let title = $(".title").val();
             		
             		if(title!="All"){
-            			location.assign("/product/productCategoryList.do?title="+title+"&selectedValue="+selectedValue);
+            			location.assign("${path}/product/productCategoryList.do?title="+title+"&selectedValue="+selectedValue);
             		}else{
-            			location.assign("/product/productList.do?title="+title+"&selectedValue="+selectedValue);
+            			location.assign("${path}/product/productList.do?title="+title+"&selectedValue="+selectedValue);
             		}
             		
             		/* let data = {selectedValue : selectedValue, title : title};
@@ -71,14 +71,40 @@
 		                            <div class="text-center">
 		                                <!-- Product name-->
 		                                <h5 class="fw-bolder">${p.pdName }</h5>
+		                                
 		                                <!-- Product reviews-->
-		                                <div class="d-flex justify-content-center small text-warning mb-2">
-		                                    <div class="bi-star-fill"></div>
-		                                    <div class="bi-star-fill"></div>
-		                                    <div class="bi-star-fill"></div>
-		                                    <div class="bi-star-fill"></div>
-		                                    <div class="bi-star"></div>
-		                                </div>
+		                                <input type="hidden" id="aa" value="5">
+						                <div class="starRev" >
+											<span class="starR starG1">별1</span>
+											<span class="starR starG2">별2</span>
+											<span class="starR starG3">별3</span>
+											<span class="starR starG4">별4</span>
+											<span class="starR starG5">별5</span>
+										</div>
+										
+										<style>
+											.starR{
+												background: url('/resources/images/ico_review.png') no-repeat right 0;
+												background-size: auto 100%;
+												color: #FF9600;
+												width: 15px;
+												height: 15px;
+												display: inline-block;
+												text-indent: -9999px;
+												
+											}
+											.starR.on{background-position:0 0;}
+						                </style>
+						                    
+						                <script>
+						                $(()=>{
+						                	let rv_grade = $("#aa").val();
+						                	console.log(rv_grade);
+						                	$(".starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
+						                });
+						                </script>
+										
+										
 		                                <c:if test="${p.pdIsDiscount == 'Y'}">
 		                                <!-- Product price-->
 		                                <span class="text-muted text-decoration-line-through">

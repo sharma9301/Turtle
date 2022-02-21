@@ -17,15 +17,28 @@
             <div class="col-md-6">
                 <div class="small mb-2">상품 코드: <c:out value="${product.pdCode.pdCode }"/></div>
                 <h1 class="display-5 fw-bolder"><c:out value="${product.pdCode.pdName }"/></h1>
-                <input type="hidden" id="aa" value="${reviewsSum }">
-                <div class="starRev" style="margin-bottom:10px;">
-					<span class="starR starG1">별1</span>
-					<span class="starR starG2">별2</span>
-					<span class="starR starG3">별3</span>
-					<span class="starR starG4">별4</span>
-					<span class="starR starG5">별5</span>
-					<span>&nbsp;${reviewsSum2 }&nbsp;(${totalData } reviews)</span>			
-				</div>
+                <c:if test="${reviewsSum !=null and reviewsSum2 !=null }">
+	                <input type="hidden" id="aa" value="${reviewsSum }">
+	                <div class="starRev" style="margin-bottom:10px;">
+						<span class="starR starG1">별1</span>
+						<span class="starR starG2">별2</span>
+						<span class="starR starG3">별3</span>
+						<span class="starR starG4">별4</span>
+						<span class="starR starG5">별5</span>
+						<span>&nbsp;${reviewsSum2 }&nbsp;(${totalData } reviews)</span>			
+					</div>
+				</c:if>
+				<c:if test="${reviewsSum ==null and reviewsSum2 ==null}">
+					<input type="hidden" id="aa" value="0">
+	                <div class="starRev" style="margin-bottom:10px;">
+						<span class="starR starG1">별1</span>
+						<span class="starR starG2">별2</span>
+						<span class="starR starG3">별3</span>
+						<span class="starR starG4">별4</span>
+						<span class="starR starG5">별5</span>
+						<span>&nbsp;${reviewsSum2 }&nbsp;(${totalData } reviews)</span>			
+					</div>
+				</c:if>
                 <style>
 					.starR{
 						background: url('/resources/images/ico_review.png') no-repeat right 0;
@@ -149,7 +162,7 @@
 									console.log(amount);
 									let size=$("input[name=size]:checked").val();
 									console.log(size);
-									location.assign('/product/orderProduct.do?pdCode=${product.pdCode.pdCode}&userId=${loginMember.userId }&amount='+amount+'&size='+size);
+									location.assign('${path}/product/orderProduct.do?pdCode=${product.pdCode.pdCode}&userId=${loginMember.userId }&amount='+amount+'&size='+size);
 									
 								}
 							}

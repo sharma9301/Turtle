@@ -107,14 +107,14 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Product> searchProduct(SqlSessionTemplate session, String search) {
-		return session.selectList("product.searchProduct",search);
+	public List<Product> searchProduct(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.selectList("product.searchProduct",param);
 	}
 
 	@Override
-	public int searchProductCount(SqlSessionTemplate session, String search) {
+	public int searchProductCount(SqlSessionTemplate session, Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.searchProductCount",search);
+		return session.selectOne("product.searchProductCount",param);
 	}
 
 	@Override

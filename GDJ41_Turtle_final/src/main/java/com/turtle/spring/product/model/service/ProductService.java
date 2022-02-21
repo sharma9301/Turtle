@@ -47,9 +47,9 @@ public interface ProductService {
 
 	Product productOrderDetail(String pdCode);
 
-	List<Product> searchProduct(String search);
+	List<Product> searchProduct(Map<String, Object> param);
 
-	int searchProductCount(String search);
+	int searchProductCount(Map<String, Object> param);
 
 	int insertOrder(Map<String, Object> param);
 

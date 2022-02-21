@@ -104,7 +104,7 @@
                 <script>
                 	const updateAmount=()=>{
                 		let amount = $(".amount").val();
-                		location.assign('/product/orderProduct.do?pdCode=${product.pdCode}&size=${size}&userId=${loginMember.userId }&amount='+amount);
+                		location.assign('${path}/product/orderProduct.do?pdCode=${product.pdCode}&size=${size}&userId=${loginMember.userId }&amount='+amount);
                 	}
                 </script>
             </div>
