@@ -122,7 +122,7 @@
 		    Kakao.Auth.login({
 		      success: function (response) {
 		        Kakao.API.request({
-		          url: '/v2/user/me',
+		          url: '${path}/v2/user/me',
 		          success: function (response) {
 		        	  console.log(response)
 		          },
@@ -140,7 +140,7 @@
 		function kakaoLogout() {
 		    if (Kakao.Auth.getAccessToken()) {
 		      Kakao.API.request({
-		        url: '/v1/user/unlink',
+		        url: '${path}/v1/user/unlink',
 		        success: function (response) {
 		        	console.log(response)
 		        },
