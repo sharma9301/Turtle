@@ -177,7 +177,7 @@ let userId = $("#hiddenUserId").val();
 
 $("#cancelBtn").click(e=>{ 
 	if (confirm("주문취소 후 취소가 불가합니다. 주문을 취소하시겠습니까?")) { 
-		location.assign("/member/mypage/orderCancel.do?orderNo="+orderNo+"&userId="+userId);
+		location.assign("${path}/member/mypage/orderCancel.do?orderNo="+orderNo+"&userId="+userId);
 	} 
 	else{ 
 		return false;
@@ -186,7 +186,7 @@ $("#cancelBtn").click(e=>{
 		
 $("#refundBtn").click(e=>{ 
 	if (confirm("환불요청 후 취소가 불가합니다. 환불요청을 하시겠습니까?")) { 
-		location.assign("/member/mypage/refundRequest.do?orderNo="+orderNo+"&userId="+userId);
+		location.assign("${path}/member/mypage/refundRequest.do?orderNo="+orderNo+"&userId="+userId);
 	} 
 	else{ 
 		return false;

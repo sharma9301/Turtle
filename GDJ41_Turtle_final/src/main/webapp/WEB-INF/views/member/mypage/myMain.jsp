@@ -204,7 +204,7 @@
                 	  //+"&orderNoList="+orderNoList
                 	  let userId = $("#userId").val();
                 	  console.log(userId);
-                	  location.assign("/member/mypage/delivery?userId="+userId);
+                	  location.assign("${path}/member/mypage/delivery?userId="+userId);
                   }
                   </script>
             </div>
