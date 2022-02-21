@@ -209,7 +209,7 @@
                   </script>
             </div>
             <div class="col" style="margin-right: 10px;">
-                <a href="${path }/member/mypage/reviews"><div class="card" id="mypage3">
+                <a href="${path }/member/mypage/reviews?userId=${loginMember.userId}"><div class="card" id="mypage3">
                     <div class="card-body">
                         <h4>마이리뷰</h4>
                         <div>

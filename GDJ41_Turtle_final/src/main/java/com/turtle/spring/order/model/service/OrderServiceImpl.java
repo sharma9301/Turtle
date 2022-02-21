@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.order.model.dao.OrderDao;
 import com.turtle.spring.order.model.vo.Cart;
 import com.turtle.spring.order.model.vo.OrderDetail;
@@ -68,6 +69,26 @@ public class OrderServiceImpl implements OrderService {
 		return dao.updateCart(session,param);
 	}
 
+	@Override
+	public List<Reviews> selectReviews(String userId) {
+		return dao.selectReviews(session,userId);
+	}
+	
+	@Override
+	public List<OrderDetail> selectNotYet(String userId) {
+		return dao.selectNotYet(session,userId);
+	}
+	
+	@Override
+	public int deleteRv(int detailNo) {
+		return dao.deleteRv(session,detailNo);
+	}
+
+	@Override
+	public int updateRvYn(int detailNo) {
+		return dao.updateRvYn(session,detailNo);
+	}
+	
 
 	
 	
