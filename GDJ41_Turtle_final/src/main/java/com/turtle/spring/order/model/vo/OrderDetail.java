@@ -24,5 +24,6 @@ public class OrderDetail {
 	private Option optNo;
 	private int orderAmount;
 	private String orderStatus;
+	private String rvYn;
 
 }

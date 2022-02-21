@@ -101,10 +101,10 @@
                           <form action="${path }/product/searchProduct.do" >
                           	<select name="searchType" >
                             	<option value="" selected>전체</option>
-                            	<option value="pdName">제품명</option>
-                            	<option value="pdCode">제품코드</option>
-                            	<option value="color">색상</option>
-                            	<option value="material">재질</option>
+                            	<option value="pd_name">제품명</option>
+                            	<option value="pd_code">제품코드</option>
+                            	<option value="opt_color">색상</option>
+                            	<option value="opt_material">재질</option>
                             </select>
                             <input type="text" placeholder="Search.." name="keyword">
                             <button type="submit"><i class="bi bi-search"></i></button>

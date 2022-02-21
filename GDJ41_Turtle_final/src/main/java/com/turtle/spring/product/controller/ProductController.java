@@ -48,7 +48,7 @@ public class ProductController {
 		
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productList.do?",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productList.do?",param ));
 		mv.addObject("selectedValue",selectedValue);
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -272,8 +272,12 @@ public class ProductController {
 	
 	@RequestMapping("/searchProduct.do")
 	public ModelAndView searchProduct(ModelAndView mv, String search, HttpServletRequest request) {
-		String searchType = request.getParameter("searchType");
-		String keyword = request.getParameter("keyword");
+		String searchType = request.getParameter("searchType").toUpperCase();
+		String keyword = request.getParameter("keyword").toUpperCase();
+		
+		if(searchType.equals("PD_CODE")) {
+			keyword = request.getParameter("keyword").toLowerCase();
+		}
 		
 		System.out.println(searchType);
 		System.out.println(keyword);
@@ -285,6 +289,7 @@ public class ProductController {
 		List<Product> list=service.searchProduct(param);
 		int count = service.searchProductCount(param);
 		
+		mv.addObject("keyword",keyword);
 		mv.addObject("list",list);
 		mv.addObject("totalContents",count);
 		mv.setViewName("product/productList");
@@ -306,7 +311,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/insertReviewEnd.do")
-	public ModelAndView insertReviewEnd(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView insertReviewEnd(ModelAndView mv, HttpServletRequest request) {
 		
 		
 		mv.setViewName("member/mypage/mymain");
@@ -314,7 +319,29 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/addCart.do")
-	public ModelAndView addCart(ModelAndView mv) {
+	public ModelAndView addCart(ModelAndView mv, HttpServletRequest request) {
+		Map<String, Object> param = new HashMap();
+		String userId=request.getParameter("userId");
+		String optNo=request.getParameter("optNo");
+		String amount=request.getParameter("amount");
+		param.put("userId", userId);
+		param.put("optNo", optNo);
+		param.put("amount", amount);
+		
+		int result = service.addCart(param);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
+			loc="/member/mypage/wishList";
+		}else {
+			msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
+			loc="/member/service/email";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	
