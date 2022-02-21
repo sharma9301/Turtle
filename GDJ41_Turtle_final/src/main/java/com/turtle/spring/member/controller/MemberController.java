@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties.Storage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -267,6 +268,7 @@ public class MemberController {
 			status.setComplete();
 		}
 		
+		
 		String msg="로그아웃 되었습니다.";
 		String loc="/";
 		mv.addObject("msg",msg);
@@ -300,6 +302,8 @@ public class MemberController {
 		param.put("phone", phone);
 		param.put("email", email);
 		param.put("address", address);
+		param.put("enrollType", "TURTLE");
+		
 		
 
 		
@@ -355,27 +359,49 @@ public class MemberController {
 		
 	}
 	
-	/*
-	 * @RequestMapping("/member/login/kakaologin.do") public ModelAndView
-	 * kakaologin(ModelAndView mv,HttpServletRequest request) {
-	 * log.debug("로그인 로직 실행했나?"); String userId = request.getParameter("userId");
-	 * System.out.println(userId);
-	 * 
-	 * Map<String,Object> param = new HashMap(); param.put("userId", userId);
-	 * 
-	 * Member m = service.login(param);
-	 * 
-	 * System.out.println(m); String msg = ""; String loc = ""; if(m!=null) {
-	 * mv.addObject("loginMember", m); if(userId.equals("admin")) {
-	 * msg="관리자 로그인 성공"; loc="/admin/adminMainPage"; }else { msg="로그인 성공"; loc="/";
-	 * }
-	 * 
-	 * }else { msg="로그인 실패 다시 시도하세요"; loc="/member/login/login"; }
-	 * mv.addObject("msg",msg); mv.addObject("loc",loc);
-	 * mv.setViewName("common/msg");
-	 * 
-	 * return mv; }
-	 */
+	
+	@RequestMapping("/member/login/kakaologin.do")
+	public ModelAndView kakaologin(ModelAndView mv,HttpServletRequest request) {
+		log.debug("로그인 로직 실행했나?");
+		String updateData = request.getParameter("updateData");
+		System.out.println(updateData);
+		
+		String[] dataList = updateData.split("/");
+		
+		String userId = dataList[0];
+		String email = dataList[0];
+		String userName = dataList[1];
+		
+		Map<String,Object> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		param.put("userName", userName);
+		param.put("enrollType", "KAKAO");
+		
+		Member m = service.login(param);
+		
+		System.out.println(m);
+		String msg = "";
+		String loc = "";
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			
+			msg="로그인 성공";
+			loc="/";
+			
+			
+		}else {
+			int result = service.enrollEnd(param);
+			
+			msg="회원 가입을 성공했습니다. 다시 로그인 해주세요.";
+			loc="/member/login/login";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 	
 	
 	

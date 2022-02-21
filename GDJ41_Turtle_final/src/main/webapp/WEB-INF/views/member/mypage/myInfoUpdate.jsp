@@ -104,7 +104,7 @@
               <label>아이디</label>
               <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
               <label>현재 비밀번호</label>
-              <input name="oriPassword" id="oriPassword" type="password" placeholder="현재 비밀번호" required>
+              <input name="oriPassword" id="oriPassword" type="password" placeholder="현재 비밀번호">
               <input name="oriPassword2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none"><br>
               <label>새로운 비밀번호</label>
               <input name="newPassword" id="newPassword" type="password" placeholder="새로운 비밀번호"><br>
