@@ -326,7 +326,7 @@ public class ProductController {
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
+			msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요!";
 			loc="/member/mypage/wishList";
 		}else {
 			msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
