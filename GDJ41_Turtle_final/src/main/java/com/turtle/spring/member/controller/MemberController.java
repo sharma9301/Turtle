@@ -114,28 +114,45 @@ public class MemberController {
 		System.out.println("확인");
 		String userName = request.getParameter("userName");
 		String userId = request.getParameter("userId");		
-		String oriPassword = request.getParameter("oriPassword2");
+		String oriPassword = request.getParameter("oriPassword");
+		String oriPassword2 = request.getParameter("oriPassword2");
 		String newPassword = request.getParameter("newPassword");
 		String phone = request.getParameter("phone");
 		String sample6postcode = request.getParameter("sample6_postcode");
 		String sample6address = request.getParameter("sample6_address");
 		String sample6detailAddress = request.getParameter("sample6_detailAddress");
 		String password = "";
-	
-		if(newPassword==null || newPassword=="") {
-			password = oriPassword;
+		String encPassword = "";
+		
+		System.out.println(oriPassword);
+		System.out.println(oriPassword2);
+		
+		if(oriPassword2!="") {
+			if(!encoder.matches(oriPassword, oriPassword2)) {
+				mv.addObject("msg","현재 비밀번호가 일치하지 않습니다.");
+				mv.addObject("loc","/member/mypage/myInfoUpdate");
+				mv.setViewName("common/msg");
+				return mv;
+			}
+		}
+		
+		
+		if(newPassword==null || newPassword=="") {			
+			password = oriPassword2;
+			encPassword = oriPassword2;
 		}else {
 			password = newPassword;
+			encPassword=encoder.encode(password);
 		}
 		
 		String address = sample6postcode +"/"+ sample6address +"/"+ sample6detailAddress;
 		
-		System.out.println("oriPassword : "+oriPassword);
+		System.out.println("oriPassword : "+oriPassword2);
 		System.out.println("newPassword : "+newPassword);
 		System.out.println("password : "+password);
 		System.out.println("address : "+address);
 		
-		String encPassword =encoder.encode(password);
+		
 		
 		Map<String,Object> param = new HashMap();
 		param.put("userName", userName);
@@ -355,11 +372,18 @@ public class MemberController {
 	//저장되어있는 현재 비밀번호 암호화 & 입력한 현재 비밀번호 암호화 비교  
 	@RequestMapping("/passwordChk.do")
 	@ResponseBody
-	public String passwordChk(String ori, String ori2) {
+	public String passwordChk(String ori1, String ori2) {
 		
-		if(encoder.matches(ori, ori2)) {
+		System.out.println("ori1:"+ori1);
+		System.out.println("ori2:"+ori2);
+		
+		System.out.println("암호화 비교 확인");
+		
+		if(encoder.matches(ori1, ori2)) {
+			System.out.println("암호화 비교 성공");
 			return "success";
 		}else {
+			System.out.println("암호화 비교 실패");
 			return "fail";
 		}
 
@@ -386,6 +410,8 @@ public class MemberController {
 		param.put("userName", userName);
 		param.put("enrollType", "KAKAO");
 		
+		String enrollData = userId +"/"+ email +"/"+ userName;
+		
 		Member m = service.login(param);
 		
 		System.out.println(m);
@@ -399,11 +425,55 @@ public class MemberController {
 			
 			
 		}else {
-			int result = service.enrollEnd(param);
-			
-			msg="회원 가입을 성공했습니다. 다시 로그인 해주세요.";
-			loc="/member/login/login";
+//			int result = service.enrollEnd(param);
+//			m = service.login(param);
+//			mv.addObject("loginMember", m);
+//			msg="회원 가입을 성공했습니다. 연락처와 주소를 입력해주세요";
+//			loc="/member/mypage/myInfoUpdate";
+			msg="회원정보가 없습니다. 회원가입 하시겠습니까?";
+			loc="/kakaoEnrollment?enrollData="+enrollData;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/confirmMsg");
+			return mv;
 		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/kakaoEnrollment")
+	public ModelAndView kakaoEnrollment(ModelAndView mv,HttpServletRequest request) {
+		log.debug("로그인 로직 실행했나?");
+		String enrollData = request.getParameter("enrollData");
+		System.out.println(enrollData);
+		
+		String[] dataList = enrollData.split("/");
+		
+		String userId = dataList[0];
+		String email = dataList[1];
+		String userName = dataList[2];
+		String enrollType = "KAKAO";
+		
+		Map<String,Object> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		param.put("userName", userName);
+		param.put("enrollType", "KAKAO");
+		
+		int result = service.enrollEnd(param);
+		Member m = service.login(param);
+		mv.addObject("loginMember", m);
+		
+		System.out.println(m);
+		String msg = "";
+		String loc = "";
+		
+		msg="회원 가입을 성공했습니다. 연락처와 주소를 입력해주세요";
+		loc="/member/mypage/myInfoUpdate";
+		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");

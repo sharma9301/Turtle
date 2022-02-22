@@ -99,29 +99,38 @@
       <form name="csDelete" style="text-align: center;" action="${path }/member/mypage/myInfoUpdateEnd" method="get">
         <div style="width: 400px; margin: 0 auto;" >
             <div class="csDelete">
+            
               <label>이름</label>
               <input name="userName" type="text" value="${loginMember.userName}" required><br>
               <label>아이디</label>
               <input name="userId" type="text" value="${loginMember.userId}" readonly><br>
-              <label>현재 비밀번호</label>
-              <input name="oriPassword" id="oriPassword" type="password" placeholder="현재 비밀번호">
-              <input name="oriPassword2" id="oriPassword2" type="password" value="${loginMember.password}" style="display:none"><br>
-              <label>새로운 비밀번호</label>
-              <input name="newPassword" id="newPassword" type="password" placeholder="새로운 비밀번호"><br>
-              <label>비밀번호 확인</label>
-              <input name="passwordCh" id="passwordCh" type="password" placeholder="새로운 비밀번호 확인"><br>
+              <c:if test="${loginMember.enrollType=='TURTLE' }">
+	              <label>현재 비밀번호</label>
+	              <input name="oriPassword" id="oriPassword" type="password" placeholder="현재 비밀번호">
+	              <input name="oriPassword2" id="oriPassword2" type="hidden" value="${loginMember.password}"><br>
+	              <label>새로운 비밀번호</label>
+	              <input name="newPassword" id="newPassword" type="password" placeholder="새로운 비밀번호"><br>
+	              <label>비밀번호 확인</label>
+	              <input name="passwordCh" id="passwordCh" type="password" placeholder="새로운 비밀번호 확인"><br>
+              </c:if>
+              <c:if test="${loginMember.enrollType!='TURTLE' }">
+	              <input name="oriPassword" id="oriPassword" type="hidden" placeholder="현재 비밀번호">
+	              <input name="oriPassword2" id="oriPassword2" type="hidden" value="${loginMember.password}">
+	              <input name="newPassword" id="newPassword" type="hidden" placeholder="새로운 비밀번호">
+	              <input name="passwordCh" id="passwordCh" type="hidden" placeholder="새로운 비밀번호 확인">
+              </c:if>
               <label>연락처</label>
-              <input name="phone" type="text" value="${loginMember.phone}" required><br>
+              <input name="phone" type="text" value="${loginMember.phone}" placeholder="(-)를 제외하고 입력해주세요" required><br>
             </div>
             <div class="d-flex" style="width: 300px;">
             <c:set var="addressArr" value="${fn:split(loginMember.address,'/')}"/>
             
-              <input type="text" id="sample6_postcode" name="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" required>
+              <input type="text" id="sample6_postcode" name="sample6_postcode" value="${addressArr[0]}" style="margin-right: 10px;" placeholder="우편 번호" required>
               <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
             </div>
             <div style="width: 400px">
-              <input type="text" id="sample6_address" name="sample6_address" value="${addressArr[1]}" required><br>
-              <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="${addressArr[2]}">
+              <input type="text" id="sample6_address" name="sample6_address" value="${addressArr[1]}" placeholder="주소" required><br>
+              <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="${addressArr[2]}" placeholder="상세 주소">
               <input type="text" id="sample6_extraAddress" value="유저참고항목" style="display:none">
             </div>
           </div>
@@ -189,11 +198,13 @@
 	   let oriPassword2 = $("#oriPassword2").val();
 	   let newPassword = $("#newPassword").val();
 	   let passwordCh = $("#passwordCh").val();
+	   let data = {ori1 : oriPassword, ori2 : oriPassword2};
 	   
 	   console.log("ori1 : "+oriPassword);
 	   console.log("ori2 : "+oriPassword2);
 	   console.log("np : "+newPassword);
 	   console.log("pk : "+passwordCh);
+	   
 	   
 	   if(((newPassword == "" || newPassword == null) && (passwordCh == "" || passwordCh == null)) || (newPassword == passwordCh)) {
 		   
@@ -208,22 +219,10 @@
 
 	   }
 	   
-	   let data = {ori1 : oriPassword, ori2 : oriPassword2};
 	   
 	   
-	   $.ajax({
-			type : "post",
-			url : "/passwordChk.do",
-			data : data,
-			success : function(result) {
-				
-				if(result == 'fail'){
-					alert("현재 비밀번호가 일치하지 않습니다.");
-					$("#password").focus();
-					$("#password").val("");
-				}
-			}
-		});
+	   
+	   
 	   
    });
    

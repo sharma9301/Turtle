@@ -699,4 +699,34 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("/admin/deleteReviews.do")
+	public ModelAndView deleteReviews(ModelAndView mv, HttpServletRequest request, MultipartFile file) {
+		
+		String deleteData = request.getParameter("deleteData");
+		System.out.println("deleteData : "+deleteData);
+		String[] dataList = deleteData.split(",");
+		String pd_Code = "";
+		String msg = "";
+		String loc = "";
+		loc = "/admin/reviewList";
+		
+		for(int i=0;i<dataList.length;i++) {
+			pd_Code = dataList[i];
+			int count = service.deleteProduct(pd_Code);
+			
+			if(count>0) {
+				log.debug("삭제 완료");
+				msg = "삭제 완료";
+			}else {
+				log.debug("삭제 실패");
+				msg = "삭제 실패";
+			}
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
 }
