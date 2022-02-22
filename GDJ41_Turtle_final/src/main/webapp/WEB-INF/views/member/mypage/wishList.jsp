@@ -135,8 +135,13 @@
 	                        </strong>
 	                    </div>
 	                    <div class="col" style="padding: 0;">
-	                        <button type="submit" class="btn btn-secondary">결제하기</button>
+	                        <button type="submit" class="btn btn-secondary" onclick="cartOrderBtn();">결제하기</button>
 	                    </div>
+	                    <script>
+	                    	const cartOrderBtn=()=>{
+	                    		location.assign('');
+	                    	}
+	                    </script>
 	                </div>
 	            </div> 
 	      </div>

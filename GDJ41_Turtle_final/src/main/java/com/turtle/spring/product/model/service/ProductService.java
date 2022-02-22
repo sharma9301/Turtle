@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Cart;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -66,5 +67,9 @@ public interface ProductService {
 	int insertReviewEnd(Map<String, Object> param);
 
 	int rvIs(int rvNo);
+
+	Cart selectCart(String optNo);
+
+	int updateAmount(Map<String, Object> param2);
 
 }

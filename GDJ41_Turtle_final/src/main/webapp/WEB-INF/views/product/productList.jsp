@@ -47,15 +47,6 @@
             			location.assign("${path}/product/productList.do?title="+title+"&selectedValue="+selectedValue);
             		}
             		
-            		/* let data = {selectedValue : selectedValue, title : title};
-            		$.ajax({
-            			type : "post",
-            			url : "/product/productCategoryList.do",
-            			data : data,
-            			success : function(result) {
-            				console.log("데이터 확인용!!!!!!");
-            			}
-            		}); */
             	});           	
             </script>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-around">
@@ -63,16 +54,18 @@
                 <c:if test="${empty list }">
                 	찾으시는 상품이 존재하지 않습니다..
                 </c:if>
+                ${list }
                 <c:if test="${not empty list }">
                 	<c:forEach var="p" items="${list }">
-		                <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.PD_CODE }')" style="cursor:pointer;">
+		                <div class="col mb-5">
 		                    <div class="card h-100">
 		                        <!-- Sale badge-->
 		                        <c:if test="${p.pdIsDiscount eq 'Y'}">
 		                        	<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 		                        </c:if>
 		                        <!-- Product image-->
-		                        <img class="card-img-top" src="${path }/resources/images/product/${p.PD_IMAGE}" alt="" style="height:175px"/>
+		                        <img class="card-img-top" src="${path }/resources/images/product/${p.PD_IMAGE}" style="height:175px; cursor:pointer;"
+		                        		onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.PD_CODE }')"/>
 		                        <!-- Product details-->
 		                        <div class="card-body p-4">
 		                            <div class="text-center">
@@ -126,25 +119,38 @@
 		                        </div>
 		                        <!-- Product actions-->
 		                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                            <div class="text-center" class="addToCart">
-		                            	<a class="btn btn-outline-dark mt-auto" class="addToCart">Add to cart</a>
+		                            <div class="text-center" > <!-- class="addToCart" -->
+		                            	<button class="btn btn-outline-dark mt-auto" onclick="listCartBtn${p.PD_CODE}();">Add to cart</button>
 		                            </div>
+		                            <script>
+						                const listCartBtn${p.PD_CODE}=()=>{
+						                	let size=0;
+						            		if(${loginMember==null}){
+						            			if(confirm('로그인 후 장바구니 담기가 가능합니다. 로그인 화면으로 가시겠습니까?')){
+						            				location.assign('${path}/member/login/login');
+						            			}else{
+						            				location.assign('${path}');
+						            			}
+						            		}else{
+						            			if('${p.CATEGORY_CODE}' != 'ring'){
+						            				location.assign('${path}/product/addCart.do?pdName=${p.PD_NAME}&userId=${loginMember.userId}&amount=1&size='+size);
+						            			}else if('${p.CATEGORY_CODE}' == 'ring'){
+						            				alert('상품 상세화면에서 사이즈를 선택 후 장바구니에 담아주세요.');
+						            				location.assign('${path}/product/productDetail.do?pdCode=${p.PD_CODE}');
+						            			}
+						            		}
+						            	}
+									</script> 
 		                        </div>
 		                    </div>
 		                </div>
 		        	</c:forEach>        
                 </c:if>           
-                <script>
-                	$(".addToCart").click(e=>{
-                		if(${loginMember==null}){
-                			alert('로그인 후 이용 가능합니다.');
-                		}	
-                	});
-                </script>  
             </div>
     	</div>
         <div id="pageBar">
       		${pageBar }
       	</div>
+      
     </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
