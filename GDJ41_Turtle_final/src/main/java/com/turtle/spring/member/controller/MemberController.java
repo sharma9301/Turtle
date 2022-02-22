@@ -49,6 +49,14 @@ public class MemberController {
 	public String finding() {
 		return "member/login/finding";
 	}
+
+	@RequestMapping("/member/login/findingId")
+	public ModelAndView findingId(ModelAndView mv, String userName, String email) {
+		
+		
+		
+		return mv;
+	}
 	
 	
 	

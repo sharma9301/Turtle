@@ -108,14 +108,14 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="delCon1" role="tabpanel" aria-labelledby="order1-tab">
-         <%-- ${oDList }
-         ==================================================================
-         ${oDListCount }
-         ================================================================== --%>
-         <%-- ${first} --%>
+        
+ 
+         <%-- ${first}  --%>
+         
           <!-- 1111 -->
           <c:if test="${not empty first}">
           	<c:forEach items="${first }" var="f">
+          	
             <div class="col" style="margin-top: 20px;">
                 <div class="card" >
                     <div class="card-body">
@@ -130,7 +130,37 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
+          
+                                  <!-- <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button> -->
                                 </div>
                             </div>
                           </div>
@@ -162,7 +192,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -195,7 +253,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+									<form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -230,7 +316,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -263,7 +377,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -297,7 +439,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -331,7 +501,35 @@
                                 <div class="col"><c:out value="${f.ORDER_STATUS}"/></div>
                                 <div class="col">
                                   <button type="button" class="btn btn-outline-info" style="margin: 3px;" onclick="location.href='${path }/member/mypage/deliveryDetail?userId=${loginMember.userId}&orderNo=${f.ORDER_NO }&orderDate=${f.ORDER_DATE }';">상세보기</button>
-                                  <button type="button" class="btn btn-outline-info" style="margin: 3px;">배송조회</button>
+                                  <form action="http://info.sweettracker.co.kr/tracking/4" method="post" target="_blank">
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="wwPw0cHezPtQMPHuN8vbJA">
+						            </div>
+						            <div class="form-group">
+						            <!-- 우체국 cj 한진 롯데 로젠 -->
+						              <c:if test="${f.DELIVERY_COMP eq '우체국택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="01">
+						              </c:if> 
+						              <c:if test="${f.DELIVERY_COMP eq 'CJ대한통운'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '한진택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="05">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '롯데택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="08">
+						              </c:if>
+						              <c:if test="${f.DELIVERY_COMP eq '로젠택배'}">
+						              	<input type="hidden" class="form-control" name="t_code" id="t_code" value="06">
+						              </c:if>
+						              
+						              
+						            </div>
+						            <div class="form-group">
+						              <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${f.INVOICE }">
+						            </div>
+						            <button type="submit" class="btn btn-outline-info">배송조회</button>
+						        </form>
                                 </div>
                             </div>
                           </div>
@@ -350,6 +548,9 @@
       </div>
   </div>
 
+<script>
+window.resizeTo( 300, 200 )
 
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
