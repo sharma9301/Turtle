@@ -12,24 +12,29 @@
 <div class="header-line"></div>
 <section>
         <div class="container px-4 px-lg-5 mt-5">
-            <h1 style="text-align: center; margin-bottom: 40px;">${title }</h1>
-            <input type="hidden" class="title" value="${title }">
-            <input type="hidden" class="selectedValue" value="${selectedValue }">
-            
-            <div style="display:flex; justify-content: space-between; margin-bottom:10px;">
-            	<h5 style="text-align: right;">총 <c:out value="${totalContents }"/>개의 상품</h5>
-            	<c:if test="${title != 'New' and title != 'Best' }">
-	            	<select name="kindSelect" id="kindSelect">
-	            		<option class="kindSelectValue" value="new">최신상품순</option>
-	            		<option class="kindSelectValue" value="best">인기상품순</option>
-	            		<option class="kindSelectValue" value="low">낮은가격순</option>
-	            		<option class="kindSelectValue" value="high">높은가격순</option>
-	            	</select>
-            	</c:if>
-            	<c:if test="${title == 'New' and title == 'Best' }">
-	            	<div style="width:10px;"></div>
-            	</c:if>
-            </div>
+			<c:if test="${keyword !=null }">
+            	<h3 style="text-align: center; margin-bottom: 40px;"><strong>'${keyword }'</strong>로 검색한 결과..</h3>
+            </c:if>
+            <c:if test="${keyword == null}">	
+	            <h1 style="text-align: center; margin-bottom: 40px;">${title }</h1>
+	            <input type="hidden" class="title" value="${title }">
+	            <input type="hidden" class="selectedValue" value="${selectedValue }">
+	            
+	            <div style="display:flex; justify-content: space-between; margin-bottom:10px;">
+	            	<h5 style="text-align: right;">총 <c:out value="${totalContents }"/>개의 상품</h5>
+	            	<c:if test="${title != 'New' and title != 'Best' }">
+		            	<select name="kindSelect" id="kindSelect">
+		            		<option class="kindSelectValue" value="new">최신상품순</option>
+		            		<option class="kindSelectValue" value="best">인기상품순</option>
+		            		<option class="kindSelectValue" value="low">낮은가격순</option>
+		            		<option class="kindSelectValue" value="high">높은가격순</option>
+		            	</select>
+	            	</c:if>
+	            	<c:if test="${title == 'New' and title == 'Best' }">
+		            	<div style="width:10px;"></div>
+	            	</c:if>
+	            </div>
+            </c:if>
             <script>
             		
             	$("#kindSelect").change(e=>{
@@ -56,6 +61,9 @@
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-around">
                <%-- ${list} --%>
                 <!-- 리스트 시작 -->
+                <c:if test="${empty list }">
+                	찾으시는 상품이 존재하지 않습니다..
+                </c:if>
                 <c:if test="${not empty list }">
                 	<c:forEach var="p" items="${list }">
 		                <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.pdCode }')" style="cursor:pointer;">
@@ -120,8 +128,9 @@
 		                        </div>
 		                        <!-- Product actions-->
 		                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" class="addToCart"
-		                            		href="${path }/product/addCart.do">Add to cart</a></div>
+		                            <div class="text-center" class="addToCart">
+		                            	<a class="btn btn-outline-dark mt-auto" class="addToCart">Add to cart</a>
+		                            </div>
 		                        </div>
 		                    </div>
 		                </div>
@@ -129,7 +138,7 @@
                 </c:if>           
                 <script>
                 	$(".addToCart").click(e=>{
-                		if(${loginMember!=null}){
+                		if(${loginMember==null}){
                 			alert('로그인 후 이용 가능합니다.');
                 		}	
                 	});

@@ -152,5 +152,20 @@ public class ProductServiceImpl implements ProductService {
 	public double reviewsSum2(String pdCode) {
 		return dao.reviewsSum2(session, pdCode);
 	}
+
+	@Override
+	public int addCart(Map<String, Object> param) {
+		return dao.addCart(session,param);
+	}
+
+	@Override
+	public int insertReviewEnd(Map<String, Object> param) {
+		return dao.insertReviewEnd(session,param);
+	}
+
+	@Override
+	public int rvIs(int rvNo) {
+		return dao.rvIs(session,rvNo);
+	}
 	
 }

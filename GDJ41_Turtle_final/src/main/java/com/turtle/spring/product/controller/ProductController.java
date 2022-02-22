@@ -1,6 +1,8 @@
 package com.turtle.spring.product.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.board.model.vo.Reviews;
@@ -140,7 +143,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productSaleList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productSaleList.do?",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -159,7 +162,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productNewList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productNewList.do?",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -178,7 +181,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productBestList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productBestList.do?",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -272,8 +275,12 @@ public class ProductController {
 	
 	@RequestMapping("/searchProduct.do")
 	public ModelAndView searchProduct(ModelAndView mv, String search, HttpServletRequest request) {
-		String searchType = request.getParameter("searchType");
-		String keyword = request.getParameter("keyword");
+		String searchType = request.getParameter("searchType").toUpperCase();
+		String keyword = request.getParameter("keyword").toUpperCase();
+		
+		if(searchType.equals("PD_CODE")) {
+			keyword = request.getParameter("keyword").toLowerCase();
+		}
 		
 		System.out.println(searchType);
 		System.out.println(keyword);
@@ -285,6 +292,7 @@ public class ProductController {
 		List<Product> list=service.searchProduct(param);
 		int count = service.searchProductCount(param);
 		
+		mv.addObject("keyword",keyword);
 		mv.addObject("list",list);
 		mv.addObject("totalContents",count);
 		mv.setViewName("product/productList");
@@ -295,26 +303,112 @@ public class ProductController {
 	public ModelAndView insertReview(ModelAndView mv,HttpServletRequest request) {
 		String pdCode=request.getParameter("pdCode");
 		String userId=request.getParameter("userId");
+		int rvNo=Integer.parseInt(request.getParameter("rvNo"));
 		
-		//int result = service.insertReview(pdCode);
-		
-		if(userId != null) {
-			System.out.println("로그인 후 사용 가능, 제품구매 이력이 있어야 가능 -> 마이페이지로 이동하게끔 하는게 좋겠음");
-		}
+		mv.addObject("pdCode",pdCode);
+		mv.addObject("userId",userId);
+		mv.addObject("rvNo",rvNo);
 		mv.setViewName("product/insertReview");
 		return mv;
 	}
 	
 	@RequestMapping("/insertReviewEnd.do")
-	public ModelAndView insertReviewEnd(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView insertReviewEnd(ModelAndView mv, HttpServletRequest request, MultipartFile upFile) {
+		String rvTitle=request.getParameter("rvTitle");
+		String rvContent = request.getParameter("rvContent");
+		int rvGrade = Integer.parseInt(request.getParameter("rvGrade"));
+		String userId=request.getParameter("userId");
+		int rvNo=Integer.parseInt(request.getParameter("rvNo"));
+		String pdCode=request.getParameter("pdCode");
 		
+		System.out.println("rvTitle : "+rvTitle);
+		System.out.println("rvContent : "+rvContent);
+		System.out.println("rvGrade : "+rvGrade);
+		System.out.println("userId : "+userId);
+		System.out.println("rvNo : "+rvNo);
+		System.out.println("pdCode : "+pdCode);
 		
-		mv.setViewName("member/mypage/mymain");
+		log.debug(upFile.getOriginalFilename());
+		
+		//저장경로 불러오기
+		String path = request.getServletContext().getRealPath("/resources/images/reviews/");
+		File f=new File(path);
+		if(!f.exists()) f.mkdirs();
+		
+		String pdImage="";
+		if(!upFile.isEmpty()) {
+			//리네임처리
+			String originalFileName = upFile.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmm");
+			int rNum = (int)(Math.random()*1000);
+			pdImage = sdf.format(System.currentTimeMillis())+"_"+rNum+ext;
+			
+			try {
+				upFile.transferTo(new File(path+pdImage));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("새로운 파일이름 잘 생성?!!"+pdImage);
+		}
+		
+		Map<String, Object> param = new HashMap();
+		param.put("rvTitle", rvTitle);
+		param.put("rvContent", rvContent);
+		param.put("rvGrade", rvGrade);
+		param.put("userId", userId);
+		param.put("rvNo", rvNo);
+		param.put("pdCode", pdCode);
+		param.put("pdImage", pdImage);
+		
+		String msg="";
+		String loc="";
+		int result = service.insertReviewEnd(param);
+		if(result>0) {
+			System.out.println("리뷰추가완료!");
+			int result2 = service.rvIs(rvNo);
+			if(result2>0) {
+				System.out.println("리뷰 Y로 변경 완료!");
+				msg="리뷰 작성이 완료되었습니다. 작성된 리뷰는 마이 페이지 혹은 상품 상세페이지에서 확인 가능합니다.";
+				loc="/member/mypage/reviews";
+			}else {
+				msg="리뷰 작성 등록에 실패하였습니다. 관리자에게 문의하세요.";
+				loc="/member/service/email";
+			}
+			
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	
 	@RequestMapping("/addCart.do")
-	public ModelAndView addCart(ModelAndView mv) {
+	public ModelAndView addCart(ModelAndView mv, HttpServletRequest request) {
+		Map<String, Object> param = new HashMap();
+		String userId=request.getParameter("userId");
+		String optNo=request.getParameter("optNo");
+		String amount=request.getParameter("amount");
+		param.put("userId", userId);
+		param.put("optNo", optNo);
+		param.put("amount", amount);
+		
+		int result = service.addCart(param);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
+			loc="/member/mypage/wishList";
+		}else {
+			msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
+			loc="/member/service/email";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	

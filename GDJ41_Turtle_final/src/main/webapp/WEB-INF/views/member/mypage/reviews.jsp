@@ -134,7 +134,6 @@
 
         </div>
         <div class="tab-pane fade" id="whatICan" role="tabpanel" aria-labelledby="profile-tab">
-          
             <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
          <c:if test="${not empty notYet}">
@@ -152,7 +151,8 @@
                                         </td>
                                         <td><c:out value="${n.PD_NAME }"/></td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-outline-secondary">리뷰작성</button>
+                                            <button type="button" class="btn btn-outline-secondary" 
+                                            	onclick="location.assign('${path}/product/insertReview.do?userId=${n.USER_ID}&pdCode=${n.PD_CODE}&rvNo=${n.ORDER_DETAIL_NO}')">리뷰작성</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -165,7 +165,6 @@
             </c:if>
         </div>
         </div>
-        
       </div>
   </div>
   
