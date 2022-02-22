@@ -136,6 +136,9 @@
         <div class="tab-pane fade" id="whatICan" role="tabpanel" aria-labelledby="profile-tab">
             <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
+         <c:if test="${empty notYet }">
+         	<c:out value="작성가능한 리뷰가 없습니다."/>
+         </c:if>
          <c:if test="${not empty notYet}">
           	<c:forEach items="${notYet }" var="n">
             <div class="card" >

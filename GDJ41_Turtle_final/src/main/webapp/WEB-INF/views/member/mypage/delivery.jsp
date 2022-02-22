@@ -113,6 +113,9 @@
          <%-- ${first}  --%>
          
           <!-- 1111 -->
+          <c:if test="${empty first }">
+         	<c:out value="조회내역이 없습니다."/>
+         </c:if>
           <c:if test="${not empty first}">
           	<c:forEach items="${first }" var="f">
           	
@@ -236,6 +239,7 @@
         <div class="tab-pane fade" id="delCon3" role="tabpanel" aria-labelledby="order3-tab">
           
           <!-- 3333 -->
+          
             <c:if test="${not empty first}">
 	<c:forEach items="${first }" var="f">
    		<c:if test="${f.ORDER_STATUS == '배송 준비중'}">
