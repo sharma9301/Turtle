@@ -73,7 +73,7 @@ public class ProductController {
 		int totalData=service.productCategoryListCount(param);
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productCategoryList.do?",param));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productCategoryList.do?",param));
 
 		List<Product> list=service.productCategoryList(param,cPage, numPerpage );
 		mv.addObject("list", list);
@@ -116,7 +116,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		int sizeCount = service.pdOptionSizeCount(pdCode);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productDetail.do?pdCode="+pdCode+"&",param));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productDetail.do?pdCode="+pdCode+"&",param));
 		mv.addObject("product",product);
 		mv.addObject("sizeList",sizeList);
 		mv.addObject("sizeCount",sizeCount);
@@ -140,7 +140,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productSaleList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productSaleList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -159,7 +159,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productNewList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productNewList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);
@@ -178,7 +178,7 @@ public class ProductController {
 		Map<String,Object> param = new HashMap();
 		param.put("title", title);
 		mv.addObject("totalContents",totalData);
-		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, "${path}/product/productBestList.do",param ));
+		mv.addObject("pageBar",PageFactory.getPageBar(totalData, cPage, numPerpage, 5, request.getContextPath()+"/product/productBestList.do",param ));
 		
 		mv.addObject("title",title);
 		mv.addObject("list", list);

@@ -26,4 +26,5 @@ public class OrderDetail {
 	private String orderStatus;
 	private String rvYn;
 
+
 }

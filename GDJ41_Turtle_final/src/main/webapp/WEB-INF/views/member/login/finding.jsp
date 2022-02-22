@@ -65,7 +65,7 @@
     <div class="row">
       <div class="col">
         <div class="csTitle"><h1>아이디 찾기</h1></div>
-        <form name="finding" style="text-align: center;">
+        <form name="finding" style="text-align: center;" action="${path}/member/login/findingId">
           <div class="finding">
               <label for="fname">이름</label>
               <input name="userName" type="text" placeholder="이름"><br>
@@ -78,7 +78,7 @@
       </div>
       <div class="col">
         <div class="csTitle"><h1>비밀번호 찾기</h1></div>
-        <form name="finding" style="text-align: center;">
+        <form name="finding" style="text-align: center;" action="${path }/member/login/findingPw">
           <div class="finding">
               <label for="fname">아이디</label>
               <input name="userId" type="text" placeholder="아이디"><br>
@@ -97,7 +97,7 @@
 
     <script>
     
-    var acc = document.getElementsByClassName("accordion");
+   /*  var acc = document.getElementsByClassName("accordion");
     var i;
     
     for (i = 0; i < acc.length; i++) {
@@ -110,7 +110,7 @@
           panel.style.maxHeight = panel.scrollHeight + "px";
         }
       });
-    }
+    } */
     
     </script>
 

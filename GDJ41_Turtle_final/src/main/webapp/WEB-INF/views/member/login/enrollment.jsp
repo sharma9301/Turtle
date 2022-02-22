@@ -126,22 +126,7 @@
       </div>
         
     <script>
-    	$("#emailBt").click(e=>{
-    		let email = $("#email").val();
-    		let data = {email : email};
-    		
-    		console.log(email);
-    		console.log(data);
-    		$.ajax({
-    			type : "post",
-    			url: "${path}/sendEmail.do",
-    			data : data,
-    			success : function(result) {
-    				console.log("메일 전송 완료");
-    				alert("인증번호를 해당 이메일로 발송했습니다. 확인해주세요!");
-    			}
-    		});
-    	});
+    	
     
     	
     	$("#signUpBt").click(e=>{
@@ -243,6 +228,24 @@
 		}); 
 	   
 	   
+		$("#emailBt").click(e=>{
+    		let email = $("#email").val();
+    		let data = {email : email};
+    		
+    		console.log(email);
+    		console.log(data);
+    		$.ajax({
+    			type : "post",
+    			url: "${path}/sendEmail.do",
+    			data : data,
+    			success : function(result) {
+    				console.log("메일 전송 완료");
+    				alert("인증번호를 해당 이메일로 발송했습니다. 확인해주세요!");
+    			}
+    		});
+    	});
+		
+		
 		$("#tokenBt").click(e=>{
 		
 			let email = document.getElementById('email').value;

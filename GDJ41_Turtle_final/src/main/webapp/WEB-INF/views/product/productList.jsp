@@ -92,7 +92,7 @@
 										
 										<style>
 											.starR{
-												background: url('/resources/images/ico_review.png') no-repeat right 0;
+												background: url('${path}/resources/images/ico_review.png') no-repeat right 0;
 												background-size: auto 100%;
 												color: #FF9600;
 												width: 15px;

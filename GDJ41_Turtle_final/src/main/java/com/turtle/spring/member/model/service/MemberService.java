@@ -19,6 +19,12 @@ public interface MemberService {
 	int userIdChk(String userId);
 	
 	int deleteMember(String userId);
+
+	String findingId(Map param);
+
+	int findingPw(Map<String, String> param);
+
+	int pwUpdate(Map<String, Object> param);
 	
 	
 	

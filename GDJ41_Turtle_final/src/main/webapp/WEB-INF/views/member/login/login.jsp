@@ -103,29 +103,42 @@
 				<a href="${path }/member/login/finding"><span>아이디/비밀번호찾기</span></a>
 				<a href="${path }/member/login/enrollment"><span style="margin-left:100px;">회원가입</span></a>
 		    </div>
+		    <div style="width:300px; margin: 0 auto;">
+			    
+				      <a href="javascript:void(0)" onclick="kakaoLogin();" style="list-style:none;">
+				          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
+				      </a>
+				 
+		    </div>
       </div>
       
       
-       <ul>
-		<li onclick="kakaoLogin();" style="list-style:none;">
-	      <a href="javascript:void(0)">
-	          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
-	      </a>
-		</li>
-	</ul> 
+       
 	      
       <script>
 		Kakao.init('40107ef843d459334464468561c5d265'); //발급받은 키 중 javascript키를 사용해준다.
 		console.log(Kakao.isInitialized()); // sdk초기화여부판단
 		//카카오로그인
+		let userId = "";
+		let userName = "";
 		function kakaoLogin() {
 		    Kakao.Auth.login({
 		      success: function (response) {
+		    	  console.log(response);
+		    	  Kakao.Auth.setAccessToken(response.access_token);
+		    	  console.log(Kakao.Auth.getAccessToken())
 		        Kakao.API.request({
 		          url: '${path}/v2/user/me',
+		          
 		          success: function (response) {
 		        	  console.log(response)
 		        	  console.log("email : "+response.kakao_account.email)
+		        	  console.log("userName : "+response.properties.nickname)
+		        	  userId = response.kakao_account.email;
+		        	  userName = response.properties.nickname;
+		        	  updateData = userId+"/"+userName
+		        	  
+		        	  location.assign("${path}/member/login/kakaologin.do?updateData="+updateData);
 		        	  
 		          },
 		          fail: function (error) {
@@ -136,7 +149,7 @@
 		      fail: function (error) {
 		        console.log(error)
 		      },
-		    })
+		    });
 		  }
 		//카카오로그아웃  
 		function kakaoLogout() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.turtle.spring.mail.service.MailService;
 import com.turtle.spring.member.model.service.MemberService;
 import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.order.model.service.OrderService;
@@ -34,6 +35,8 @@ public class MemberController {
 	@Autowired
 	private OrderService service1;
 	
+	@Autowired
+	private MailService mailService;
 	
 	//암호화처리 클래스 불러오기
 	@Autowired
@@ -48,7 +51,53 @@ public class MemberController {
 	public String finding() {
 		return "member/login/finding";
 	}
+
+	@RequestMapping("/member/login/findingId")
+	public ModelAndView findingId(ModelAndView mv,HttpServletRequest request, String userName, String email) {
+		Map<String, String> param = new HashMap();
+		param.put("userName", userName);
+		param.put("email", email);
+		String userId = service.findingId(param);
+		HttpSession session = request.getSession();
+		
+		
+		if(userId!=null) {
+			mailService.mailId(session, email, userId);
+			mv.addObject("msg","해당 이메일로 아이디를 전송하였습니다.");
+			mv.addObject("loc","/member/login/login");
+			mv.setViewName("common/msg");
+		}else {
+			mv.addObject("msg","이름 또는 이메일을 다시 확인해주세요.");
+			mv.addObject("loc","/member/login/finding");
+			mv.setViewName("common/msg");
+		}
+		
+		return mv;
+	}
 	
+	
+	@RequestMapping("/member/login/findingPw")
+	public ModelAndView findingPw(ModelAndView mv,HttpServletRequest request, String userId, String email) {
+		Map<String, String> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		int result = service.findingPw(param);
+		HttpSession session = request.getSession();
+		
+		
+		if(result>0) {
+			mailService.mailPw(session, email, userId);
+			mv.addObject("msg","해당 이메일로 임시비밀번호를 전송하였습니다.");
+			mv.addObject("loc","/member/login/login");
+			mv.setViewName("common/msg");
+		}else {
+			mv.addObject("msg","아이디 또는 이메일을 다시 확인해주세요.");
+			mv.addObject("loc","/member/login/finding");
+			mv.setViewName("common/msg");
+		}
+		
+		return mv;
+	}
 	
 	
 	@RequestMapping("/member/mypage/myMain")
@@ -105,28 +154,45 @@ public class MemberController {
 		System.out.println("확인");
 		String userName = request.getParameter("userName");
 		String userId = request.getParameter("userId");		
-		String oriPassword = request.getParameter("oriPassword2");
+		String oriPassword = request.getParameter("oriPassword");
+		String oriPassword2 = request.getParameter("oriPassword2");
 		String newPassword = request.getParameter("newPassword");
 		String phone = request.getParameter("phone");
 		String sample6postcode = request.getParameter("sample6_postcode");
 		String sample6address = request.getParameter("sample6_address");
 		String sample6detailAddress = request.getParameter("sample6_detailAddress");
 		String password = "";
-	
-		if(newPassword==null || newPassword=="") {
-			password = oriPassword;
+		String encPassword = "";
+		
+		System.out.println(oriPassword);
+		System.out.println(oriPassword2);
+		
+		if(oriPassword2!="") {
+			if(!encoder.matches(oriPassword, oriPassword2)) {
+				mv.addObject("msg","현재 비밀번호가 일치하지 않습니다.");
+				mv.addObject("loc","/member/mypage/myInfoUpdate");
+				mv.setViewName("common/msg");
+				return mv;
+			}
+		}
+		
+		
+		if(newPassword==null || newPassword=="") {			
+			password = oriPassword2;
+			encPassword = oriPassword2;
 		}else {
 			password = newPassword;
+			encPassword=encoder.encode(password);
 		}
 		
 		String address = sample6postcode +"/"+ sample6address +"/"+ sample6detailAddress;
 		
-		System.out.println("oriPassword : "+oriPassword);
+		System.out.println("oriPassword : "+oriPassword2);
 		System.out.println("newPassword : "+newPassword);
 		System.out.println("password : "+password);
 		System.out.println("address : "+address);
 		
-		String encPassword =encoder.encode(password);
+		
 		
 		Map<String,Object> param = new HashMap();
 		param.put("userName", userName);
@@ -267,6 +333,7 @@ public class MemberController {
 			status.setComplete();
 		}
 		
+		
 		String msg="로그아웃 되었습니다.";
 		String loc="/";
 		mv.addObject("msg",msg);
@@ -300,6 +367,8 @@ public class MemberController {
 		param.put("phone", phone);
 		param.put("email", email);
 		param.put("address", address);
+		param.put("enrollType", "TURTLE");
+		
 		
 
 		
@@ -343,11 +412,18 @@ public class MemberController {
 	//저장되어있는 현재 비밀번호 암호화 & 입력한 현재 비밀번호 암호화 비교  
 	@RequestMapping("/passwordChk.do")
 	@ResponseBody
-	public String passwordChk(String ori, String ori2) {
+	public String passwordChk(String ori1, String ori2) {
 		
-		if(encoder.matches(ori, ori2)) {
+		System.out.println("ori1:"+ori1);
+		System.out.println("ori2:"+ori2);
+		
+		System.out.println("암호화 비교 확인");
+		
+		if(encoder.matches(ori1, ori2)) {
+			System.out.println("암호화 비교 성공");
 			return "success";
 		}else {
+			System.out.println("암호화 비교 실패");
 			return "fail";
 		}
 
@@ -355,27 +431,95 @@ public class MemberController {
 		
 	}
 	
-	/*
-	 * @RequestMapping("/member/login/kakaologin.do") public ModelAndView
-	 * kakaologin(ModelAndView mv,HttpServletRequest request) {
-	 * log.debug("로그인 로직 실행했나?"); String userId = request.getParameter("userId");
-	 * System.out.println(userId);
-	 * 
-	 * Map<String,Object> param = new HashMap(); param.put("userId", userId);
-	 * 
-	 * Member m = service.login(param);
-	 * 
-	 * System.out.println(m); String msg = ""; String loc = ""; if(m!=null) {
-	 * mv.addObject("loginMember", m); if(userId.equals("admin")) {
-	 * msg="관리자 로그인 성공"; loc="/admin/adminMainPage"; }else { msg="로그인 성공"; loc="/";
-	 * }
-	 * 
-	 * }else { msg="로그인 실패 다시 시도하세요"; loc="/member/login/login"; }
-	 * mv.addObject("msg",msg); mv.addObject("loc",loc);
-	 * mv.setViewName("common/msg");
-	 * 
-	 * return mv; }
-	 */
+	
+	@RequestMapping("/member/login/kakaologin.do")
+	public ModelAndView kakaologin(ModelAndView mv,HttpServletRequest request) {
+		log.debug("로그인 로직 실행했나?");
+		String updateData = request.getParameter("updateData");
+		System.out.println(updateData);
+		
+		String[] dataList = updateData.split("/");
+		
+		String userId = dataList[0];
+		String email = dataList[0];
+		String userName = dataList[1];
+		
+		Map<String,Object> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		param.put("userName", userName);
+		param.put("enrollType", "KAKAO");
+		
+		String enrollData = userId +"/"+ email +"/"+ userName;
+		
+		Member m = service.login(param);
+		
+		System.out.println(m);
+		String msg = "";
+		String loc = "";
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			
+			msg="로그인 성공";
+			loc="/";
+			
+			
+		}else {
+//			int result = service.enrollEnd(param);
+//			m = service.login(param);
+//			mv.addObject("loginMember", m);
+//			msg="회원 가입을 성공했습니다. 연락처와 주소를 입력해주세요";
+//			loc="/member/mypage/myInfoUpdate";
+			msg="회원정보가 없습니다. 회원가입 하시겠습니까?";
+			loc="/kakaoEnrollment?enrollData="+enrollData;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/confirmMsg");
+			return mv;
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/kakaoEnrollment")
+	public ModelAndView kakaoEnrollment(ModelAndView mv,HttpServletRequest request) {
+		log.debug("로그인 로직 실행했나?");
+		String enrollData = request.getParameter("enrollData");
+		System.out.println(enrollData);
+		
+		String[] dataList = enrollData.split("/");
+		
+		String userId = dataList[0];
+		String email = dataList[1];
+		String userName = dataList[2];
+		String enrollType = "KAKAO";
+		
+		Map<String,Object> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		param.put("userName", userName);
+		param.put("enrollType", "KAKAO");
+		
+		int result = service.enrollEnd(param);
+		Member m = service.login(param);
+		mv.addObject("loginMember", m);
+		
+		System.out.println(m);
+		String msg = "";
+		String loc = "";
+		
+		msg="회원 가입을 성공했습니다. 연락처와 주소를 입력해주세요";
+		loc="/member/mypage/myInfoUpdate";
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
 	
 	
 	

@@ -53,6 +53,22 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(String userId) {
 		return dao.deleteMember(session,userId);
 	}
+
+	@Override
+	public String findingId(Map param) {
+		return dao.findingId(session,param);
+	}
+
+	@Override
+	public int findingPw(Map<String, String> param) {
+		return dao.findingPw(session,param);
+	}
+
+	@Override
+	public int pwUpdate(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dao.pwUpdate(session,param);
+	}
 	
 	
 	
