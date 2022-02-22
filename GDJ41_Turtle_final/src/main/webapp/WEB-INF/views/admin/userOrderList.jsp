@@ -241,7 +241,7 @@
 	                                    <td scope="col" class="paymentMethod">${order.PAY_METHOD }</td>
 	                                    <td scope="col" class="deliveryCompany">
 	                                        <select class="form-select-sm" name="deliveryCompany" id="deliveryCompany">
-	                                            <option value="우체국 택배" ${fn:contains(order.DELIVERY_COMP,'우체국택배')?'selected':'' }>우체국택배</option>
+	                                            <option value="우체국택배" ${fn:contains(order.DELIVERY_COMP,'우체국택배')?'selected':'' }>우체국택배</option>
 	                                            <option value="CJ대한통운" ${fn:contains(order.DELIVERY_COMP,'CJ대한통운')?'selected':'' }>CJ대한통운</option>
 	                                            <option value="한진택배" ${fn:contains(order.DELIVERY_COMP,'한진택배')?'selected':'' }>한진택배</option>
 	                                            <option value="로젠택배" ${fn:contains(order.DELIVERY_COMP,'로젠택배')?'selected':'' }>로젠택배</option>
