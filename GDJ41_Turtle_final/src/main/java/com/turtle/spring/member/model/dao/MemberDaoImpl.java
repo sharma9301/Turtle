@@ -42,6 +42,22 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("member.deleteMember",userId);
 	}
 
+	@Override
+	public String findingId(SqlSessionTemplate session, Map param) {
+		return session.selectOne("member.findingId",param);
+	}
+
+	@Override
+	public int findingPw(SqlSessionTemplate session, Map<String, String> param) {
+		return session.selectOne("member.findingPw",param);
+	}
+
+	@Override
+	public int pwUpdate(SqlSessionTemplate session, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.pwUpdate",param);
+	}
+
 	
 	
 	

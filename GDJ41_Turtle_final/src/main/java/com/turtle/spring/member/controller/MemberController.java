@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties.Storage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.turtle.spring.mail.service.MailService;
 import com.turtle.spring.member.model.service.MemberService;
 import com.turtle.spring.member.model.vo.Member;
 import com.turtle.spring.order.model.service.OrderService;
@@ -35,6 +35,8 @@ public class MemberController {
 	@Autowired
 	private OrderService service1;
 	
+	@Autowired
+	private MailService mailService;
 	
 	//암호화처리 클래스 불러오기
 	@Autowired
@@ -51,13 +53,51 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/login/findingId")
-	public ModelAndView findingId(ModelAndView mv, String userName, String email) {
+	public ModelAndView findingId(ModelAndView mv,HttpServletRequest request, String userName, String email) {
+		Map<String, String> param = new HashMap();
+		param.put("userName", userName);
+		param.put("email", email);
+		String userId = service.findingId(param);
+		HttpSession session = request.getSession();
 		
 		
+		if(userId!=null) {
+			mailService.mailId(session, email, userId);
+			mv.addObject("msg","해당 이메일로 아이디를 전송하였습니다.");
+			mv.addObject("loc","/member/login/login");
+			mv.setViewName("common/msg");
+		}else {
+			mv.addObject("msg","이름 또는 이메일을 다시 확인해주세요.");
+			mv.addObject("loc","/member/login/finding");
+			mv.setViewName("common/msg");
+		}
 		
 		return mv;
 	}
 	
+	
+	@RequestMapping("/member/login/findingPw")
+	public ModelAndView findingPw(ModelAndView mv,HttpServletRequest request, String userId, String email) {
+		Map<String, String> param = new HashMap();
+		param.put("userId", userId);
+		param.put("email", email);
+		int result = service.findingPw(param);
+		HttpSession session = request.getSession();
+		
+		
+		if(result>0) {
+			mailService.mailPw(session, email, userId);
+			mv.addObject("msg","해당 이메일로 임시비밀번호를 전송하였습니다.");
+			mv.addObject("loc","/member/login/login");
+			mv.setViewName("common/msg");
+		}else {
+			mv.addObject("msg","아이디 또는 이메일을 다시 확인해주세요.");
+			mv.addObject("loc","/member/login/finding");
+			mv.setViewName("common/msg");
+		}
+		
+		return mv;
+	}
 	
 	
 	@RequestMapping("/member/mypage/myMain")

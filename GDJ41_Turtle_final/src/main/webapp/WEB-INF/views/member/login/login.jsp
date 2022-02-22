@@ -103,16 +103,17 @@
 				<a href="${path }/member/login/finding"><span>아이디/비밀번호찾기</span></a>
 				<a href="${path }/member/login/enrollment"><span style="margin-left:100px;">회원가입</span></a>
 		    </div>
+		    <div style="width:300px; margin: 0 auto;">
+			    
+				      <a href="javascript:void(0)" onclick="kakaoLogin();" style="list-style:none;">
+				          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
+				      </a>
+				 
+		    </div>
       </div>
       
       
-       <ul>
-		<li onclick="kakaoLogin();" style="list-style:none;">
-	      <a href="javascript:void(0)">
-	          <img src="${path }/resources/images/login/kakao_login_medium_wide.png" alt="카카오로그인버튼"> 
-	      </a>
-		</li>
-	</ul> 
+       
 	      
       <script>
 		Kakao.init('40107ef843d459334464468561c5d265'); //발급받은 키 중 javascript키를 사용해준다.

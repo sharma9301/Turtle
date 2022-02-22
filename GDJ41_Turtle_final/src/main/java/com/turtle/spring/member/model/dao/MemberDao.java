@@ -22,6 +22,12 @@ public interface MemberDao {
 	
 	int deleteMember(SqlSessionTemplate session, String userId);
 
+	String findingId(SqlSessionTemplate session, Map param);
+
+	int findingPw(SqlSessionTemplate session, Map<String, String> param);
+
+	int pwUpdate(SqlSessionTemplate session, Map<String, Object> param);
+
 	
 
 
