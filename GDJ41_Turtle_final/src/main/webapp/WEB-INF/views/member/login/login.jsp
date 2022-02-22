@@ -138,7 +138,7 @@
 		        	  userName = response.properties.nickname;
 		        	  updateData = userId+"/"+userName
 		        	  
-		        	  location.assign("${path}/member/login/kakaologin.do?updateData="+updateData);
+		        	  location.assign("/member/login/kakaologin.do?updateData="+updateData);
 		        	  
 		          },
 		          fail: function (error) {
