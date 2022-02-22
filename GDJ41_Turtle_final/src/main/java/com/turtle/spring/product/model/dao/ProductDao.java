@@ -63,5 +63,9 @@ public interface ProductDao {
 	double reviewsSum2(SqlSessionTemplate session, String pdCode);
 
 	int addCart(SqlSessionTemplate session, Map<String, Object> param);
+
+	int insertReviewEnd(SqlSessionTemplate session, Map<String, Object> param);
+
+	int rvIs(SqlSessionTemplate session, int rvNo);
 	
 }
