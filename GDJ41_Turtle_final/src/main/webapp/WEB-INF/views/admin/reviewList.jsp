@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/admin/common/adminHeader.jsp"/>
 <main>
                     <div class="container-fluid w-100">
-                    	${reviewsList}
+                    	<%-- ${reviewsList} --%>
                         <form class="form" style="margin: 50px auto 50px auto;" action="${path }/admin/searchReviews.do" method="get">
                             <div class="container">
                                 <h1 class="mt-4 mb-4">리뷰 관리</h1>

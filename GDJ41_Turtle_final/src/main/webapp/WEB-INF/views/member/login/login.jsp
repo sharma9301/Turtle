@@ -128,7 +128,7 @@
 		    	  Kakao.Auth.setAccessToken(response.access_token);
 		    	  console.log(Kakao.Auth.getAccessToken())
 		        Kakao.API.request({
-		          url: '${path}/v2/user/me',
+		          url: '/v2/user/me',
 		          
 		          success: function (response) {
 		        	  console.log(response)
@@ -138,7 +138,7 @@
 		        	  userName = response.properties.nickname;
 		        	  updateData = userId+"/"+userName
 		        	  
-		        	  location.assign("${path}/member/login/kakaologin.do?updateData="+updateData);
+		        	  location.assign("/member/login/kakaologin.do?updateData="+updateData);
 		        	  
 		          },
 		          fail: function (error) {
@@ -155,7 +155,7 @@
 		function kakaoLogout() {
 		    if (Kakao.Auth.getAccessToken()) {
 		      Kakao.API.request({
-		        url: '${path}/v1/user/unlink',
+		        url: '/v1/user/unlink',
 		        success: function (response) {
 		        	console.log(response)
 		        },
