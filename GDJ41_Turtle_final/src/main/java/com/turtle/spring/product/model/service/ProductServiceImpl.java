@@ -167,5 +167,6 @@ public class ProductServiceImpl implements ProductService {
 	public int rvIs(int rvNo) {
 		return dao.rvIs(session,rvNo);
 	}
+
 	
 }

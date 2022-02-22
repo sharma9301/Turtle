@@ -66,4 +66,5 @@ public interface ProductService {
 	int insertReviewEnd(Map<String, Object> param);
 
 	int rvIs(int rvNo);
+
 }

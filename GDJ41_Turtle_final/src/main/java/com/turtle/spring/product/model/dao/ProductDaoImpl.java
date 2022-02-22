@@ -156,4 +156,5 @@ public class ProductDaoImpl implements ProductDao {
 	public int rvIs(SqlSessionTemplate session, int rvNo) {
 		return session.update("product.rvIs",rvNo);
 	}
+
 }

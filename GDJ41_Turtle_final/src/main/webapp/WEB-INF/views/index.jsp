@@ -50,30 +50,52 @@
                 <h1>Sales</h1>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-around">
                 <c:forEach begin="1" end="8" step="1" var="p" items="${list }">
-                    <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.pdCode }')" style="cursor:pointer;">
+                    <div class="col mb-5" onclick="location.assign('${path}/product/productDetail.do?pdCode=${p.PD_CODE }')" style="cursor:pointer;">
                         <div class="card h-100">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
-                            <img class="card-img-top" src="${path }/resources/images/product/${p.pdImage}" alt="" style="height:175px" />
+                            <img class="card-img-top" src="${path }/resources/images/product/${p.PD_IMAGE}" alt="" style="height:175px" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">${p.pdName }</h5>
+                                    <h5 class="fw-bolder">${p.PD_NAME }</h5>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
+                                    <input type="hidden" id="bb${p.PD_CODE }" value="${p.AVGG }">
+                                    <div class="starRev2" style="margin-bottom:10px;">
+										<span class="starR2 ${p.PD_CODE }starG1">별1</span>
+										<span class="starR2 ${p.PD_CODE }starG2">별2</span>
+										<span class="starR2 ${p.PD_CODE }starG3">별3</span>
+										<span class="starR2 ${p.PD_CODE }starG4">별4</span>
+										<span class="starR2 ${p.PD_CODE }starG5">별5</span>
+									</div>
+                                    
+                                     	<style>
+											.starR2{
+												background: url('${path}/resources/images/ico_review.png') no-repeat right 0;
+												background-size: auto 100%;
+												color: #FF9600;
+												width: 15px;
+												height: 15px;
+												display: inline-block;
+												text-indent: -9999px;
+												
+											}
+											.starR2.on{background-position:0 0;}
+						                </style>
+						                <script>
+						                $(()=>{
+						                	let rv_grade = $("#bb${p.PD_CODE }").val();
+						                	console.log(rv_grade);
+						                	$(".${p.PD_CODE }starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
+						                });
+						                </script>
                                     <!-- Product price-->
                                     <span class="text-muted text-decoration-line-through">
-                                    	￦<fmt:formatNumber value="${p.pdPrice }" pattern="#,###,###" />
+                                    	￦<fmt:formatNumber value="${p.PD_PRICE }" pattern="#,###,###" />
                                     </span>
-                                    &nbsp; ￦<fmt:formatNumber value="${p.pdPrice - p.pdPrice*p.pdDiscountrate/100 }" pattern="#,###,###" />
+                                    &nbsp; ￦<fmt:formatNumber value="${p.PD_PRICE - p.PD_PRICE*p.PD_DISCOUNTRATE/100 }" pattern="#,###,###" />
                                 </div>
                             </div>
                             <!-- Product actions-->

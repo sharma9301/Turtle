@@ -67,5 +67,6 @@ public interface ProductDao {
 	int insertReviewEnd(SqlSessionTemplate session, Map<String, Object> param);
 
 	int rvIs(SqlSessionTemplate session, int rvNo);
+
 	
 }
