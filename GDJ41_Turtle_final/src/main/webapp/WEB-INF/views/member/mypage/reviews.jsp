@@ -191,7 +191,7 @@
 	$(".deleteRv").click(e=>{ 
 		
 		console.log(e.target.nextElementSibling.value);
-		detailNo = e.target.nextElementSibling.value
+		detailNo = e.target.nextElementSibling.value;
 		userId = $("#reviewsUserId").val();
 		console.log(userId);
 		if (confirm("리뷰삭제 후 복구가 불가합니다. 리뷰를 삭제하시겠습니까?")) { 
