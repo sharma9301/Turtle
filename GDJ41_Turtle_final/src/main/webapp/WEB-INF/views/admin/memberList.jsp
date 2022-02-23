@@ -66,13 +66,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-active">가입 방식 분류</th>
+                                        <th class="table-active">가입 방식</th>
                                         <td>
                                             <div id="searchTypeDiv" style="display: flex;">
                                                 <select class="form-select me-2" id="enrollType" name="enrollType" style="width: 120px;">
                                                     <option selected value="">선택</option>
                                                     <option value="TURTLE">홈페이지</option>
-                                                    <option value="NAVER">네이버</option>
+                                                    <!-- <option value="NAVER">네이버</option> -->
                                                     <option value="KAKAO">카카오</option>
                                                 </select>
                                             </div>

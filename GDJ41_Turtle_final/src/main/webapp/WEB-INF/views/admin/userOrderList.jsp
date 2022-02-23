@@ -107,7 +107,7 @@
                                                 <select class="form-select me-2" id="pay_method" name="pay_method" style="width: 150px;">
                                                     <option selected value="">분류 선택</option>
                                                     <option value="카드">카드</option>
-                                                    <option value="네이버페이">네이버 페이</option>
+                                                    <!-- <option value="네이버페이">네이버 페이</option> -->
                                                     <option value="카카오페이">카카오 페이</option>
                                                 </select>
                                             </div>
