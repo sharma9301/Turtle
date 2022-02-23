@@ -96,8 +96,8 @@
 			                                    <c:if test="${0 eq c.OPT_SIZE}"><c:out value="FREE"/></c:if>
 			                                    </td>
 			                                    <td>
-			                                        <input type="number" class="form-control-sm amount" value="${c.AMOUNT}" min="1" max="5">
-			                                        <button type="button" class="btn btn-primary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
+			                                        <input type="number" class="form-control-sm amount" value="${c.AMOUNT}" min="1" max="5" style="width: 60px">
+			                                        <button type="button" class="btn btn-secondary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
 			                                    </td>
 			                                    <td><c:out value="${c.PD_PRICE * c.AMOUNT }"/></td>
 			                                    <td>
