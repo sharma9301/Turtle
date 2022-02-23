@@ -57,7 +57,7 @@
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>장바구니</h1></div>
 
-      <c:out value="${cart }"/>
+      <%-- <c:out value="${cart }"/> --%>
        <input type="hidden" value="${loginMember.userId }" id="userId">  
          <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
