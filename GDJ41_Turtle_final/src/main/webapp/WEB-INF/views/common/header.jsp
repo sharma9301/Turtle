@@ -94,7 +94,7 @@
                     <!-- 장바구니버튼 -->
                     <li>
                     	<a href="${path }/member/mypage/wishList?userId=${loginMember.userId }">
-                    		<img src="${path }/resources/images/pocket.png" width="20px" height="30px" style="margin-top: 10">
+                    		<img src="${path }/resources/images/pocket.png" width="20px" height="30px">
                    		</a>
                		</li>
                     <!-- 검색창 -->
