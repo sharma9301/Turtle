@@ -79,6 +79,11 @@ public class OrderDaoImpl implements OrderDao {
 	public int updateRvYn (SqlSessionTemplate session, int detailNo) {
 		return session.update("order.updateRvYn",detailNo);
 	}
+
+	@Override
+	public int deleteCart(SqlSessionTemplate session, int cartNo) {
+		return session.delete("order.deleteCart",cartNo);
+	}
 	
 	
 	

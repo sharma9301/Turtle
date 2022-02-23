@@ -36,6 +36,8 @@ public interface OrderDao {
 	int deleteRv(SqlSessionTemplate session, int detailNo);
 	
 	int updateRvYn(SqlSessionTemplate session, int detailNo);
+
+	int deleteCart(SqlSessionTemplate session, int cartNo);
 	
 	
 	

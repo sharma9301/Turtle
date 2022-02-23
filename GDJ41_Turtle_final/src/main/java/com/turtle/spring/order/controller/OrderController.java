@@ -126,6 +126,29 @@ public class OrderController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/mypage/cartDelete")
+	public ModelAndView wishList(ModelAndView mv, int cartNo, String userId) {
+		System.out.println("장바구니에 cartNo 들어오니"+cartNo);
+		System.out.println("장바구니에 userId 들어오니"+userId);
+
+		int result = service.deleteCart(cartNo);
+
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="삭제되었습니다.";
+			loc="/member/mypage/wishList?userId="+userId;
+		}else {
+			msg="다시 시도해주세요.";
+			loc="/member/mypage/wishList?userId="+userId;
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
 	@RequestMapping("/member/mypage/changeAmount")
 	public ModelAndView changeAmount(ModelAndView mv,HttpServletRequest request,String updateData) {
 		//String updateData =request.getParameter("updateData");

@@ -34,6 +34,8 @@ public interface OrderService {
 	int deleteRv(int detailNo);
 
 	int updateRvYn(int detailNo);
+	
+	int deleteCart(int cartNo);
 
 	
 	
