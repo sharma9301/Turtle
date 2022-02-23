@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.member.model.vo.Member;
+import com.turtle.spring.order.model.vo.Cart;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
 
@@ -156,4 +157,15 @@ public class ProductDaoImpl implements ProductDao {
 	public int rvIs(SqlSessionTemplate session, int rvNo) {
 		return session.update("product.rvIs",rvNo);
 	}
+
+	@Override
+	public Cart selectCart(SqlSessionTemplate session, String optNo) {
+		return session.selectOne("product.selectCart",optNo);
+	}
+
+	@Override
+	public int updateAmount(SqlSessionTemplate session, Map<String, Object> param2) {
+		return session.update("product.updateAmount",param2);
+	}
+
 }

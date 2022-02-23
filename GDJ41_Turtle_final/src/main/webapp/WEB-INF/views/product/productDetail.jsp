@@ -60,7 +60,7 @@
                 	$(".starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
                 });
                 </script>
-
+		${product }
                 <div class="fs-5 mb-3">
                     <c:if test="${product.pdCode.pdIsDiscount =='Y' }">
 	                    <span class="text-decoration-line-through">￦<fmt:formatNumber value="${product.pdCode.pdPrice }" pattern="#,###,###" /></span>
@@ -168,10 +168,25 @@
 							}
 						}
 					</script>
-                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button" onclick="">
+                    <button class="btn btn-lg btn-outline-dark flex-shrink-0" type="button" onclick="cartBtn();">
                         <i class="bi bi-bag-plus"></i>
                         장바구니
                     </button>
+                    <script>
+                    	const cartBtn=()=>{
+                    		if(${loginMember==null}){
+                    			alert('로그인 후 장바구니 담기가 가능합니다.');
+                    		}else{
+                    			if($("#amount").val()<1){
+                    				alert('상품 수량을 선택해주세요.')
+                    			}else{
+                    				let amount=$("#amount").val();
+                    				let size=$("input[name=size]:checked").val();
+                    				location.assign('${path}/product/addCart.do?pdName=${product.pdCode.pdName}&userId=${loginMember.userId }&amount='+amount+'&size='+size)
+                    			}
+                    		}
+                    	}
+                    </script>
                 </div>
             </div>
         </div>
