@@ -249,7 +249,11 @@
         </div>
         <script>
         	const insertReviewBtn=()=>{
-        		location.assign('${path}/member/mypage/reviews?userId=${loginMember.userId}');
+        		if(${loginMember.userId ==null}){
+        			alert('로그인 후 주문완료 된 상품만 리뷰 작성이 가능합니다.');
+        		}else{
+	        		location.assign('${path}/member/mypage/reviews?userId=${loginMember.userId}');
+        		}
         	}
         </script>
         <div class="reviews-line"></div>
