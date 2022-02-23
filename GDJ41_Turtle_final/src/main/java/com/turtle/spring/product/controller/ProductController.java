@@ -190,7 +190,7 @@ public class ProductController {
 	
 	//주문페이지
 	@RequestMapping("/orderProduct.do")
-	public ModelAndView orderProduct(ModelAndView mv, String pdCode, String userId,HttpServletRequest request) {
+	public ModelAndView orderProduct(ModelAndView mv, String pdCode, String userId, HttpServletRequest request) {
 		Product product=service.productOrderDetail(pdCode);
 
 		mv.addObject("pdCode",pdCode);
@@ -200,6 +200,22 @@ public class ProductController {
 		mv.setViewName("product/orderDetail");
 		return mv;
 	}
+	
+	@RequestMapping("/cartOrderProduct.do")
+	public ModelAndView cartOrderProduct(ModelAndView mv, HttpServletRequest request) {
+		String pdCode=request.getParameter("pdCode");
+		Product product=service.productOrderDetail(pdCode);
+		
+		mv.addObject("userId",request.getParameter("userId"));
+		mv.addObject("pdCode",pdCode);
+		mv.addObject("product",product);
+		mv.addObject("amount",request.getParameter("amount"));
+		mv.addObject("size",request.getParameter("size"));
+		mv.setViewName("product/orderDetail");
+		return mv;
+	}
+	
+	
 
 	@RequestMapping("/orderCheck.do")
 	public ModelAndView orderCheck(ModelAndView mv,HttpServletRequest request,String userName, String phone, String email, String address) {

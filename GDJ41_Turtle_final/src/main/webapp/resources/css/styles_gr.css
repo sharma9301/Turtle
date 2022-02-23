@@ -2,7 +2,7 @@
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
 
 fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
+body{ margin: 20px; min-height:500px;}
 h1 { font-size: 1.5em; margin: 10px; }
 
 /****** Style Star Rating Widget *****/
@@ -227,7 +227,7 @@ section{
     width: 150px;
     height: 40px;
     position: absolute;
-    right: 810px;
+    right: 58%;
     top: 440px;
     font-size: 20px;
     font-weight: bold;
@@ -240,7 +240,7 @@ section{
     width: 150px;
     height: 40px;
     position: absolute;
-    right: 560px;
+    right: 34%;
     top: 20px;
     font-size: 20px;
     font-weight: bold;

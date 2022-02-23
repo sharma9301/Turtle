@@ -12,7 +12,6 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <div class="header-line"></div>
 <section>
-${product }
     <h1 style="text-align: center; margin-bottom:50px; margin-top:50px;">주문 정보 확인</h1>
     <div class="container" style="display: flex;">
         <div class="receiver-info-container">

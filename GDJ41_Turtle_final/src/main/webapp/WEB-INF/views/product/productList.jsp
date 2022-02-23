@@ -54,13 +54,12 @@
                 <c:if test="${empty list }">
                 	찾으시는 상품이 존재하지 않습니다..
                 </c:if>
-                ${list }
                 <c:if test="${not empty list }">
                 	<c:forEach var="p" items="${list }">
 		                <div class="col mb-5">
 		                    <div class="card h-100">
 		                        <!-- Sale badge-->
-		                        <c:if test="${p.pdIsDiscount eq 'Y'}">
+		                        <c:if test="${p.PD_IS_DISCOUNT eq 'Y'}">
 		                        	<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 		                        </c:if>
 		                        <!-- Product image-->

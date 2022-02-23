@@ -49,7 +49,7 @@
 
   <!-- 페이지내용 -->
 
-  <div class="container">
+  <div class="container" style="min-height:500px;">
 
 
 
@@ -60,7 +60,7 @@
       <c:out value="${cart }"/>
        <input type="hidden" value="${loginMember.userId }" id="userId">  
          <!-- 사진 이름 상품코드 갯수 가격 -->
-         <div class="col" style="margin-top: 20px;">
+         <div class="col" style="margin: 20px 0 100px;">
              <div class="card">
                 <div class="card-body">
                     <div class="container">
@@ -68,8 +68,9 @@
                             <table style="text-align: center;">
                                 <tr>
                                     <th>
-                                        <input type="checkbox" checked="checked" id="allChk">
-                                        <span class="checkmark" >전체선택</span>
+                                        <!-- <input type="checkbox" checked="checked" id="allChk">
+                                        <span class="checkmark" >전체선택</span> -->
+                                        상품 이미지
                                     </th>
                                     <th>상품명</th>
                                     <th>상품코드</th>
@@ -82,7 +83,7 @@
           								<c:forEach items="${cart }" var="c">
 			                                <tr>
 			                                    <td>
-			                                        <input type="checkbox" checked="checked" class="rowChk_productNo">
+			                                        <!-- <input type="checkbox" checked="checked" class="rowChk_productNo"> -->
 			                                        <img src="${path }/resources/images/product/${c.PD_IMAGE}" width="80px" height="80px" alt="상품사진">
 			                                    </td>
 			                                    <td>
@@ -99,7 +100,8 @@
 			                                        <button type="button" class="btn btn-primary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
 			                                    </td>
 			                                    <td><c:out value="${c.PD_PRICE * c.AMOUNT }"/></td>
-			                                    <td style="text-align:right">
+			                                    <td>
+				                                    <button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/product/cartOrderProduct.do?userId=${loginMember.userId }&pdCode=${c.PD_CODE }&amount=${c.AMOUNT}&size=${c.OPT_SIZE}')">주문하기</button>
 				                                    <button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/member/mypage/cartDelete?cartNo=${c.CART_NO}&userId=${c.USER_ID }')">삭제하기</button>
 				                                    <button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/product/productDetail.do?pdCode=${c.PD_CODE}')">상세보기</button>
 			                                    </td>
@@ -112,7 +114,7 @@
 	                </div>
 	            </div>
 	        </div>
-	            <div class="row" style="text-align:right; margin-top: 20px;">
+	            <%-- <div class="row" style="text-align:right; margin-top: 20px;">
 	                <div class="row">
 	                    <div class="col">
 	                    </div>
@@ -141,15 +143,54 @@
 	                        </strong>
 	                    </div>
 	                    <div class="col" style="padding: 0;">
-	                        <button type="submit" class="btn btn-secondary" onclick="cartOrderBtn();">결제하기</button>
+	                        <button type="submit" class="btn btn-secondary" id="cartOrderBtn">결제하기</button>
 	                    </div>
 	                    <script>
-	                    	const cartOrderBtn=()=>{
-	                    		location.assign('');
-	                    	}
+	                    $(()=>{
+                        	//최소 한개 이상 클릭 안하면 온클릭 작동 못하게 하는 로직
+                            let rowChk = document.getElementsByClassName("rowChk_productNo");
+                            console.log(rowChk);
+                            let orderNo = "";
+                            let deliveryComp = "";
+                            let invoice = "";
+                            let updateData = "";
+                            
+                            //카트에서 결제페이지 넘어가는 로직
+                            $("#cartOrderBtn").click(e=>{
+                                console.log(rowChk);
+                                let i = 0;
+                                let count = 0;
+                                updateData = "";
+                                for(i=0; i<rowChk.length; i++) {
+                                    if(rowChk[i].checked){
+                                        console.log("체크 됨");
+                                        count++;
+                                    	
+                                        
+                                    	updateData += orderNo+"/"+deliveryComp+"/"+invoice;
+                                    	updateData += ",";
+                                    	
+                                    }
+                                }
+                                if(count==0){
+                                    console.log("체크 아무것도 안됨");
+                                    alert("최소 1개 이상의 주문 내역을 선택해주세요.");
+                                    return;
+                                }
+                                console.log("여기까지 도달하면 체크 한개 이상 된 것.");
+                                // 여기 밑에 로직 적기
+                                updateData = updateData.replace(/,$/, "");
+                                console.log(updateData);
+                                
+                                //location.assign("${path}/admin/updateInvoice.do?updateData="+updateData);
+                                
+                                
+                            });
+                            
+                        });
 	                    </script>
 	                </div>
-	            </div> 
+	            </div>  --%>
 	      </div>
 
 
