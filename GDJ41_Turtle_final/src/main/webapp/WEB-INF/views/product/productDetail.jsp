@@ -60,7 +60,6 @@
                 	$(".starG"+rv_grade).addClass('on').prevAll('span').addClass('on');
                 });
                 </script>
-		${product }
                 <div class="fs-5 mb-3">
                     <c:if test="${product.pdCode.pdIsDiscount =='Y' }">
 	                    <span class="text-decoration-line-through">￦<fmt:formatNumber value="${product.pdCode.pdPrice }" pattern="#,###,###" /></span>

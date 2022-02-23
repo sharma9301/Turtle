@@ -92,7 +92,11 @@
                     	<li><a href="${path }/member/mypage/myMain">My page</a></li>
                     </c:if>
                     <!-- 장바구니버튼 -->
-                    <li><a href="${path }/member/mypage/wishList?userId=${loginMember.userId }"><img src="${path }/resources/images/pocket.png" width="20px" height="30px"></a></li>
+                    <li>
+                    	<a href="${path }/member/mypage/wishList?userId=${loginMember.userId }">
+                    		<img src="${path }/resources/images/pocket.png" width="20px" height="30px" style="margin-top: 10">
+                   		</a>
+               		</li>
                     <!-- 검색창 -->
                     <div id="myOverlay" class="overlay">
                         <span class="closebtn" onclick="closeSearch();" title="Close Overlay">x</span>
