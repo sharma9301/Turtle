@@ -101,7 +101,7 @@
             
                 <h2>
                     문의하기를 원하실 경우<br>
-                    <a href="gdj41turtle@gmail.com">gdj41turtle@gmail.com</a>로 연락주세요.
+                    <a href="mailto:gdj41turtle@gmail.com">gdj41turtle@gmail.com</a>로 연락주세요.
                 </h2>
             
         </div>

@@ -88,6 +88,11 @@ public class OrderServiceImpl implements OrderService {
 	public int updateRvYn(int detailNo) {
 		return dao.updateRvYn(session,detailNo);
 	}
+
+	@Override
+	public int deleteCart(int cartNo) {
+		return dao.deleteCart(session,cartNo);
+	}
 	
 
 	

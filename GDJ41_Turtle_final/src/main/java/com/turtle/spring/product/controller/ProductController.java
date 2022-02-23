@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.turtle.spring.board.model.vo.Reviews;
 import com.turtle.spring.common.PageFactory;
+import com.turtle.spring.order.model.vo.Cart;
 import com.turtle.spring.product.model.service.ProductService;
 import com.turtle.spring.product.model.vo.Option;
 import com.turtle.spring.product.model.vo.Product;
@@ -111,8 +112,6 @@ public class ProductController {
 			reviewsSum=0;
 			reviewsSum2=0;
 		}
-
-		
 		
 //		안쓰는 title
 		String title="";
@@ -372,7 +371,7 @@ public class ProductController {
 			if(result2>0) {
 				System.out.println("리뷰 Y로 변경 완료!");
 				msg="리뷰 작성이 완료되었습니다. 작성된 리뷰는 마이 페이지 혹은 상품 상세페이지에서 확인 가능합니다.";
-				loc="/member/mypage/reviews";
+				loc="/member/mypage/reviews?userId="+userId;
 			}else {
 				msg="리뷰 작성 등록에 실패하였습니다. 관리자에게 문의하세요.";
 				loc="/member/service/email";
@@ -388,23 +387,52 @@ public class ProductController {
 	@RequestMapping("/addCart.do")
 	public ModelAndView addCart(ModelAndView mv, HttpServletRequest request) {
 		Map<String, Object> param = new HashMap();
+		Map<String, Object> param2 = new HashMap();
 		String userId=request.getParameter("userId");
-		String optNo=request.getParameter("optNo");
+		String pdName=request.getParameter("pdName");
+		int size=Integer.parseInt(request.getParameter("size"));
 		String amount=request.getParameter("amount");
+		
+		String optNo ="";
+		if(size == 0) {
+			optNo = pdName;
+		}else {
+			optNo = pdName+" "+size;
+		}
+		
+		String msg="";
+		String loc="";
+		Cart c = service.selectCart(optNo);
 		param.put("userId", userId);
 		param.put("optNo", optNo);
 		param.put("amount", amount);
 		
-		int result = service.addCart(param);
-		String msg="";
-		String loc="";
-		if(result>0) {
-			msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
-			loc="/member/mypage/wishList";
+		param2.put("optNo", optNo);
+		param2.put("amount", amount);
+		param2.put("userId", userId);
+		if(c != null) {
+			//숫자만 변경
+			int update = service.updateAmount(param2);
+			if(update>0) {
+				System.out.println("수량 숫자만 변경되었따!");
+				msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
+				loc="/member/mypage/wishList?userId="+userId;
+			}else {
+				msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
+				loc="/member/service/email";
+			}
 		}else {
-			msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
-			loc="/member/service/email";
-		}
+			//카트에 새로 추가
+			int result = service.addCart(param);
+			if(result>0) {
+				System.out.println("새로운 상품 장바구니 추가!");
+				msg="해당 상품이 장바구니에 추가되었습니다. 마이페이지에서 확인하세요.";
+				loc="/member/mypage/wishList?userId="+userId;
+			}else {
+				msg="장바구니 담기 실패하였습니다. 관리자에게 문의해주세요.";
+				loc="/member/service/email";
+			}
+		}		
 		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);

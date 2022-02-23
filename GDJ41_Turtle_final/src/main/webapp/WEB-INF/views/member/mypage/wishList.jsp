@@ -57,7 +57,7 @@
       <!-- 페이지본문 -->
       <div class="csTitle"><h1>장바구니</h1></div>
 
-      <%-- <c:out value="${cart }"/> --%>
+      <c:out value="${cart }"/>
        <input type="hidden" value="${loginMember.userId }" id="userId">  
          <!-- 사진 이름 상품코드 갯수 가격 -->
          <div class="col" style="margin-top: 20px;">
@@ -99,7 +99,10 @@
 			                                        <button type="button" class="btn btn-primary btn-sm change" style="margin:0 0 5px 2px;">변경</button>
 			                                    </td>
 			                                    <td><c:out value="${c.PD_PRICE * c.AMOUNT }"/></td>
-			                                    <td style="text-align:right"><button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/product/productDetail.do?pdCode=${c.PD_CODE}')">상세보기</button></td>
+			                                    <td style="text-align:right">
+				                                    <button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/member/mypage/cartDelete?cartNo=${c.CART_NO}&userId=${c.USER_ID }')">삭제하기</button>
+				                                    <button type="button" class="btn btn-outline-secondary" onclick="location.assign('${path}/product/productDetail.do?pdCode=${c.PD_CODE}')">상세보기</button>
+			                                    </td>
 			                                </tr>
 	                               		</c:forEach>
 									</c:if>
@@ -138,8 +141,13 @@
 	                        </strong>
 	                    </div>
 	                    <div class="col" style="padding: 0;">
-	                        <button type="submit" class="btn btn-secondary">결제하기</button>
+	                        <button type="submit" class="btn btn-secondary" onclick="cartOrderBtn();">결제하기</button>
 	                    </div>
+	                    <script>
+	                    	const cartOrderBtn=()=>{
+	                    		location.assign('');
+	                    	}
+	                    </script>
 	                </div>
 	            </div> 
 	      </div>
