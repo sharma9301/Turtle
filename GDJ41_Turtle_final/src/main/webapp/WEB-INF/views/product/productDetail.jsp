@@ -248,9 +248,13 @@
             <button class="insert-review" onclick="insertReviewBtn();">리뷰 작성하기</button>
         </div>
         <script>
-        	const insertReviewBtn=()=>{
-        		location.assign('${path}/member/mypage/reviews?userId=${loginMember.userId}');
-        	}
+	        const insertReviewBtn=()=>{
+	            if(${loginMember.userId ==null}){
+	               alert('로그인 후 주문완료 된 상품만 리뷰 작성이 가능합니다.');
+	            }else{
+	               location.assign('${path}/member/mypage/reviews?userId=${loginMember.userId}');
+	            }
+	         }
         </script>
         <div class="reviews-line"></div>
        	<c:if test="${not empty reviews }">
