@@ -393,6 +393,9 @@ public class ProductController {
 				loc="/member/service/email";
 			}
 			
+		}else {
+			msg="리뷰 작성 등록에 실패하였습니다. 관리자에게 문의하세요.";
+			loc="/member/service/email";
 		}
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
